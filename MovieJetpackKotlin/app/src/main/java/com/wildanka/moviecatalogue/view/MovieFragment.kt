@@ -44,7 +44,7 @@ class MovieFragment : Fragment() {
                 )
             )
         }
-        dataPoster.recycle() //recycle obatinTypedArray after being used
+        dataPoster.recycle() //recycle obtainTypedArray after being used
 
         val rvAdapter = MovieRVAdapter(activity!!)
         rvAdapter.setupMovieList(viewModel.getMovieList())
