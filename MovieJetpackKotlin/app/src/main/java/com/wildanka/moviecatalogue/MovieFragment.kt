@@ -3,15 +3,13 @@ package com.wildanka.moviecatalogue
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_movie.*
 
 /**
  * Fragment for displaying Movie / TV Show lists.
@@ -27,6 +25,7 @@ class MovieFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_movie, container, false)
         val rvMovie = view.findViewById<RecyclerView>(R.id.rv_movie)
         val viewModel = ViewModelProviders.of(this).get(MainMoviesViewModel::class.java)
+        val dataPoster = resources.obtainTypedArray(R.array.data_poster)
 
         for ((index, value) in resources.getStringArray(R.array.data_title).withIndex()){
             Log.e("TES", "$index $value")
@@ -36,9 +35,10 @@ class MovieFragment : Fragment() {
                 resources.getStringArray(R.array.data_rating)[index],
                 resources.getStringArray(R.array.data_short_desc)[index],
                 resources.getStringArray(R.array.data_ov)[index],
-                resources.getIntArray(R.array.data_poster)[index]
+                dataPoster.getResourceId(index, 0)
             ))
         }
+        dataPoster.recycle() //recycle obatinTypedArray after being used
 
         val rvAdapter = MovieRVAdapter(activity!!)
         rvAdapter.setupMovieList(viewModel.getMovieList())
@@ -47,6 +47,5 @@ class MovieFragment : Fragment() {
 
         return view
     }
-
 
 }

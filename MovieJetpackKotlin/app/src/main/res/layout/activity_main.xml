@@ -20,6 +20,7 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay"/>
         <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tl_menu"
+                app:tabIndicatorColor="@color/colorWhite"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"/>
     </com.google.android.material.appbar.AppBarLayout>
