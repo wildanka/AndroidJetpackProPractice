@@ -15,10 +15,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        val adapter = MovieFSPAdapter(supportFragmentManager)
+        adapter.addFragment(MovieFragment(), "Movie")
+        adapter.addFragment(MovieFragment(), "TV Show")
+        vp_movie.adapter = adapter
+        tl_menu.setupWithViewPager(vp_movie)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
