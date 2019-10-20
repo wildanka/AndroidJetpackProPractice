@@ -10,12 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.wildanka.moviecatalogue.viewmodel.MainMoviesViewModel
-import com.wildanka.moviecatalogue.entity.Movie
-import com.wildanka.moviecatalogue.view.adapter.MovieRVAdapter
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.entity.TvShow
 import com.wildanka.moviecatalogue.view.adapter.TVShowRVAdapter
+import com.wildanka.moviecatalogue.viewmodel.MainMoviesViewModel
 
 /**
  * Fragment for displaying Movie / TV Show lists.

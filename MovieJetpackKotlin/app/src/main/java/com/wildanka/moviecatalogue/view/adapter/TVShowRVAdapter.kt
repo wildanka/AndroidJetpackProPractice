@@ -1,7 +1,7 @@
 package com.wildanka.moviecatalogue.view.adapter
 
 import android.content.Context
-import android.util.Log
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +10,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.wildanka.moviecatalogue.R
-import com.wildanka.moviecatalogue.entity.Movie
 import com.wildanka.moviecatalogue.entity.TvShow
+import com.wildanka.moviecatalogue.view.DetailActivity
 
 class TVShowRVAdapter(private val mContext: Context) : RecyclerView.Adapter<TVShowRVAdapter.TVShowViewHolder>(){
     private var movieList = mutableListOf<TvShow>()
@@ -30,7 +30,7 @@ class TVShowRVAdapter(private val mContext: Context) : RecyclerView.Adapter<TVSh
 
     override fun onBindViewHolder(holder: TVShowViewHolder, position: Int) {
         val movie = movieList[position]
-        holder.bind(movie)
+        holder.bind(movie, position)
     }
 
     inner class TVShowViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -40,7 +40,7 @@ class TVShowRVAdapter(private val mContext: Context) : RecyclerView.Adapter<TVSh
         private val tvShortDesc = itemView.findViewById<TextView>(R.id.tv_item_short_desc)
         private val ivPoster = itemView.findViewById<ImageView>(R.id.iv_item_movie_poster)
 
-        fun bind(tvShow : TvShow){
+        fun bind(tvShow : TvShow, position : Int){
             when {
                 tvShow.rating!!.toInt() > 70 -> tvRating.setTextColor(ContextCompat.getColor(mContext,
                     R.color.colorGreen
@@ -56,8 +56,16 @@ class TVShowRVAdapter(private val mContext: Context) : RecyclerView.Adapter<TVSh
             tvRating.text = tvShow.rating
             tvReleaseDate.text = tvShow.releaseDate
             tvShortDesc.text = tvShow.shortDesc
-            Log.e("TVShowViewHolder", tvShow.posterUrl.toString())
             ivPoster.setImageResource(tvShow.posterUrl!!)
+
+            itemView.setOnClickListener {
+                mContext.startActivity(
+                    Intent(mContext, DetailActivity::class.java)
+                        .putExtra("dataType", "TV_SHOW")
+                        .putExtra("index", position)
+                )
+            }
+
         }
     }
 }

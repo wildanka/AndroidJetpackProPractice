@@ -1,7 +1,7 @@
 package com.wildanka.moviecatalogue.view.adapter
 
 import android.content.Context
-import android.util.Log
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +11,12 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.entity.Movie
+import com.wildanka.moviecatalogue.view.DetailActivity
 
-class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<MovieRVAdapter.MovieViewHolder>(){
+class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<MovieRVAdapter.MovieViewHolder>() {
     private var movieList = mutableListOf<Movie>()
 
-    fun setupMovieList(movies : MutableList<Movie>){
+    fun setupMovieList(movies: MutableList<Movie>) {
         movieList = movies
     }
 
@@ -29,34 +30,52 @@ class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<Movie
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = movieList[position]
-        holder.bind(movie)
+        holder.bind(movie, position)
     }
 
-    inner class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        private val tvTitle= itemView.findViewById<TextView>(R.id.tv_item_title)
+    inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val tvTitle = itemView.findViewById<TextView>(R.id.tv_item_title)
         private val tvRating = itemView.findViewById<TextView>(R.id.tv_item_rating)
         private val tvReleaseDate = itemView.findViewById<TextView>(R.id.tv_item_release_date)
         private val tvShortDesc = itemView.findViewById<TextView>(R.id.tv_item_short_desc)
         private val ivPoster = itemView.findViewById<ImageView>(R.id.iv_item_movie_poster)
 
-        fun bind(movie : Movie){
+        fun bind(movie: Movie, position: Int) {
             when {
-                movie.rating!!.toInt() > 70 -> tvRating.setTextColor(ContextCompat.getColor(mContext,
-                    R.color.colorGreen
-                ))
-                movie.rating.toInt() > 40 -> tvRating.setTextColor(ContextCompat.getColor(mContext,
-                    R.color.colorYellow
-                ))
-                else -> tvRating.setTextColor(ContextCompat.getColor(mContext,
-                    R.color.colorRed
-                ))
+                movie.rating!!.toInt() > 70 -> tvRating.setTextColor(
+                    ContextCompat.getColor(
+                        mContext,
+                        R.color.colorGreen
+                    )
+                )
+                movie.rating.toInt() > 40 -> tvRating.setTextColor(
+                    ContextCompat.getColor(
+                        mContext,
+                        R.color.colorYellow
+                    )
+                )
+                else -> tvRating.setTextColor(
+                    ContextCompat.getColor(
+                        mContext,
+                        R.color.colorRed
+                    )
+                )
             }
             tvTitle.text = movie.title
             tvRating.text = movie.rating
             tvReleaseDate.text = movie.releaseDate
             tvShortDesc.text = movie.shortDesc
-            Log.e("MovieViewHolder", movie.posterUrl.toString())
             ivPoster.setImageResource(movie.posterUrl!!)
+
+            itemView.setOnClickListener {
+                mContext.startActivity(
+                    Intent(mContext, DetailActivity::class.java)
+                        .putExtra("dataType", "MOVIE")
+                        .putExtra("index", position)
+                )
+            }
         }
+
+
     }
 }
