@@ -1,4 +1,4 @@
-package com.wildanka.moviecatalogue
+package com.wildanka.moviecatalogue.view.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

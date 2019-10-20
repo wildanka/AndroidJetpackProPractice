@@ -1,4 +1,4 @@
-package com.wildanka.moviecatalogue
+package com.wildanka.moviecatalogue.view
 
 
 import android.os.Bundle
@@ -10,6 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.wildanka.moviecatalogue.viewmodel.MainMoviesViewModel
+import com.wildanka.moviecatalogue.entity.Movie
+import com.wildanka.moviecatalogue.view.adapter.MovieRVAdapter
+import com.wildanka.moviecatalogue.R
 
 /**
  * Fragment for displaying Movie / TV Show lists.
@@ -29,14 +33,16 @@ class MovieFragment : Fragment() {
 
         for ((index, value) in resources.getStringArray(R.array.data_title).withIndex()){
             Log.e("TES", "$index $value")
-            viewModel.addMovieList(Movie(
-                value,
-                resources.getStringArray(R.array.data_year)[index],
-                resources.getStringArray(R.array.data_rating)[index],
-                resources.getStringArray(R.array.data_short_desc)[index],
-                resources.getStringArray(R.array.data_ov)[index],
-                dataPoster.getResourceId(index, 0)
-            ))
+            viewModel.addMovieList(
+                Movie(
+                    value,
+                    resources.getStringArray(R.array.data_year)[index],
+                    resources.getStringArray(R.array.data_rating)[index],
+                    resources.getStringArray(R.array.data_short_desc)[index],
+                    resources.getStringArray(R.array.data_ov)[index],
+                    dataPoster.getResourceId(index, 0)
+                )
+            )
         }
         dataPoster.recycle() //recycle obatinTypedArray after being used
 

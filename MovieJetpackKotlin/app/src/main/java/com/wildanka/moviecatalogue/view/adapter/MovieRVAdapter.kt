@@ -1,4 +1,4 @@
-package com.wildanka.moviecatalogue
+package com.wildanka.moviecatalogue.view.adapter
 
 import android.content.Context
 import android.util.Log
@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.wildanka.moviecatalogue.R
+import com.wildanka.moviecatalogue.entity.Movie
 
 class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<MovieRVAdapter.MovieViewHolder>(){
     private var movieList = mutableListOf<Movie>()
@@ -39,9 +41,15 @@ class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<Movie
 
         fun bind(movie : Movie){
             when {
-                movie.rating!!.toInt() > 70 -> tvRating.setTextColor(ContextCompat.getColor(mContext, R.color.colorGreen))
-                movie.rating.toInt() > 40 -> tvRating.setTextColor(ContextCompat.getColor(mContext, R.color.colorYellow))
-                else -> tvRating.setTextColor(ContextCompat.getColor(mContext, R.color.colorRed))
+                movie.rating!!.toInt() > 70 -> tvRating.setTextColor(ContextCompat.getColor(mContext,
+                    R.color.colorGreen
+                ))
+                movie.rating.toInt() > 40 -> tvRating.setTextColor(ContextCompat.getColor(mContext,
+                    R.color.colorYellow
+                ))
+                else -> tvRating.setTextColor(ContextCompat.getColor(mContext,
+                    R.color.colorRed
+                ))
             }
             tvTitle.text = movie.title
             tvRating.text = movie.rating
