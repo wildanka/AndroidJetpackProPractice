@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<MovieRVAdapter.MovieViewHolder>(){
@@ -37,6 +38,11 @@ class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<Movie
         private val ivPoster = itemView.findViewById<ImageView>(R.id.iv_item_movie_poster)
 
         fun bind(movie : Movie){
+            when {
+                movie.rating!!.toInt() > 70 -> tvRating.setTextColor(ContextCompat.getColor(mContext, R.color.colorGreen))
+                movie.rating.toInt() > 40 -> tvRating.setTextColor(ContextCompat.getColor(mContext, R.color.colorYellow))
+                else -> tvRating.setTextColor(ContextCompat.getColor(mContext, R.color.colorRed))
+            }
             tvTitle.text = movie.title
             tvRating.text = movie.rating
             tvReleaseDate.text = movie.releaseDate
