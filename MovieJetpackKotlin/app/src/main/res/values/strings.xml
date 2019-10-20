@@ -227,7 +227,7 @@
         </item>
     </string-array>
 
-    <string-array name="data_poster">
+    <array name="data_poster">
         <item>@drawable/poster_a_start_is_born</item>
         <item>@drawable/poster_alita</item>
         <item>@drawable/poster_aquaman</item>
@@ -247,7 +247,7 @@
         <item>@drawable/poster_serenity</item>
         <item>@drawable/poster_spiderman</item>
         <item>@drawable/poster_t34</item>
-    </string-array>
+    </array>
     <!--endregion movie string array-->
 
     <!--region TV Shows string-array-->
