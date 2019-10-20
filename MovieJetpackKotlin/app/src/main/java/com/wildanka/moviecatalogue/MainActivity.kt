@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.wildanka.moviecatalogue.view.MovieFragment
+import com.wildanka.moviecatalogue.view.TVShowFragment
 import com.wildanka.moviecatalogue.view.adapter.MovieFSPAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = MovieFSPAdapter(supportFragmentManager)
         adapter.addFragment(MovieFragment(), "Movie")
-        adapter.addFragment(MovieFragment(), "TV Show")
+        adapter.addFragment(TVShowFragment(), "TV Show")
         vp_movie.adapter = adapter
         tl_menu.setupWithViewPager(vp_movie)
     }
