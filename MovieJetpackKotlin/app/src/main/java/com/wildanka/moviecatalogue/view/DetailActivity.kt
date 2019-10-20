@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.wildanka.moviecatalogue.R
+import com.wildanka.moviecatalogue.viewmodel.MoviesDetailViewModel
 
 class DetailActivity : AppCompatActivity() {
 
@@ -19,23 +21,22 @@ class DetailActivity : AppCompatActivity() {
         val tvRating = findViewById<TextView>(R.id.tv_rating_detail)
         val tvOverview = findViewById<TextView>(R.id.tv_overview)
         val ivMoviePosterDetail = findViewById<ImageView>(R.id.iv_movie_poster_detail)
+        val viewModel = ViewModelProviders.of(this).get(MoviesDetailViewModel::class.java)
 
         if (type == "MOVIE"){
-            val dataPoster = resources.obtainTypedArray(R.array.data_poster)
-            tvTitle.text = resources.getStringArray(R.array.data_title)[index]
-            tvYear.text = resources.getStringArray(R.array.data_year)[index]
-            tvRating.text = resources.getStringArray(R.array.data_rating)[index]
-            tvOverview.text = resources.getStringArray(R.array.data_ov)[index]
-            ivMoviePosterDetail.setImageResource(dataPoster.getResourceId(index, 0))
-            dataPoster.recycle() //recycle obatinTypedArray after being used
+            val selectedMovie = viewModel.getMoviesAtIndex(index)
+            tvTitle.text = selectedMovie?.title
+            tvYear.text = selectedMovie?.releaseDate
+            tvRating.text = selectedMovie?.rating
+            tvOverview.text = selectedMovie?.overview
+            ivMoviePosterDetail.setImageResource(selectedMovie?.posterUrl!!)
         }else{
-            val dataPoster = resources.obtainTypedArray(R.array.tv_data_poster)
-            tvTitle.text = resources.getStringArray(R.array.tv_data_title)[index]
-            tvYear.text = resources.getStringArray(R.array.tv_data_year)[index]
-            tvRating.text = resources.getStringArray(R.array.tv_data_rating)[index]
-            tvOverview.text = resources.getStringArray(R.array.tv_data_ov)[index]
-            ivMoviePosterDetail.setImageResource(dataPoster.getResourceId(index, 0))
-            dataPoster.recycle() //recycle obatinTypedArray after being used
+            val selectedTVShow= viewModel.getTVShowAtIndex(index)
+            tvTitle.text = selectedTVShow?.title
+            tvYear.text = selectedTVShow?.releaseDate
+            tvRating.text = selectedTVShow?.rating
+            tvOverview.text = selectedTVShow?.overview
+            ivMoviePosterDetail.setImageResource(selectedTVShow?.posterUrl!!)
         }
     }
 }
