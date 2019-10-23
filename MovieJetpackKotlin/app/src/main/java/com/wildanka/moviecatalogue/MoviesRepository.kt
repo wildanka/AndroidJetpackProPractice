@@ -3,7 +3,7 @@ package com.wildanka.moviecatalogue
 import com.wildanka.moviecatalogue.entity.Movie
 import com.wildanka.moviecatalogue.entity.TvShow
 
-class MoviesRepository() {
+class MoviesRepository {
     private val movieList = mutableListOf<Movie>()
     private val tvShowList = mutableListOf<TvShow>()
 
@@ -248,7 +248,7 @@ class MoviesRepository() {
             R.drawable.poster_spiderman
         ))
         movieList.add(Movie(
-            "52",
+            "T-34",
             "December 27, 2018",
             "48",
             "In 1944, a courageous group of Russian soldiers managed to escape from German captivity in a " +
@@ -257,7 +257,7 @@ class MoviesRepository() {
             "In 1944, a courageous group of Russian soldiers managed to escape from German captivity in a " +
                     "half-destroyed legendary T-34 tank. Those were the times of unforgettable bravery, fierce fighting, " +
                     "unbreakable love, and legendary miracles.",
-            R.drawable.poster_a_start_is_born
+            R.drawable.poster_t34
         ))
     }
 
