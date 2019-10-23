@@ -11,14 +11,6 @@ class MoviesDetailViewModel(application: Application) : AndroidViewModel(applica
     private var movieList : MutableList<Movie>? = null
     private var tvShowList : MutableList<TvShow>? = null
 
-//    var title = ""
-//    var releaseDate = ""
-//    var rating = ""
-//    var shortDesc = ""
-//    var overview = ""
-//    var posterUrl: Int? = null
-
-
     fun getMoviesAtIndex(index: Int): Movie? {
         movieList = repo.getAllMovies()
         return movieList!![index]
@@ -28,6 +20,5 @@ class MoviesDetailViewModel(application: Application) : AndroidViewModel(applica
         tvShowList = repo.getAllTVShow()
         return tvShowList!![index]
     }
-
 
 }

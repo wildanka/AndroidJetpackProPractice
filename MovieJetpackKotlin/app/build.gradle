@@ -25,6 +25,7 @@ android {
 
 dependencies {
     def lifecycle_version = "2.1.0"
+    def mockito_version = "3.1.0"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -44,6 +45,15 @@ dependencies {
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     // optional - Test helpers for LiveData
     testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
+    testImplementation 'org.mockito:mockito-inline:2.27.0'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: "2.27.0"
+    testImplementation("androidx.arch.core:core-testing:$lifecycle_version"){
+        exclude group: 'org.mockito', module: 'mockito-core'
+    }
+
+    androidTestImplementation("androidx.arch.core:core-testing:$lifecycle_version") {
+        exclude group: 'org.mockito', module: 'mockito-core'
+    }
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
