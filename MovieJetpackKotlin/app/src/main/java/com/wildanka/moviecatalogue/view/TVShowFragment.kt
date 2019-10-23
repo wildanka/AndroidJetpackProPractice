@@ -2,7 +2,6 @@ package com.wildanka.moviecatalogue.view
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wildanka.moviecatalogue.R
-import com.wildanka.moviecatalogue.entity.TvShow
 import com.wildanka.moviecatalogue.view.adapter.TVShowRVAdapter
 import com.wildanka.moviecatalogue.viewmodel.MainMoviesViewModel
 

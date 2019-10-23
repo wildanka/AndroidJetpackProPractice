@@ -1,8 +1,6 @@
 package com.wildanka.moviecatalogue
 
 import android.os.SystemClock
-import androidx.recyclerview.widget.RecyclerView
-import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.swipeLeft
@@ -10,7 +8,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.wildanka.moviecatalogue.view.adapter.MovieRVAdapter
 import com.wildanka.moviecatalogue.view.adapter.TVShowRVAdapter
 import org.hamcrest.Matchers.allOf
@@ -48,11 +46,6 @@ class MainActivityTest {
         onView(allOf(isDisplayed(), withId(R.id.rv_movie)))
             .perform(RecyclerViewActions.actionOnItemAtPosition<MovieRVAdapter.MovieViewHolder>(2, click()))
         SystemClock.sleep(1600) // Wait a little until the content is loaded
-
-//        onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(5))
-//        onView(withId(R.id.rv_movie)).perform(
-//            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(10, click())
-//        )
     }
 
     @Test
@@ -65,15 +58,5 @@ class MainActivityTest {
         onView(allOf(isDisplayed(), withId(R.id.rv_movie)))
             .perform(RecyclerViewActions.actionOnItemAtPosition<TVShowRVAdapter.TVShowViewHolder>(2, click()))
         SystemClock.sleep(1600) // Wait a little until the content is loaded
-
-//        onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(5))
-//        onView(withId(R.id.rv_movie)).perform(
-//            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(10, click())
-//        )
     }
-
-/*    @Test
-    fun mainActivityTest() {
-
-    }*/
 }
