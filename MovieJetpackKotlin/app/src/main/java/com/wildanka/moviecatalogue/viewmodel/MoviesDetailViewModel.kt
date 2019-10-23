@@ -1,13 +1,12 @@
 package com.wildanka.moviecatalogue.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import com.wildanka.moviecatalogue.MoviesRepository
 import com.wildanka.moviecatalogue.entity.Movie
 import com.wildanka.moviecatalogue.entity.TvShow
 
-class MoviesDetailViewModel(application: Application) : AndroidViewModel(application) {
-    private val repo = MoviesRepository(application)
+class MoviesDetailViewModel : ViewModel() {
+    private val repo = MoviesRepository()
     private var movieList : MutableList<Movie>? = null
     private var tvShowList : MutableList<TvShow>? = null
 
