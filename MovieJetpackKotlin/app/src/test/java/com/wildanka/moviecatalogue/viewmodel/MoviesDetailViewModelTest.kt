@@ -1,8 +1,5 @@
 package com.wildanka.moviecatalogue.viewmodel
 
-import android.app.Application
-import android.content.Context
-import android.content.res.Resources
 import com.wildanka.moviecatalogue.MoviesRepository
 import com.wildanka.moviecatalogue.entity.Movie
 import com.wildanka.moviecatalogue.entity.TvShow
