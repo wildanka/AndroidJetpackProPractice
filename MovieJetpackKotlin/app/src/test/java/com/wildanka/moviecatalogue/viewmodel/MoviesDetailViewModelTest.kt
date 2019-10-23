@@ -20,18 +20,10 @@ class MoviesDetailViewModelTest {
     @Mock
     private lateinit var moviesRepository: MoviesRepository
 
-    @Mock
-    private lateinit var applicationMock: Application
-
-    @Mock
-    private lateinit var resources: Resources
-
     @Before
     fun setUp() {
-        applicationMock = Mockito.mock(Application::class.java)!!
         moviesRepository = Mockito.mock(MoviesRepository::class.java)
-        resources = Mockito.mock(Resources::class.java)
-        moviesDetailViewModel = MoviesDetailViewModel(applicationMock)
+        moviesDetailViewModel = MoviesDetailViewModel()
     }
 
     @Test

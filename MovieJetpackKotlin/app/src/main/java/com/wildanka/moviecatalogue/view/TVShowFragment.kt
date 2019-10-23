@@ -29,22 +29,6 @@ class TVShowFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_movie, container, false)
         val rvMovie = view.findViewById<RecyclerView>(R.id.rv_movie)
         val viewModel = ViewModelProviders.of(this).get(MainMoviesViewModel::class.java)
-        val dataPoster = resources.obtainTypedArray(R.array.tv_data_poster)
-
-        for ((index, value) in resources.getStringArray(R.array.tv_data_title).withIndex()){
-            Log.e("TES", "$index $value")
-            viewModel.addTVShowList(
-                TvShow(
-                    value,
-                    resources.getStringArray(R.array.tv_data_year)[index],
-                    resources.getStringArray(R.array.tv_data_rating)[index],
-                    resources.getStringArray(R.array.tv_data_short_desc)[index],
-                    resources.getStringArray(R.array.tv_data_ov)[index],
-                    dataPoster.getResourceId(index, 0)
-                )
-            )
-        }
-        dataPoster.recycle() //recycle obatinTypedArray after being used
 
         val rvAdapter = TVShowRVAdapter(activity!!)
         rvAdapter.setupTVShowList(viewModel.getTVShowList())

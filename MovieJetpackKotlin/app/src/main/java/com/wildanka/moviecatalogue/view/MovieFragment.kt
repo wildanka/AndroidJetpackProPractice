@@ -29,22 +29,7 @@ class MovieFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_movie, container, false)
         val rvMovie = view.findViewById<RecyclerView>(R.id.rv_movie)
         val viewModel = ViewModelProviders.of(this).get(MainMoviesViewModel::class.java)
-        val dataPoster = resources.obtainTypedArray(R.array.data_poster)
 
-        for ((index, value) in resources.getStringArray(R.array.data_title).withIndex()){
-            Log.e("TES", "$index $value")
-            viewModel.addMovieList(
-                Movie(
-                    value,
-                    resources.getStringArray(R.array.data_year)[index],
-                    resources.getStringArray(R.array.data_rating)[index],
-                    resources.getStringArray(R.array.data_short_desc)[index],
-                    resources.getStringArray(R.array.data_ov)[index],
-                    dataPoster.getResourceId(index, 0)
-                )
-            )
-        }
-        dataPoster.recycle() //recycle obtainTypedArray after being used
 
         val rvAdapter = MovieRVAdapter(activity!!)
         rvAdapter.setupMovieList(viewModel.getMovieList())
