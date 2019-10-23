@@ -46,19 +46,19 @@ class MainActivityTest {
 
     @Test
     fun testMovieRecyclerBehavior() {
-        // Lakukan klik pada item di posisi ke 3 (0,1,2) - Aquaman
+        // Lakukan klik pada item di posisi ke 2 (indeks dimulai dari 0) - Aquaman
         onView(allOf(isDisplayed(), withId(R.id.rv_movie)))
             .perform(RecyclerViewActions.actionOnItemAtPosition<MovieRVAdapter.MovieViewHolder>(2, click()))
         SystemClock.sleep(1600) // Wait a little until the content is loaded
 
-        //check ketika detail TV Show di klik apakah menampilkan detail dari TV Show berjudul "Naruto Shippuden"?
+        //cek ketika detail Movie di klik apakah menampilkan detail dari Movie berjudul "Aquaman"?
         val titleMatcher= withText("Aquaman")
         onView(withId(R.id.tv_title)).check(matches(titleMatcher))
     }
 
     @Test
     fun testTVShowRecyclerBehavior() {
-        // Lakukan klik pada item di posisi ke 11 (10 dimulai dari 0 ) - Naruto Shippuden
+        // Lakukan klik pada item di posisi ke 11 (indeks dimulai dari 0) - Naruto Shippuden
         val matcher = allOf(
             withText("TV SHOW"),
             isDescendantOfA(withId(R.id.tl_menu))
@@ -67,7 +67,7 @@ class MainActivityTest {
         onView(allOf(isDisplayed(), withId(R.id.rv_movie)))
             .perform(RecyclerViewActions.actionOnItemAtPosition<TVShowRVAdapter.TVShowViewHolder>(11, click()))
 
-        //check ketika detail TV Show di klik apakah menampilkan detail dari TV Show berjudul "Naruto Shippuden"?
+        //cek ketika detail TV Show di klik apakah menampilkan detail dari TV Show berjudul "Naruto Shippuden"?
         val titleMatcher= withText("Naruto Shippuden")
         onView(withId(R.id.tv_title)).check(matches(titleMatcher))
         SystemClock.sleep(1600) // Wait a little until the content is loaded
