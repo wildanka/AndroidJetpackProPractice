@@ -28,6 +28,8 @@ class MoviesDetailViewModelTest {
 
     @Test
     fun getMoviesAtIndex() {
+        // tes ketika meload detail dari Movie dari Viewmodel,
+        // ketika user memilih data ke-0 maka result seharusnya adalah film berjudul "A Star Is Born"
         val movieIndex = 0
         val expected = Movie(
             "A Star Is Born",
@@ -49,6 +51,8 @@ class MoviesDetailViewModelTest {
 
     @Test
     fun getTVShowAtIndex() {
+        // tes ketika meload detail dari TV Show dari Viewmodel,
+        // ketika user memilih data ke-0 maka result seharusnya adalah acara TV berjudul "Arrow"
         val tvShowIndex = 0
         val expected = TvShow(
             "Arrow",
