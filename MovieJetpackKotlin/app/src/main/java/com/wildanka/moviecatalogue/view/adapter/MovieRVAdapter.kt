@@ -14,9 +14,9 @@ import com.wildanka.moviecatalogue.entity.Movie
 import com.wildanka.moviecatalogue.view.DetailActivity
 
 class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<MovieRVAdapter.MovieViewHolder>() {
-    private var movieList = mutableListOf<Movie>()
+    private var movieList : MutableList<Movie>? = null
 
-    fun setupMovieList(movies: MutableList<Movie>) {
+    fun setupMovieList(movies: MutableList<Movie>?) {
         movieList = movies
     }
 
@@ -25,12 +25,18 @@ class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<Movie
     }
 
     override fun getItemCount(): Int {
-        return movieList.size
+        return if (movieList != null) {
+            movieList!!.size
+        }else{
+            0
+        }
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val movie = movieList[position]
-        holder.bind(movie, position)
+        val movie = movieList?.get(position)
+        if (movie != null) {
+            holder.bind(movie, position)
+        }
     }
 
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

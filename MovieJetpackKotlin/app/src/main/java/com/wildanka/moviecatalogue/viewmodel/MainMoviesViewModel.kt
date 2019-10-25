@@ -7,15 +7,15 @@ import com.wildanka.moviecatalogue.entity.TvShow
 
 class MainMoviesViewModel : ViewModel(){
     private val repo = MoviesRepository()
-    private var movieList = mutableListOf<Movie>()
-    private var tvShowList = mutableListOf<TvShow>()
+    private var movieList : MutableList<Movie>? = null
+    private var tvShowList : MutableList<TvShow>? = null
 
-    fun getMovieList() : MutableList<Movie>{
+    fun getMovieList() : MutableList<Movie>? {
         movieList = repo.getAllMovies()
         return movieList
     }
 
-    fun getTVShowList() : MutableList<TvShow>{
+    fun getTVShowList() : MutableList<TvShow>? {
         tvShowList = repo.getAllTVShow()
         return tvShowList
     }

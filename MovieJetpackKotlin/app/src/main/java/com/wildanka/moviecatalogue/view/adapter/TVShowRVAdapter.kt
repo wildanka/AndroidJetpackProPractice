@@ -14,9 +14,9 @@ import com.wildanka.moviecatalogue.entity.TvShow
 import com.wildanka.moviecatalogue.view.DetailActivity
 
 class TVShowRVAdapter(private val mContext: Context) : RecyclerView.Adapter<TVShowRVAdapter.TVShowViewHolder>(){
-    private var movieList = mutableListOf<TvShow>()
+    private var movieList : MutableList<TvShow>? = null
 
-    fun setupTVShowList(movies : MutableList<TvShow>){
+    fun setupTVShowList(movies : MutableList<TvShow>?){
         movieList = movies
     }
 
@@ -25,12 +25,12 @@ class TVShowRVAdapter(private val mContext: Context) : RecyclerView.Adapter<TVSh
     }
 
     override fun getItemCount(): Int {
-        return movieList.size
+        return movieList?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: TVShowViewHolder, position: Int) {
-        val movie = movieList[position]
-        holder.bind(movie, position)
+        val movie = movieList?.get(position)
+        movie?.let { holder.bind(it, position) }
     }
 
     inner class TVShowViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
