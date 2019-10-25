@@ -12,12 +12,12 @@ class MoviesDetailViewModel : ViewModel() {
 
     fun getMoviesAtIndex(index: Int): Movie? {
         movieList = repo.getAllMovies()
-        return movieList!![index]
+        return movieList?.get(index)
     }
 
     fun getTVShowAtIndex(index: Int): TvShow? {
         tvShowList = repo.getAllTVShow()
-        return tvShowList!![index]
+        return tvShowList?.get(index)
     }
 
 }

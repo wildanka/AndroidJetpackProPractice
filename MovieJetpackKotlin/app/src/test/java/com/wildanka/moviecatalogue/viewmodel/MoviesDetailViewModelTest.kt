@@ -32,14 +32,14 @@ class MoviesDetailViewModelTest {
             "A Star Is Born",
             "October 5, 2018",
             "75",
-            "Seasoned musician Jackson Maine discovers — and falls in love with — struggling artist Ally. She has just\n" +
-                    "            about given up on her dream to make it big as a singer — until Jack coaxes her into the spotlight. But even…\n" +
-                    "        ",
-            "Seasoned musician Jackson Maine discovers — and falls in love with — struggling artist Ally. She has just\n" +
-                    "            about given up on her dream to make it big as a singer — until Jack coaxes her into the spotlight. But even\n" +
-                    "            as Ally\\'s career takes off, the personal side of their relationship is breaking down, as Jack fights an\n" +
-                    "            ongoing battle with his own internal demons.\n" +
-                    "        ",
+            "Seasoned musician Jackson Maine discovers — and falls in love with — struggling artist Ally. She has just " +
+                    "about given up on her dream to make it big as a singer — until Jack coaxes her into the spotlight. But even… " +
+                    "",
+            "Seasoned musician Jackson Maine discovers — and falls in love with — struggling artist Ally. She has just " +
+                    "about given up on her dream to make it big as a singer — until Jack coaxes her into the spotlight. But even " +
+                    "as Ally's career takes off, the personal side of their relationship is breaking down, as Jack fights an " +
+                    "ongoing battle with his own internal demons. " +
+                    "",
             com.wildanka.moviecatalogue.R.drawable.poster_a_start_is_born
         )
         moviesDetailViewModel.getMoviesAtIndex(movieIndex)
@@ -55,12 +55,12 @@ class MoviesDetailViewModelTest {
             "Arrow",
             "October 10, 2012",
             "75",
-            "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He\n" +
-                    "            returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a…\n" +
-                    "        ",
-            "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He\n" +
-                    "            returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a\n" +
-                    "            bow",
+            "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He " +
+                    "returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a… " +
+                    "",
+            "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He " +
+                    "returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a " +
+                    "bow",
             com.wildanka.moviecatalogue.R.drawable.poster_arrow
         )
         moviesDetailViewModel.getTVShowAtIndex(tvShowIndex)

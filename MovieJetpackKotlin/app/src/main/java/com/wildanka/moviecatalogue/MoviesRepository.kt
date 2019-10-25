@@ -7,11 +7,11 @@ class MoviesRepository {
     private val movieList = mutableListOf<Movie>()
     private val tvShowList = mutableListOf<TvShow>()
 
-    fun getAllMovies(): MutableList<Movie> {
+    fun getAllMovies(): MutableList<Movie>? {
         generateMovieData()
         return movieList
     }
-    fun getAllTVShow(): MutableList<TvShow> {
+    fun getAllTVShow(): MutableList<TvShow>? {
         generateTvShowData()
         return tvShowList
     }
