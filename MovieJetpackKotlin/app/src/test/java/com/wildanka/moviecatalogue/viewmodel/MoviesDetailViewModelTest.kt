@@ -1,8 +1,9 @@
 package com.wildanka.moviecatalogue.viewmodel
 
 import com.wildanka.moviecatalogue.MoviesRepository
-import com.wildanka.moviecatalogue.entity.Movie
-import com.wildanka.moviecatalogue.entity.TvShow
+import com.wildanka.moviecatalogue.R
+import com.wildanka.moviecatalogue.model.entity.Movie
+import com.wildanka.moviecatalogue.model.entity.TvShow
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -40,7 +41,7 @@ class MoviesDetailViewModelTest {
                     "as Ally's career takes off, the personal side of their relationship is breaking down, as Jack fights an " +
                     "ongoing battle with his own internal demons. " +
                     "",
-            com.wildanka.moviecatalogue.R.drawable.poster_a_start_is_born
+            R.drawable.poster_a_start_is_born
         )
         moviesDetailViewModel.getMoviesAtIndex(movieIndex)
         Assert.assertEquals(expected, moviesDetailViewModel.getMoviesAtIndex(movieIndex))
@@ -61,7 +62,7 @@ class MoviesDetailViewModelTest {
             "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He " +
                     "returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a " +
                     "bow",
-            com.wildanka.moviecatalogue.R.drawable.poster_arrow
+            R.drawable.poster_arrow
         )
         moviesDetailViewModel.getTVShowAtIndex(tvShowIndex)
         Assert.assertEquals(expected, moviesDetailViewModel.getTVShowAtIndex(tvShowIndex))

@@ -1,4 +1,4 @@
-package com.wildanka.moviecatalogue.entity
+package com.wildanka.moviecatalogue.model.entity
 
 import com.google.gson.annotations.SerializedName
 
@@ -16,7 +16,7 @@ data class TVShowData(
 )
 
 
-data class TVShowFeed(
+data class TVShowFeeds(
     @SerializedName("results")
     val movieList: List<TVShowData>?
 )

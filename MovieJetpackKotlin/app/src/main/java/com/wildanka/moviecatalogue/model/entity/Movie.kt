@@ -1,6 +1,6 @@
-package com.wildanka.moviecatalogue.entity
+package com.wildanka.moviecatalogue.model.entity
 
-data class TvShow(
+data class Movie(
     val title: String?,
     val releaseDate: String?,
     val rating: String?,

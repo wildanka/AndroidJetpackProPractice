@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.wildanka.moviecatalogue.R
-import com.wildanka.moviecatalogue.entity.Movie
+import com.wildanka.moviecatalogue.model.entity.Movie
 import com.wildanka.moviecatalogue.view.DetailActivity
 
 class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<MovieRVAdapter.MovieViewHolder>() {
