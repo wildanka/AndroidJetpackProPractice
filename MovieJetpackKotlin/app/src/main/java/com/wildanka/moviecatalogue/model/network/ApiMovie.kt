@@ -4,7 +4,6 @@ import com.wildanka.moviecatalogue.model.entity.MovieData
 import com.wildanka.moviecatalogue.model.entity.MovieFeeds
 import com.wildanka.moviecatalogue.model.entity.TVShowData
 import com.wildanka.moviecatalogue.model.entity.TVShowFeeds
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -17,9 +16,8 @@ interface ApiMovie {
         const val TVSHOW_CATEGORY = "tv"
     }
 
-    @GET("discover/{category}")
+    @GET("discover/movie")
     fun loadMovieList(
-        @Path("category") categoryPath: String,
         @Query("api_key") apiKey: String,
         @Query("language") language: String //en-US
     ): Call<MovieFeeds>

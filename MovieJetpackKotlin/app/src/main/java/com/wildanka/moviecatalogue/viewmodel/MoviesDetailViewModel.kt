@@ -3,7 +3,8 @@ package com.wildanka.moviecatalogue.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.wildanka.moviecatalogue.MoviesRepository
-import com.wildanka.moviecatalogue.model.entity.*
+import com.wildanka.moviecatalogue.model.entity.MovieData
+import com.wildanka.moviecatalogue.model.entity.TVShowData
 
 class MoviesDetailViewModel : ViewModel() {
     private val repo = MoviesRepository()

@@ -12,12 +12,12 @@ class MainMoviesViewModel : ViewModel(){
     private var tvShowList : MutableLiveData<MutableList<TVShowData>>? = null
 
     fun getMovieList() : MutableLiveData<MutableList<MovieData>>? {
-        movieList = repo.fetchMovieData()
+        if (movieList == null) movieList = repo.fetchMovieData()
         return movieList
     }
 
     fun getTVShowList() : MutableLiveData<MutableList<TVShowData>>? {
-        tvShowList = repo.fetchTvShowData()
+        if (tvShowList == null) tvShowList = repo.fetchTvShowData()
         return tvShowList
     }
 
