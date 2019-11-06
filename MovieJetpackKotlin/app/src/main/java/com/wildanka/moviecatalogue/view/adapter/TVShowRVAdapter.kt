@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.wildanka.moviecatalogue.BuildConfig
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.model.entity.TVShowData
 import com.wildanka.moviecatalogue.view.DetailActivity
@@ -16,8 +18,8 @@ import com.wildanka.moviecatalogue.view.DetailActivity
 class TVShowRVAdapter(private val mContext: Context) : RecyclerView.Adapter<TVShowRVAdapter.TVShowViewHolder>(){
     private var tvShowList : MutableList<TVShowData>? = null
 
-    fun setupTVShowList(movies : MutableList<TVShowData>?){
-        tvShowList = movies
+    fun setupTVShowList(tvShows: MutableList<TVShowData>?) {
+        tvShowList = tvShows
         notifyDataSetChanged()
     }
 
@@ -43,10 +45,14 @@ class TVShowRVAdapter(private val mContext: Context) : RecyclerView.Adapter<TVSh
 
         fun bind(tvShow : TVShowData, position : Int){
             when {
-                tvShow.voteAverage!!.toInt() > 70 -> tvRating.setTextColor(ContextCompat.getColor(mContext,
+                tvShow.voteAverage!! > 7 -> tvRating.setTextColor(
+                    ContextCompat.getColor(
+                        mContext,
                     R.color.colorGreen
                 ))
-                tvShow.voteAverage.toInt() > 40 -> tvRating.setTextColor(ContextCompat.getColor(mContext,
+                tvShow.voteAverage > 4 -> tvRating.setTextColor(
+                    ContextCompat.getColor(
+                        mContext,
                     R.color.colorYellow
                 ))
                 else -> tvRating.setTextColor(ContextCompat.getColor(mContext,
@@ -54,10 +60,10 @@ class TVShowRVAdapter(private val mContext: Context) : RecyclerView.Adapter<TVSh
                 ))
             }
             tvTitle.text = tvShow.title
-            tvRating.text = tvShow.voteAverage
+            tvRating.text = tvShow.voteAverage.toString()
             tvReleaseDate.text = tvShow.airDate
             tvShortDesc.text = tvShow.overview
-//            ivPoster.setImageResource(tvShow.posterPath!!)
+            Glide.with(mContext).load(BuildConfig.URL_IMG_APP + tvShow.posterPath).into(ivPoster)
 
             itemView.setOnClickListener {
                 mContext.startActivity(

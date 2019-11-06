@@ -22,7 +22,7 @@ interface ApiMovie {
         @Query("language") language: String //en-US
     ): Call<MovieFeeds>
 
-    @GET("3/discover/tv")
+    @GET("discover/tv")
     fun loadTVShowList(
         @Query("api_key") apiKey: String,
         @Query("language") language: String //en-US

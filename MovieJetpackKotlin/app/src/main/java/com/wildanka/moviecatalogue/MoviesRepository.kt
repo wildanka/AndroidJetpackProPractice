@@ -28,7 +28,6 @@ class MoviesRepository {
 
             override fun onResponse(call: Call<MovieFeeds?>, response: Response<MovieFeeds?>) {
                 movieList.value = response.body()?.movieList
-                Log.e("MoviesRepository", movieList.value?.get(0).toString())
             }
         })
 
