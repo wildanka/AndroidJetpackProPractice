@@ -18,5 +18,5 @@ data class TVShowData(
 
 data class TVShowFeeds(
     @SerializedName("results")
-    val movieList: List<TVShowData>?
+    val tvShowList: MutableList<TVShowData>?
 )

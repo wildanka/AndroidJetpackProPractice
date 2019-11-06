@@ -17,5 +17,5 @@ data class MovieData(
 
 data class MovieFeeds(
     @SerializedName("results")
-    val movieList: List<MovieData>?
+    val movieList: MutableList<MovieData>?
 )

@@ -24,19 +24,19 @@ class DetailActivity : AppCompatActivity() {
         val viewModel = ViewModelProviders.of(this).get(MoviesDetailViewModel::class.java)
 
         if (type == "MOVIE"){
-            val selectedMovie = viewModel.getMoviesAtIndex(index)
-            tvTitle.text = selectedMovie?.title
-            tvYear.text = selectedMovie?.releaseDate
-            tvRating.text = selectedMovie?.rating
-            tvOverview.text = selectedMovie?.overview
-            ivMoviePosterDetail.setImageResource(selectedMovie?.posterUrl!!)
+//            val selectedMovie = viewModel.getMoviesAtIndex(index)
+//            tvTitle.text = selectedMovie?.title
+//            tvYear.text = selectedMovie?.releaseDate
+//            tvRating.text = selectedMovie?.rating
+//            tvOverview.text = selectedMovie?.overview
+//            ivMoviePosterDetail.setImageResource(selectedMovie?.posterUrl!!)
         }else{
-            val selectedTVShow= viewModel.getTVShowAtIndex(index)
-            tvTitle.text = selectedTVShow?.title
-            tvYear.text = selectedTVShow?.releaseDate
-            tvRating.text = selectedTVShow?.rating
-            tvOverview.text = selectedTVShow?.overview
-            ivMoviePosterDetail.setImageResource(selectedTVShow?.posterUrl!!)
+//            val selectedTVShow= viewModel.getTVShowAtIndex(index)
+//            tvTitle.text = selectedTVShow?.title
+//            tvYear.text = selectedTVShow?.releaseDate
+//            tvRating.text = selectedTVShow?.rating
+//            tvOverview.text = selectedTVShow?.overview
+//            ivMoviePosterDetail.setImageResource(selectedTVShow?.posterUrl!!)
         }
     }
 }

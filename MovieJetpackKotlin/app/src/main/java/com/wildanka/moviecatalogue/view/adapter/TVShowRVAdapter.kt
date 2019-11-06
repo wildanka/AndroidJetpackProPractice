@@ -10,13 +10,13 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.wildanka.moviecatalogue.R
-import com.wildanka.moviecatalogue.model.entity.TvShow
+import com.wildanka.moviecatalogue.model.entity.TVShowData
 import com.wildanka.moviecatalogue.view.DetailActivity
 
 class TVShowRVAdapter(private val mContext: Context) : RecyclerView.Adapter<TVShowRVAdapter.TVShowViewHolder>(){
-    private var movieList : MutableList<TvShow>? = null
+    private var movieList : MutableList<TVShowData>? = null
 
-    fun setupTVShowList(movies : MutableList<TvShow>?){
+    fun setupTVShowList(movies : MutableList<TVShowData>?){
         movieList = movies
     }
 
@@ -40,12 +40,12 @@ class TVShowRVAdapter(private val mContext: Context) : RecyclerView.Adapter<TVSh
         private val tvShortDesc = itemView.findViewById<TextView>(R.id.tv_item_short_desc)
         private val ivPoster = itemView.findViewById<ImageView>(R.id.iv_item_movie_poster)
 
-        fun bind(tvShow : TvShow, position : Int){
+        fun bind(tvShow : TVShowData, position : Int){
             when {
-                tvShow.rating!!.toInt() > 70 -> tvRating.setTextColor(ContextCompat.getColor(mContext,
+                tvShow.voteAverage!!.toInt() > 70 -> tvRating.setTextColor(ContextCompat.getColor(mContext,
                     R.color.colorGreen
                 ))
-                tvShow.rating.toInt() > 40 -> tvRating.setTextColor(ContextCompat.getColor(mContext,
+                tvShow.voteAverage.toInt() > 40 -> tvRating.setTextColor(ContextCompat.getColor(mContext,
                     R.color.colorYellow
                 ))
                 else -> tvRating.setTextColor(ContextCompat.getColor(mContext,
@@ -53,10 +53,10 @@ class TVShowRVAdapter(private val mContext: Context) : RecyclerView.Adapter<TVSh
                 ))
             }
             tvTitle.text = tvShow.title
-            tvRating.text = tvShow.rating
-            tvReleaseDate.text = tvShow.releaseDate
-            tvShortDesc.text = tvShow.shortDesc
-            ivPoster.setImageResource(tvShow.posterUrl!!)
+            tvRating.text = tvShow.voteAverage
+            tvReleaseDate.text = tvShow.airDate
+            tvShortDesc.text = tvShow.overview
+//            ivPoster.setImageResource(tvShow.posterPath!!)
 
             itemView.setOnClickListener {
                 mContext.startActivity(

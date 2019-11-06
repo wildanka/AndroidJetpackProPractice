@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wildanka.moviecatalogue.R
+import com.wildanka.moviecatalogue.model.entity.TVShowData
 import com.wildanka.moviecatalogue.view.adapter.TVShowRVAdapter
 import com.wildanka.moviecatalogue.viewmodel.MainMoviesViewModel
 
@@ -29,9 +31,13 @@ class TVShowFragment : Fragment() {
         val viewModel = ViewModelProviders.of(this).get(MainMoviesViewModel::class.java)
 
         val rvAdapter = TVShowRVAdapter(activity!!)
-        rvAdapter.setupTVShowList(viewModel.getTVShowList())
         rvMovie.layoutManager = LinearLayoutManager(activity!!)
         rvMovie.adapter = rvAdapter
+        viewModel.getTVShowList()?.observe(this, Observer<MutableList<TVShowData>> {
+            if (it != null){
+                rvAdapter.setupTVShowList(it)
+            }
+        })
 
         return view
     }

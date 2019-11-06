@@ -2,8 +2,6 @@ package com.wildanka.moviecatalogue.viewmodel
 
 import com.wildanka.moviecatalogue.MoviesRepository
 import com.wildanka.moviecatalogue.R
-import com.wildanka.moviecatalogue.model.entity.Movie
-import com.wildanka.moviecatalogue.model.entity.TvShow
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

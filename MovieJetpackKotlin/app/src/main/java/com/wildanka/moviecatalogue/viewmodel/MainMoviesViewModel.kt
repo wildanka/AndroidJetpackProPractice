@@ -1,22 +1,23 @@
 package com.wildanka.moviecatalogue.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.wildanka.moviecatalogue.MoviesRepository
-import com.wildanka.moviecatalogue.model.entity.Movie
-import com.wildanka.moviecatalogue.model.entity.TvShow
+import com.wildanka.moviecatalogue.model.entity.MovieData
+import com.wildanka.moviecatalogue.model.entity.TVShowData
 
 class MainMoviesViewModel : ViewModel(){
     private val repo = MoviesRepository()
-    private var movieList : MutableList<Movie>? = null
-    private var tvShowList : MutableList<TvShow>? = null
+    private var movieList : MutableLiveData<MutableList<MovieData>>? = null
+    private var tvShowList : MutableLiveData<MutableList<TVShowData>>? = null
 
-    fun getMovieList() : MutableList<Movie>? {
-        movieList = repo.getAllMovies()
+    fun getMovieList() : MutableLiveData<MutableList<MovieData>>? {
+        movieList = repo.fetchMovieData()
         return movieList
     }
 
-    fun getTVShowList() : MutableList<TvShow>? {
-        tvShowList = repo.getAllTVShow()
+    fun getTVShowList() : MutableLiveData<MutableList<TVShowData>>? {
+        tvShowList = repo.fetchTvShowData()
         return tvShowList
     }
 

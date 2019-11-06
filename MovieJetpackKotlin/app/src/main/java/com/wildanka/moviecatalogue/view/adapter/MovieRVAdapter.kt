@@ -10,13 +10,13 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.wildanka.moviecatalogue.R
-import com.wildanka.moviecatalogue.model.entity.Movie
+import com.wildanka.moviecatalogue.model.entity.MovieData
 import com.wildanka.moviecatalogue.view.DetailActivity
 
 class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<MovieRVAdapter.MovieViewHolder>() {
-    private var movieList : MutableList<Movie>? = null
+    private var movieList : MutableList<MovieData>? = null
 
-    fun setupMovieList(movies: MutableList<Movie>?) {
+    fun setupMovieList(movies: MutableList<MovieData>?) {
         movieList = movies
     }
 
@@ -46,15 +46,15 @@ class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<Movie
         private val tvShortDesc = itemView.findViewById<TextView>(R.id.tv_item_short_desc)
         private val ivPoster = itemView.findViewById<ImageView>(R.id.iv_item_movie_poster)
 
-        fun bind(movie: Movie, position: Int) {
+        fun bind(movie: MovieData, position: Int) {
             when {
-                movie.rating!!.toInt() > 70 -> tvRating.setTextColor(
+                movie.voteAverage!!.toInt() > 70 -> tvRating.setTextColor(
                     ContextCompat.getColor(
                         mContext,
                         R.color.colorGreen
                     )
                 )
-                movie.rating.toInt() > 40 -> tvRating.setTextColor(
+                movie.voteAverage.toInt() > 40 -> tvRating.setTextColor(
                     ContextCompat.getColor(
                         mContext,
                         R.color.colorYellow
@@ -68,10 +68,10 @@ class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<Movie
                 )
             }
             tvTitle.text = movie.title
-            tvRating.text = movie.rating
+            tvRating.text = movie.voteAverage
             tvReleaseDate.text = movie.releaseDate
-            tvShortDesc.text = movie.shortDesc
-            ivPoster.setImageResource(movie.posterUrl!!)
+            tvShortDesc.text = movie.overview
+//            ivPoster.setImageResource(movie.posterPath!!) use glide or picasso
 
             itemView.setOnClickListener {
                 mContext.startActivity(
