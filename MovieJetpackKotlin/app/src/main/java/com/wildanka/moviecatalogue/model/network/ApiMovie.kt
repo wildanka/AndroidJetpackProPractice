@@ -1,32 +1,42 @@
 package com.wildanka.moviecatalogue.model.network
 
-import android.graphics.Movie
-import com.wildanka.moviecatalogue.model.entity.*
+import com.wildanka.moviecatalogue.model.entity.MovieData
+import com.wildanka.moviecatalogue.model.entity.MovieFeeds
+import com.wildanka.moviecatalogue.model.entity.TVShowData
+import com.wildanka.moviecatalogue.model.entity.TVShowFeeds
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+
 interface ApiMovie {
-    @GET("discover/movie")
+    companion object{
+        const val MOVIE_CATEGORY = "movie"
+        const val TVSHOW_CATEGORY = "tv"
+    }
+
+    @GET("discover/{category}")
     fun loadMovieList(
+        @Path("category") categoryPath: String,
         @Query("api_key") apiKey: String,
         @Query("language") language: String //en-US
     ): Call<MovieFeeds>
 
-    @GET("discover/tv")
+    @GET("3/discover/tv")
     fun loadTVShowList(
         @Query("api_key") apiKey: String,
         @Query("language") language: String //en-US
     ): Call<TVShowFeeds>
 
-   @GET("discover/movie")
+    @GET("3/discover/movie")
     fun loadMovieData(
         @Query("api_key") apiKey: String,
         @Query("language") language: String //en-US
     ): Call<MovieData>
 
-    @GET("discover/tv")
+    @GET("3/discover/tv")
     fun loadTVShowData(
         @Query("api_key") apiKey: String,
         @Query("language") language: String //en-US

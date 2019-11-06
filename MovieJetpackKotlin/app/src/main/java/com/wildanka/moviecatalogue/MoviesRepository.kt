@@ -1,5 +1,6 @@
 package com.wildanka.moviecatalogue
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.wildanka.moviecatalogue.BuildConfig.API_V3_KEY
 import com.wildanka.moviecatalogue.model.entity.MovieData
@@ -7,7 +8,9 @@ import com.wildanka.moviecatalogue.model.entity.MovieFeeds
 import com.wildanka.moviecatalogue.model.entity.TVShowData
 import com.wildanka.moviecatalogue.model.entity.TVShowFeeds
 import com.wildanka.moviecatalogue.model.network.ApiMovie
+import com.wildanka.moviecatalogue.model.network.ApiMovie.Companion.MOVIE_CATEGORY
 import com.wildanka.moviecatalogue.util.ApiClient
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,14 +30,16 @@ class MoviesRepository {
 
     fun fetchMovieData(): MutableLiveData<MutableList<MovieData>>? {
         val movieList = MutableLiveData<MutableList<MovieData>>()
-        val call = placeHolderApi.loadMovieList(API_V3_KEY, "en")
+        val call = placeHolderApi.loadMovieList(MOVIE_CATEGORY, API_V3_KEY, "en")
         call.enqueue(object : Callback<MovieFeeds?> {
             override fun onFailure(call: Call<MovieFeeds?>, t: Throwable) {
                 t.printStackTrace()
             }
 
             override fun onResponse(call: Call<MovieFeeds?>, response: Response<MovieFeeds?>) {
+//                Log.e("MoviesRepository", response.body().toString())
                 movieList.value = response.body()?.movieList
+                Log.e("MoviesRepository", movieList.value?.get(0).toString())
             }
         })
 

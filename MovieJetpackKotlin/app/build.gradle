@@ -14,7 +14,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField "String", "BASE_URL", "\"https://www.thesportsdb.com/\""
+        buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
+        buildConfigField "String", "BASE_URL_POSTER", "\"https://image.tmdb.org/\""
+//        buildConfigField "String", "URL_IMG_WIDGET", "\"https://image.tmdb.org/t/p/w92/\""
+        buildConfigField "String", "URL_IMG_APP", "\"https://image.tmdb.org/t/p/w185/\""
         buildConfigField "String", "API_V3_KEY", "\"2ec0d4a8a64243b2ac9af2f09d9c0cbe\""
 //        buildConfigField "String", "API_V3_KEY", "\"45ec18bba7577246def2f223cb5aab54\""
     }
@@ -43,6 +46,11 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    //region image processor
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+    //endregion image processor
+
     //region network
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"

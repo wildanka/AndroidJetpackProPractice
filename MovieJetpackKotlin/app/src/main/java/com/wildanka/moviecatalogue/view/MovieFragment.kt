@@ -2,6 +2,7 @@ package com.wildanka.moviecatalogue.view
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +36,10 @@ class MovieFragment : Fragment() {
         rvMovie.adapter = rvAdapter
         viewModel.getMovieList()?.observe(this, Observer<MutableList<MovieData>> {
             if (it != null){
+                Log.e("MovieFragment", "KAGAK NULL BRUH ${it.size}")
                 rvAdapter.setupMovieList(it)
+            }else{
+                Log.e("MovieFragment", "NULL COY")
             }
         })
         return view

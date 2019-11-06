@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.wildanka.moviecatalogue.BuildConfig.URL_IMG_APP
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.model.entity.MovieData
 import com.wildanka.moviecatalogue.view.DetailActivity
@@ -18,6 +20,7 @@ class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<Movie
 
     fun setupMovieList(movies: MutableList<MovieData>?) {
         movieList = movies
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -48,13 +51,13 @@ class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<Movie
 
         fun bind(movie: MovieData, position: Int) {
             when {
-                movie.voteAverage!!.toInt() > 70 -> tvRating.setTextColor(
+                movie.voteAverage!! > 7 -> tvRating.setTextColor(
                     ContextCompat.getColor(
                         mContext,
                         R.color.colorGreen
                     )
                 )
-                movie.voteAverage.toInt() > 40 -> tvRating.setTextColor(
+                movie.voteAverage > 4 -> tvRating.setTextColor(
                     ContextCompat.getColor(
                         mContext,
                         R.color.colorYellow
@@ -67,11 +70,12 @@ class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<Movie
                     )
                 )
             }
+            println("$position ${movie.title}")
             tvTitle.text = movie.title
-            tvRating.text = movie.voteAverage
+            tvRating.text = movie.voteAverage.toString()
             tvReleaseDate.text = movie.releaseDate
             tvShortDesc.text = movie.overview
-//            ivPoster.setImageResource(movie.posterPath!!) use glide or picasso
+            Glide.with(mContext).load(URL_IMG_APP+movie.posterPath).into(ivPoster)
 
             itemView.setOnClickListener {
                 mContext.startActivity(
