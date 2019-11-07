@@ -81,7 +81,7 @@ class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<Movie
                 mContext.startActivity(
                     Intent(mContext, DetailActivity::class.java)
                         .putExtra("dataType", "MOVIE")
-                        .putExtra("index", position)
+                        .putExtra("movieID", movie.idMovie)
                 )
             }
         }

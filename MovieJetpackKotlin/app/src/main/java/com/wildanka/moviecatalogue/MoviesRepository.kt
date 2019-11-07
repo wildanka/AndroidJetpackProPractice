@@ -3,10 +3,7 @@ package com.wildanka.moviecatalogue
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.wildanka.moviecatalogue.BuildConfig.API_V3_KEY
-import com.wildanka.moviecatalogue.model.entity.MovieData
-import com.wildanka.moviecatalogue.model.entity.MovieFeeds
-import com.wildanka.moviecatalogue.model.entity.TVShowData
-import com.wildanka.moviecatalogue.model.entity.TVShowFeeds
+import com.wildanka.moviecatalogue.model.entity.*
 import com.wildanka.moviecatalogue.model.network.ApiMovie
 import com.wildanka.moviecatalogue.util.ApiClient
 import retrofit2.Call
@@ -50,25 +47,25 @@ class MoviesRepository {
         return tvShowList
     }
 
-    fun fetchMovieDataDetail(): MutableLiveData<MovieData>? {
-        val movie = MutableLiveData<MovieData>()
-        val call = placeHolderApi.loadMovieData(API_V3_KEY, "en")
-        call.enqueue(object : Callback<MovieData?> {
-            override fun onFailure(call: Call<MovieData?>, t: Throwable) {
+    fun fetchMovieDataDetail(movieId: String?): MutableLiveData<MovieDetail>? {
+        val movie = MutableLiveData<MovieDetail>()
+        val call = placeHolderApi.loadMovieDetail(movieId, API_V3_KEY)
+        call.enqueue(object : Callback<MovieDetail?> {
+            override fun onFailure(call: Call<MovieDetail?>, t: Throwable) {
                 t.printStackTrace()
             }
 
-            override fun onResponse(call: Call<MovieData?>, response: Response<MovieData?>) {
+            override fun onResponse(call: Call<MovieDetail?>, response: Response<MovieDetail?>) {
+                Log.e("fetchMovDataDetail", response.body().toString())
                 movie.value = response.body()
             }
         })
-
         return movie
     }
 
-    fun fetchTvShowDataDetail(): MutableLiveData<TVShowData>? {
+    fun fetchTvShowDataDetail(tvShowId: String?): MutableLiveData<TVShowData>? {
         val tvShow = MutableLiveData<TVShowData>()
-        val call = placeHolderApi.loadTVShowData(API_V3_KEY, "en")
+        val call = placeHolderApi.loadTVShowData(tvShowId, API_V3_KEY)
         call.enqueue(object : Callback<TVShowData?> {
             override fun onFailure(call: Call<TVShowData?>, t: Throwable) {
                 t.printStackTrace()
