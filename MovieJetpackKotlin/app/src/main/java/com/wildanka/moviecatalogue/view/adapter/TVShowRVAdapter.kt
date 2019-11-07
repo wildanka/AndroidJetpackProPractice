@@ -33,7 +33,7 @@ class TVShowRVAdapter(private val mContext: Context) : RecyclerView.Adapter<TVSh
 
     override fun onBindViewHolder(holder: TVShowViewHolder, position: Int) {
         val movie = tvShowList?.get(position)
-        movie?.let { holder.bind(it, position) }
+        movie?.let { holder.bind(it) }
     }
 
     inner class TVShowViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -43,7 +43,7 @@ class TVShowRVAdapter(private val mContext: Context) : RecyclerView.Adapter<TVSh
         private val tvShortDesc = itemView.findViewById<TextView>(R.id.tv_item_short_desc)
         private val ivPoster = itemView.findViewById<ImageView>(R.id.iv_item_movie_poster)
 
-        fun bind(tvShow : TVShowData, position : Int){
+        fun bind(tvShow : TVShowData){
             when {
                 tvShow.voteAverage!! > 7 -> tvRating.setTextColor(
                     ContextCompat.getColor(

@@ -38,7 +38,7 @@ class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<Movie
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = movieList?.get(position)
         if (movie != null) {
-            holder.bind(movie, position)
+            holder.bind(movie)
         }
     }
 
@@ -49,7 +49,7 @@ class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<Movie
         private val tvShortDesc = itemView.findViewById<TextView>(R.id.tv_item_short_desc)
         private val ivPoster = itemView.findViewById<ImageView>(R.id.iv_item_movie_poster)
 
-        fun bind(movie: MovieData, position: Int) {
+        fun bind(movie: MovieData) {
             when {
                 movie.voteAverage!! > 7 -> tvRating.setTextColor(
                     ContextCompat.getColor(
@@ -70,7 +70,6 @@ class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<Movie
                     )
                 )
             }
-            println("$position ${movie.title}")
             tvTitle.text = movie.title
             tvRating.text = movie.voteAverage.toString()
             tvReleaseDate.text = movie.releaseDate

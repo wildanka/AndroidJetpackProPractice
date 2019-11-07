@@ -43,24 +43,4 @@ interface ApiMovie {
         @Query("api_key") apiKey: String
     ): Call<MovieCredits>
 
-    @GET("t/p/{POSTER_SIZE}/POSTER_FILENAME")
-    fun loadMovieImages(
-        @Path("POSTER_SIZE") posterSize: String,
-        @Path("POSTER_FILENAME") posterFilename: String
-    ): Call<MovieData>
-
-
-    @GET("search/movie")
-    fun searchMovie(
-        @Query("api_key") apiKey: String,
-        @Query("language") language: String, //en-US
-        @Query("query") searchQuery: String
-    ): Call<MovieFeeds>
-
-    @GET("search/tv")
-    fun searchTVShow(
-        @Query("api_key") apiKey: String,
-        @Query("language") language: String, //en-US
-        @Query("query") searchQuery: String
-    ): Call<TVShowFeeds>
 }
