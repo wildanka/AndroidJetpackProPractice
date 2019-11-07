@@ -23,6 +23,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
         supportActionBar!!.setHomeButtonEnabled(true)
         val movieId: String? = intent.getStringExtra("movieID")
+        val tvShowId: String? = intent.getStringExtra("tvShowID")
         val type= intent.getStringExtra("dataType")
         val tvTitle = findViewById<TextView>(R.id.tv_title)
         val tvTagline = findViewById<TextView>(R.id.tv_tagline)
@@ -68,13 +69,38 @@ class DetailActivity : AppCompatActivity() {
                     castAdapter.setupMovieCastData(movieCreadits.casts)
                 }
             })
-//            val selectedMovie = viewModel.getMoviesAtIndex(index)
-//            tvTitle.text = selectedMovie?.title
-//            tvYear.text = selectedMovie?.releaseDate
-//            tvRating.text = selectedMovie?.rating
-//            tvOverview.text = selectedMovie?.overview
-//            ivMoviePosterDetail.setImageResource(selectedMovie?.posterUrl!!)
         }else{
+            Log.e("DetailActivity", tvShowId)
+            //load detail data
+            viewModel.getTVShowAtIndex(tvShowId)?.observe(this, Observer { tvShowData ->
+                if (tvShowData != null) {
+                    tvTitle.text = tvShowData.title
+                    tvYear.text = tvShowData.firstAirDate
+                    tvTagline.text = ""
+                    tvRating.text = getString(R.string.score_s, tvShowData.voteAverage.toString())
+                    tvOverview.text = tvShowData.overview
+                    tvDuration.text = ""
+                    tvPopularity.text = tvShowData.popularity
+                    //load genre
+                    var genresString: String? = ""
+                    for (genre in tvShowData.genres) {
+                        genresString = genresString + genre?.genreName + ", "
+                    }
+                    tvGenre.text = genresString
+                    Glide.with(this).load(URL_IMG_APP + tvShowData.posterPath).into(ivMoviePosterDetail)
+                }
+            })
+
+            //load cast data
+            val castAdapter = MovieCastAdapter(this)
+            rvCast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            rvCast.adapter = castAdapter
+
+            viewModel.getTVShowCastData(tvShowId)?.observe(this, Observer { movieCreadits ->
+                if (movieCreadits != null) {
+                    castAdapter.setupMovieCastData(movieCreadits.casts)
+                }
+            })
 //            val selectedTVShow= viewModel.getTVShowAtIndex(index)
 //            tvTitle.text = selectedTVShow?.title
 //            tvYear.text = selectedTVShow?.releaseDate

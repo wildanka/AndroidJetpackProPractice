@@ -25,18 +25,23 @@ interface ApiMovie {
         @Query("api_key") apiKey: String
     ): Call<MovieDetail>
 
+    @GET("tv/{tvShowId}")
+    fun loadTVShowDetail(
+        @Path("tvShowId") tvShowId: String?,
+        @Query("api_key") apiKey: String
+    ): Call<TVShowDetail>
+
     @GET("movie/{movieId}/credits")
     fun loadMovieCredits(
         @Path("movieId") movieId: String?,
         @Query("api_key") apiKey: String
     ): Call<MovieCredits>
 
-    @GET("discover/tv/{tvShowId}")
-    fun loadTVShowData(
+    @GET("tv/{tvShowId}/credits")
+    fun loadTVShowCredits(
         @Path("tvShowId") tvShowId: String?,
         @Query("api_key") apiKey: String
-    ): Call<TVShowData>
-
+    ): Call<MovieCredits>
 
     @GET("t/p/{POSTER_SIZE}/POSTER_FILENAME")
     fun loadMovieImages(

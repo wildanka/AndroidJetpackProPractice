@@ -69,7 +69,7 @@ class TVShowRVAdapter(private val mContext: Context) : RecyclerView.Adapter<TVSh
                 mContext.startActivity(
                     Intent(mContext, DetailActivity::class.java)
                         .putExtra("dataType", "TV_SHOW")
-                        .putExtra("index", position)
+                        .putExtra("tvShowID", tvShow.idTVShow)
                 )
             }
 

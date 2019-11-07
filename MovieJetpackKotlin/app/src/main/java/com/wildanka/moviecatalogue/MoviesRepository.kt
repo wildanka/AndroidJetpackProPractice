@@ -1,6 +1,5 @@
 package com.wildanka.moviecatalogue
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.wildanka.moviecatalogue.BuildConfig.API_V3_KEY
 import com.wildanka.moviecatalogue.model.entity.*
@@ -77,15 +76,30 @@ class MoviesRepository {
         return movieCredits
     }
 
-    fun fetchTvShowDataDetail(tvShowId: String?): MutableLiveData<TVShowData>? {
-        val tvShow = MutableLiveData<TVShowData>()
-        val call = placeHolderApi.loadTVShowData(tvShowId, API_V3_KEY)
-        call.enqueue(object : Callback<TVShowData?> {
-            override fun onFailure(call: Call<TVShowData?>, t: Throwable) {
+    fun fetchTVShowDetailCredits(tvShowId: String?): MutableLiveData<MovieCredits>? {
+        val movieCredits = MutableLiveData<MovieCredits>()
+        val call = placeHolderApi.loadTVShowCredits(tvShowId, API_V3_KEY)
+        call.enqueue(object : Callback<MovieCredits?> {
+            override fun onFailure(call: Call<MovieCredits?>, t: Throwable) {
                 t.printStackTrace()
             }
 
-            override fun onResponse(call: Call<TVShowData?>, response: Response<TVShowData?>) {
+            override fun onResponse(call: Call<MovieCredits?>, response: Response<MovieCredits?>) {
+                movieCredits.value = response.body()
+            }
+        })
+        return movieCredits
+    }
+
+    fun fetchTvShowDataDetail(tvShowId: String?): MutableLiveData<TVShowDetail>? {
+        val tvShow = MutableLiveData<TVShowDetail>()
+        val call = placeHolderApi.loadTVShowDetail(tvShowId, API_V3_KEY)
+        call.enqueue(object : Callback<TVShowDetail?> {
+            override fun onFailure(call: Call<TVShowDetail?>, t: Throwable) {
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<TVShowDetail?>, response: Response<TVShowDetail?>) {
                 tvShow.value = response.body()
             }
         })

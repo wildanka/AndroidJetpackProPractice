@@ -25,7 +25,7 @@ data class MovieDetail(
     @SerializedName("id") val idMovie: String?,
     @SerializedName("adult") val adult: Boolean?,
     @SerializedName("backdrop_path") val backdropPath: String?,
-    @SerializedName("genres") val genres: MutableList<Genres?>,
+    @SerializedName("genres") val genres: MutableList<Genre?>,
     @SerializedName("homepage") val homePageUrl: String?,
     @SerializedName("original_language") val originalLanguage: String?,
     @SerializedName("overview") val overview: String?,
@@ -39,9 +39,4 @@ data class MovieDetail(
     @SerializedName("title") val title: String?,
     @SerializedName("vote_average") val voteAverage: Double?,
     @SerializedName("vote_count") val voteCount: String?
-)
-
-data class Genres(
-    @SerializedName("id") val idGenres: String?,
-    @SerializedName("name") val genreName: String?
 )
