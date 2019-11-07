@@ -3,13 +3,17 @@ package com.wildanka.moviecatalogue.view
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wildanka.moviecatalogue.BuildConfig.URL_IMG_APP
 import com.wildanka.moviecatalogue.R
+import com.wildanka.moviecatalogue.view.adapter.MovieCastAdapter
 import com.wildanka.moviecatalogue.viewmodel.MoviesDetailViewModel
 
 class DetailActivity : AppCompatActivity() {
@@ -28,6 +32,7 @@ class DetailActivity : AppCompatActivity() {
         val tvPopularity = findViewById<TextView>(R.id.tv_popularity)
         val tvOverview = findViewById<TextView>(R.id.tv_overview)
         val tvGenre = findViewById<TextView>(R.id.tv_genre)
+        val rvCast = findViewById<RecyclerView>(R.id.rv_movie_casts)
         val ivMoviePosterDetail = findViewById<ImageView>(R.id.iv_movie_poster_detail)
         val viewModel = ViewModelProviders.of(this).get(MoviesDetailViewModel::class.java)
 
@@ -39,9 +44,9 @@ class DetailActivity : AppCompatActivity() {
                     tvTitle.text = movieDetails.title
                     tvYear.text = movieDetails.releaseDate
                     tvTagline.text = movieDetails.tagline
-                    tvRating.text = movieDetails.voteAverage.toString()
+                    tvRating.text = getString(R.string.score_s, movieDetails.voteAverage.toString())
                     tvOverview.text = movieDetails.overview
-                    tvDuration.text = "${movieDetails.duration.toString()} min."
+                    tvDuration.text = getString(R.string.duration_s_min, movieDetails.duration.toString())
                     tvPopularity.text = movieDetails.popularity
                     //load genre
                     var genresString: String? = ""
@@ -54,7 +59,15 @@ class DetailActivity : AppCompatActivity() {
             })
 
             //load cast data
+            val castAdapter = MovieCastAdapter(this)
+            rvCast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            rvCast.adapter = castAdapter
 
+            viewModel.getMoviesCastData(movieId)?.observe(this, Observer { movieCreadits ->
+                if (movieCreadits != null) {
+                    castAdapter.setupMovieCastData(movieCreadits.casts)
+                }
+            })
 //            val selectedMovie = viewModel.getMoviesAtIndex(index)
 //            tvTitle.text = selectedMovie?.title
 //            tvYear.text = selectedMovie?.releaseDate

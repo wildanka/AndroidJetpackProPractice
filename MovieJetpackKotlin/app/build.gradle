@@ -17,6 +17,7 @@ android {
         buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
         buildConfigField "String", "BASE_URL_POSTER", "\"https://image.tmdb.org/\""
 //        buildConfigField "String", "URL_IMG_WIDGET", "\"https://image.tmdb.org/t/p/w92/\""
+        buildConfigField "String", "URL_IMG_APP_92", "\"https://image.tmdb.org/t/p/w92/\""
         buildConfigField "String", "URL_IMG_APP", "\"https://image.tmdb.org/t/p/w185/\""
         buildConfigField "String", "API_V3_KEY", "\"2ec0d4a8a64243b2ac9af2f09d9c0cbe\""
         buildConfigField "String", "API_V4_KEY", "\"Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NWVjMThiYmE3NTc3MjQ2ZGVmMmYyMjNjYjVhYWI1NCIsInN1YiI6IjU4NDkyZjUxYzNhMzY4MTQyODAwZmU3NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.H_kg3cuViGTc1j_biREtfDeee1LdiMkAWW8DUxG1dqw\""

@@ -56,11 +56,25 @@ class MoviesRepository {
             }
 
             override fun onResponse(call: Call<MovieDetail?>, response: Response<MovieDetail?>) {
-                Log.e("fetchMovDataDetail", response.body().toString())
                 movie.value = response.body()
             }
         })
         return movie
+    }
+
+    fun fetchMovieDetailCredits(movieId: String?): MutableLiveData<MovieCredits>? {
+        val movieCredits = MutableLiveData<MovieCredits>()
+        val call = placeHolderApi.loadMovieCredits(movieId, API_V3_KEY)
+        call.enqueue(object : Callback<MovieCredits?> {
+            override fun onFailure(call: Call<MovieCredits?>, t: Throwable) {
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<MovieCredits?>, response: Response<MovieCredits?>) {
+                movieCredits.value = response.body()
+            }
+        })
+        return movieCredits
     }
 
     fun fetchTvShowDataDetail(tvShowId: String?): MutableLiveData<TVShowData>? {

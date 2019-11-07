@@ -22,5 +22,8 @@
     <string name="loading_duration">loading duration</string>
     <string name="genre_header">Genre :</string>
     <string name="empty">-</string>
+    <string name="loading_score">loading score</string>
+    <string name="score_s">Score: %1$s</string>
+    <string name="duration_s_min">%1$s min.</string>
 
 </resources>
