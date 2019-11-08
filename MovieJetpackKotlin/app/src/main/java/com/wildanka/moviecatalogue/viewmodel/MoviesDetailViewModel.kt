@@ -11,7 +11,7 @@ class MoviesDetailViewModel : ViewModel() {
     private var movieCredits : MutableLiveData<MovieCredits>? = null
     private var tvShowDetail : MutableLiveData<TVShowDetail>? = null
 
-    fun getMoviesAtIndex(movieId: String?): MutableLiveData<MovieDetail>? {
+    fun getMoviesDetailWithID(movieId: String?): MutableLiveData<MovieDetail>? {
         if (movieDetail == null) movieDetail = repo.fetchMovieDataDetail(movieId)
         return movieDetail
     }
@@ -20,7 +20,7 @@ class MoviesDetailViewModel : ViewModel() {
         return movieCredits
     }
 
-    fun getTVShowAtIndex(tvShowId: String?): MutableLiveData<TVShowDetail>? {
+    fun getTVShowDetailWithId(tvShowId: String?): MutableLiveData<TVShowDetail>? {
         if (tvShowDetail == null) tvShowDetail = repo.fetchTvShowDataDetail(tvShowId)
         return tvShowDetail
     }

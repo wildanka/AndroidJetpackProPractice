@@ -41,7 +41,7 @@ class DetailActivity : AppCompatActivity() {
             Log.e("DetailActivity", movieId)
             //load detail data
             EspressoIdlingResource.increment()
-            viewModel.getMoviesAtIndex(movieId)?.observe(this, Observer { movieDetails ->
+            viewModel.getMoviesDetailWithID(movieId)?.observe(this, Observer { movieDetails ->
                 if (movieDetails != null) {
                     tvTitle.text = movieDetails.title
                     tvYear.text = movieDetails.releaseDate
@@ -77,7 +77,7 @@ class DetailActivity : AppCompatActivity() {
             Log.e("DetailActivity", tvShowId)
             //load detail data
             EspressoIdlingResource.increment()
-            viewModel.getTVShowAtIndex(tvShowId)?.observe(this, Observer { tvShowData ->
+            viewModel.getTVShowDetailWithId(tvShowId)?.observe(this, Observer { tvShowData ->
                 if (tvShowData != null) {
                     tvTitle.text = tvShowData.title
                     tvYear.text = tvShowData.firstAirDate
