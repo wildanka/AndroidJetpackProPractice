@@ -69,7 +69,7 @@ class DetailActivity : AppCompatActivity() {
             EspressoIdlingResource.increment()
             viewModel.getMoviesCastData(movieId)?.observe(this, Observer { movieCreadits ->
                 if (movieCreadits != null) {
-                    castAdapter.setupMovieCastData(movieCreadits.casts)
+                    castAdapter.setupMovieCastData(movieCreadits.cast)
                 }
                 if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
             })
@@ -105,7 +105,7 @@ class DetailActivity : AppCompatActivity() {
             EspressoIdlingResource.increment()
             viewModel.getTVShowCastData(tvShowId)?.observe(this, Observer { movieCreadits ->
                 if (movieCreadits != null) {
-                    castAdapter.setupMovieCastData(movieCreadits.casts)
+                    castAdapter.setupMovieCastData(movieCreadits.cast)
                 }
                 if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
             })

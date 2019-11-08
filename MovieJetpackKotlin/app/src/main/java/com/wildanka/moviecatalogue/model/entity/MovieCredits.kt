@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class MovieCredits(
     @SerializedName("id") val idMovie: String?,
-    @SerializedName("cast") val casts: MutableList<MovieCast>
+    @SerializedName("cast") val cast: MutableList<MovieCast>
 )
 
 data class MovieCast(

@@ -2,7 +2,6 @@ package com.wildanka.moviecatalogue.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.wildanka.moviecatalogue.MoviesRepository
-import com.wildanka.moviecatalogue.model.entity.*
 import com.wildanka.moviecatalogue.util.getOrAwaitValue
 import org.junit.Assert
 import org.junit.Before
@@ -10,7 +9,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
-import java.math.BigInteger
 
 
 class MoviesDetailViewModelTest {
@@ -30,7 +28,7 @@ class MoviesDetailViewModelTest {
     }
 
     @Test
-    fun getMoviesAtIndex() {
+    fun getMoviesDetailWithID() {
         // tes ketika meload detail dari Movie dari Viewmodel,
         // ketika user memilih data ke-0 maka result seharusnya adalah film berjudul "A Star Is Born"
         val movieIndex = "475557"
@@ -43,7 +41,25 @@ class MoviesDetailViewModelTest {
     }
 
     @Test
-    fun getTVShowAtIndex() {
+    fun getMoviesCastData() {
+        // tes ketika meload detail dari Movie dari Viewmodel,
+        // ketika user memilih data ke-0 maka result seharusnya adalah film berjudul "A Star Is Born"
+        val movieIndex = "475557"
+        val expectedActor = "Joaquin Phoenix"
+        val expectedCharacter = "Arthur Fleck / Joker"
+        moviesDetailViewModel.getMoviesCastData(movieIndex)
+        Assert.assertEquals(
+            expectedActor,
+            moviesDetailViewModel.getMoviesCastData(movieIndex)?.getOrAwaitValue()?.cast?.get(0)?.name
+        )
+        Assert.assertEquals(
+            expectedCharacter,
+            moviesDetailViewModel.getMoviesCastData(movieIndex)?.getOrAwaitValue()?.cast?.get(0)?.character
+        )
+    }
+
+    @Test
+    fun getTVShowDetailWithId() {
         // tes ketika meload detail dari TV Show dari Viewmodel,
         // ketika user memilih data ke-0 maka result seharusnya adalah acara TV berjudul "Arrow"
         val movieIndex = "71712"
@@ -54,4 +70,23 @@ class MoviesDetailViewModelTest {
             moviesDetailViewModel.getTVShowDetailWithId(movieIndex)?.getOrAwaitValue()?.title
         )
     }
+
+    @Test
+    fun getTVShowCastData() {
+        // tes ketika meload detail dari Movie dari Viewmodel,
+        // ketika user memilih data ke-0 maka result seharusnya adalah film berjudul "A Star Is Born"
+        val movieIndex = "71712"
+        val expectedActor = "Freddie Highmore"
+        val expectedCharacter = "Shaun Murphy"
+//        moviesDetailViewModel.getMoviesCastData(movieIndex)
+        Assert.assertEquals(
+            expectedActor,
+            moviesDetailViewModel.getTVShowCastData(movieIndex)?.getOrAwaitValue()?.cast?.get(0)?.name
+        )
+        Assert.assertEquals(
+            expectedCharacter,
+            moviesDetailViewModel.getTVShowCastData(movieIndex)?.getOrAwaitValue()?.cast?.get(0)?.character
+        )
+    }
+
 }
