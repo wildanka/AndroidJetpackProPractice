@@ -18,7 +18,6 @@ import com.wildanka.moviecatalogue.model.entity.MovieData
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import com.wildanka.moviecatalogue.view.adapter.MovieRVAdapter
 import com.wildanka.moviecatalogue.viewmodel.MainMoviesViewModel
-import kotlinx.android.synthetic.main.fragment_movie.*
 
 /**
  * Fragment for displaying Movie / TV Show lists.
@@ -34,11 +33,13 @@ class MovieFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_movie, container, false)
+        return inflater.inflate(R.layout.fragment_movie, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         rvMovie = view.findViewById(R.id.rv_movie)
         pbMovies = view.findViewById(R.id.pb_movies)
         srlMovies = view.findViewById(R.id.srl_movies)
-
         pbMovies.visibility = View.VISIBLE
 
         val viewModel = ViewModelProviders.of(this).get(MainMoviesViewModel::class.java)
@@ -51,7 +52,7 @@ class MovieFragment : Fragment() {
         srlMovies.setOnRefreshListener {
             observeData(viewModel, rvAdapter)
         }
-        return view
+        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun observeData(viewModel: MainMoviesViewModel, rvAdapter: MovieRVAdapter) {
