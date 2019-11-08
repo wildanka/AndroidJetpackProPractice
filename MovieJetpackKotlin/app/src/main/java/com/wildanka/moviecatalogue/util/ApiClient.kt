@@ -13,23 +13,11 @@ object ApiClient{
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
 
-    private fun iniRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    fun <T> createServices(service: Class<T>): T {
-        return iniRetrofit().create(service)
-    }
-
-
     fun <S> createService(serviceClass: Class<S>): S {
         return createService(serviceClass, null)
     }
 
-    fun <S> createService(serviceClass: Class<S>, authToken: String?): S {
+    private fun <S> createService(serviceClass: Class<S>, authToken: String?): S {
         //since we don't use authToken headers for TSDB API
         val client = httpClient.build()
         val retrofit = builder.client(client).build()
