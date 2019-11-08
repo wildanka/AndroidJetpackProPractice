@@ -60,7 +60,7 @@ class MainActivityTest {
 
     @Test
     fun testMovieRecyclerBehavior() {
-        // Lakukan klik pada item di posisi ke 2 (indeks dimulai dari 0) - Aquaman
+        // Lakukan klik pada item di posisi ke 0 - Joker
         onView(allOf(isDisplayed(), withId(R.id.rv_movie)))
             .perform(RecyclerViewActions.actionOnItemAtPosition<MovieRVAdapter.MovieViewHolder>(0, click()))
 //        SystemClock.sleep(1600) // Wait a little until the content is loaded
@@ -72,7 +72,7 @@ class MainActivityTest {
 
     @Test
     fun testTVShowRecyclerBehavior() {
-        // Lakukan klik pada item di posisi ke 11 (indeks dimulai dari 0) - Naruto Shippuden
+        // Lakukan klik pada item di posisi ke 4 (indeks dimulai dari 0) - The Flash
         val matcher = allOf(
             withText("TV SHOW"),
             isDescendantOfA(withId(R.id.tl_menu))

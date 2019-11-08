@@ -60,7 +60,7 @@ class MoviesDetailViewModelTest {
     }
 
     @Test
-    fun getTVShowDetailWithId() {
+    fun getTVShowDetailWithID() {
         // tes ketika meload detail dari TV Show dari Viewmodel,
         // ketika user memilih data TVShow dengan ID = 71712,
         // maka result seharusnya adalah acara TV berjudul "The Good Doctor"
