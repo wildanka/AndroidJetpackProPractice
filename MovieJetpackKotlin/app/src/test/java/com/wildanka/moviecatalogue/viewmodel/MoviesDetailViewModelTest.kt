@@ -30,7 +30,7 @@ class MoviesDetailViewModelTest {
     @Test
     fun getMoviesDetailWithID() {
         // tes ketika meload detail dari Movie dari Viewmodel,
-        // ketika user memilih data ke-0 maka result seharusnya adalah film berjudul "A Star Is Born"
+        // ketika user memilih data dengan movie ID = 475557 maka result seharusnya adalah film berjudul "Joker"
         val movieIndex = "475557"
         val expectedTitle = "Joker"
         moviesDetailViewModel.getMoviesDetailWithID(movieIndex)
@@ -42,8 +42,9 @@ class MoviesDetailViewModelTest {
 
     @Test
     fun getMoviesCastData() {
-        // tes ketika meload detail dari Movie dari Viewmodel,
-        // ketika user memilih data ke-0 maka result seharusnya adalah film berjudul "A Star Is Born"
+        // tes ketika meload cast Movie dari Viewmodel,
+        // ketika user memilih data movie dengan ID 475557
+        // maka result seharusnya adalah aktor bernama "Joaquin Phoenix" dengan character "Arthur Fleck / Joker"
         val movieIndex = "475557"
         val expectedActor = "Joaquin Phoenix"
         val expectedCharacter = "Arthur Fleck / Joker"
@@ -61,7 +62,8 @@ class MoviesDetailViewModelTest {
     @Test
     fun getTVShowDetailWithId() {
         // tes ketika meload detail dari TV Show dari Viewmodel,
-        // ketika user memilih data ke-0 maka result seharusnya adalah acara TV berjudul "Arrow"
+        // ketika user memilih data TVShow dengan ID = 71712,
+        // maka result seharusnya adalah acara TV berjudul "The Good Doctor"
         val movieIndex = "71712"
         val expectedName = "The Good Doctor"
         moviesDetailViewModel.getTVShowDetailWithId(movieIndex)
@@ -73,12 +75,12 @@ class MoviesDetailViewModelTest {
 
     @Test
     fun getTVShowCastData() {
-        // tes ketika meload detail dari Movie dari Viewmodel,
-        // ketika user memilih data ke-0 maka result seharusnya adalah film berjudul "A Star Is Born"
+        // tes ketika meload cast Movie dari Viewmodel,
+        // ketika user memilih data movie dengan ID 71712
+        // maka result seharusnya adalah aktor bernama "Freddie Highmore" dengan character "Shaun Murphy"
         val movieIndex = "71712"
         val expectedActor = "Freddie Highmore"
         val expectedCharacter = "Shaun Murphy"
-//        moviesDetailViewModel.getMoviesCastData(movieIndex)
         Assert.assertEquals(
             expectedActor,
             moviesDetailViewModel.getTVShowCastData(movieIndex)?.getOrAwaitValue()?.cast?.get(0)?.name
