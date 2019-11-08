@@ -10,18 +10,22 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.wildanka.moviecatalogue.BuildConfig.URL_IMG_APP
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import com.wildanka.moviecatalogue.view.adapter.MovieCastAdapter
 import com.wildanka.moviecatalogue.viewmodel.MoviesDetailViewModel
+import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
+    private lateinit var shimmerViewContainer: ShimmerFrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         supportActionBar!!.setHomeButtonEnabled(true)
+        shimmerViewContainer = shimmer_view_container
         val movieId: String? = intent.getStringExtra("movieID")
         val tvShowId: String? = intent.getStringExtra("tvShowID")
         val type= intent.getStringExtra("dataType")
@@ -68,6 +72,7 @@ class DetailActivity : AppCompatActivity() {
 
             EspressoIdlingResource.increment()
             viewModel.getMoviesCastData(movieId)?.observe(this, Observer { movieCreadits ->
+                shimmerViewContainer.hideShimmer()
                 if (movieCreadits != null) {
                     castAdapter.setupMovieCastData(movieCreadits.cast)
                 }
@@ -104,6 +109,10 @@ class DetailActivity : AppCompatActivity() {
 
             EspressoIdlingResource.increment()
             viewModel.getTVShowCastData(tvShowId)?.observe(this, Observer { movieCreadits ->
+                shimmerViewContainer.hideShimmer()
+//                shimmerViewContainer.stopShimmer()
+//                shimmerViewContainer.clearAnimation()
+
                 if (movieCreadits != null) {
                     castAdapter.setupMovieCastData(movieCreadits.cast)
                 }
