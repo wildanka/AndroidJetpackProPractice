@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.model.entity.MovieData
+import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import com.wildanka.moviecatalogue.view.adapter.MovieRVAdapter
 import com.wildanka.moviecatalogue.viewmodel.MainMoviesViewModel
 
@@ -34,6 +35,8 @@ class MovieFragment : Fragment() {
         val rvAdapter = MovieRVAdapter(activity!!)
         rvMovie.layoutManager = LinearLayoutManager(activity!!)
         rvMovie.adapter = rvAdapter
+        EspressoIdlingResource.increment()
+        // Get Data dari API
         viewModel.getMovieList()?.observe(this, Observer<MutableList<MovieData>> {
             if (it != null){
                 Log.e("MovieFragment", "KAGAK NULL BRUH ${it.size}")
@@ -41,6 +44,8 @@ class MovieFragment : Fragment() {
             }else{
                 Log.e("MovieFragment", "NULL COY")
             }
+
+            if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
         })
         return view
     }

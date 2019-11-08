@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wildanka.moviecatalogue.BuildConfig.URL_IMG_APP
 import com.wildanka.moviecatalogue.R
+import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import com.wildanka.moviecatalogue.view.adapter.MovieCastAdapter
 import com.wildanka.moviecatalogue.viewmodel.MoviesDetailViewModel
 
@@ -39,6 +40,7 @@ class DetailActivity : AppCompatActivity() {
         if (type == "MOVIE"){
             Log.e("DetailActivity", movieId)
             //load detail data
+            EspressoIdlingResource.increment()
             viewModel.getMoviesAtIndex(movieId)?.observe(this, Observer { movieDetails ->
                 if (movieDetails != null) {
                     tvTitle.text = movieDetails.title
@@ -56,6 +58,7 @@ class DetailActivity : AppCompatActivity() {
                     tvGenre.text = genresString
                     Glide.with(this).load(URL_IMG_APP + movieDetails.posterPath).into(ivMoviePosterDetail)
                 }
+                if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
             })
 
             //load cast data
@@ -63,14 +66,17 @@ class DetailActivity : AppCompatActivity() {
             rvCast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             rvCast.adapter = castAdapter
 
+            EspressoIdlingResource.increment()
             viewModel.getMoviesCastData(movieId)?.observe(this, Observer { movieCreadits ->
                 if (movieCreadits != null) {
                     castAdapter.setupMovieCastData(movieCreadits.casts)
                 }
+                if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
             })
         }else{
             Log.e("DetailActivity", tvShowId)
             //load detail data
+            EspressoIdlingResource.increment()
             viewModel.getTVShowAtIndex(tvShowId)?.observe(this, Observer { tvShowData ->
                 if (tvShowData != null) {
                     tvTitle.text = tvShowData.title
@@ -88,6 +94,7 @@ class DetailActivity : AppCompatActivity() {
                     tvGenre.text = genresString
                     Glide.with(this).load(URL_IMG_APP + tvShowData.posterPath).into(ivMoviePosterDetail)
                 }
+                if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
             })
 
             //load cast data
@@ -95,17 +102,13 @@ class DetailActivity : AppCompatActivity() {
             rvCast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             rvCast.adapter = castAdapter
 
+            EspressoIdlingResource.increment()
             viewModel.getTVShowCastData(tvShowId)?.observe(this, Observer { movieCreadits ->
                 if (movieCreadits != null) {
                     castAdapter.setupMovieCastData(movieCreadits.casts)
                 }
+                if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
             })
-//            val selectedTVShow= viewModel.getTVShowAtIndex(index)
-//            tvTitle.text = selectedTVShow?.title
-//            tvYear.text = selectedTVShow?.releaseDate
-//            tvRating.text = selectedTVShow?.rating
-//            tvOverview.text = selectedTVShow?.overview
-//            ivMoviePosterDetail.setImageResource(selectedTVShow?.posterUrl!!)
         }
     }
 }

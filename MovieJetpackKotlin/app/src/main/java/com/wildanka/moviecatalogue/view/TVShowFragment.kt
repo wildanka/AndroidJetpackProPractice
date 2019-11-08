@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.model.entity.TVShowData
+import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import com.wildanka.moviecatalogue.view.adapter.TVShowRVAdapter
 import com.wildanka.moviecatalogue.viewmodel.MainMoviesViewModel
 
@@ -33,10 +34,12 @@ class TVShowFragment : Fragment() {
         val rvAdapter = TVShowRVAdapter(activity!!)
         rvMovie.layoutManager = LinearLayoutManager(activity!!)
         rvMovie.adapter = rvAdapter
+        EspressoIdlingResource.increment()
         viewModel.getTVShowList()?.observe(this, Observer<MutableList<TVShowData>> {
             if (it != null){
                 rvAdapter.setupTVShowList(it)
             }
+            if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
         })
 
         return view
