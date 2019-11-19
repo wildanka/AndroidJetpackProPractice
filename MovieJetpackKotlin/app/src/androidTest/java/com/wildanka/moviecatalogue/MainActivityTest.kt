@@ -1,6 +1,5 @@
 package com.wildanka.moviecatalogue
 
-import android.os.SystemClock
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
@@ -55,18 +54,16 @@ class MainActivityTest {
             isDescendantOfA(withId(R.id.tl_menu))
         )
         onView(matcher).perform(click())
-        SystemClock.sleep(800) // Wait a little until the content is loaded
     }
 
     @Test
     fun testMovieRecyclerBehavior() {
+        //buat dummy data objek movie
         // Lakukan klik pada item di posisi ke 0 - Joker
         onView(allOf(isDisplayed(), withId(R.id.rv_movie)))
             .perform(RecyclerViewActions.actionOnItemAtPosition<MovieRVAdapter.MovieViewHolder>(0, click()))
-//        SystemClock.sleep(1600) // Wait a little until the content is loaded
 
-        //cek ketika detail Movie di klik apakah menampilkan detail dari Movie berjudul "Aquaman"?
-        val titleMatcher= withText("Joker")
+        val titleMatcher= withId(R.id.tv_title)
         onView(withId(R.id.tv_title)).check(matches(titleMatcher))
     }
 
@@ -81,10 +78,8 @@ class MainActivityTest {
         onView(allOf(isDisplayed(), withId(R.id.rv_movie)))
             .perform(RecyclerViewActions.actionOnItemAtPosition<TVShowRVAdapter.TVShowViewHolder>(4, click()))
 
-        //cek ketika detail TV Show di klik apakah menampilkan detail dari TV Show berjudul "Naruto Shippuden"?
-        val titleMatcher= withText("The Flash")
+        val titleMatcher= withId(R.id.tv_title)
         onView(withId(R.id.tv_title)).check(matches(titleMatcher))
-//        SystemClock.sleep(1600) // Wait a little until the content is loaded
     }
 
 }
