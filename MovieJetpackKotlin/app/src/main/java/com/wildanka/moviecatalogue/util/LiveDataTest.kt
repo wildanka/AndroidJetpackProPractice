@@ -7,9 +7,10 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
 /* Copyright 2019 Google LLC.
-   SPDX-License-Identifier: Apache-2.0 */
+   SPDX-License-Identifier: Apache-2.0
+   Author: Jose Alcérreca
+*/
 
-//Source : https://medium.com/androiddevelopers/unit-testing-livedata-and-other-common-observability-problems-bb477262eb04
 fun <T> LiveData<T>.getOrAwaitValue(
     time: Long = 10, // 10 seconds await time (bisi koneksina lila)
     timeUnit: TimeUnit = TimeUnit.SECONDS

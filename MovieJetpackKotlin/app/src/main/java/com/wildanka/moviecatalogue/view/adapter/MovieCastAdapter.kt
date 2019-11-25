@@ -1,6 +1,5 @@
 package com.wildanka.moviecatalogue.view.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,24 +11,19 @@ import com.wildanka.moviecatalogue.BuildConfig
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.model.entity.MovieCast
 
-class MovieCastAdapter(private val mContext: Context?) : RecyclerView.Adapter<MovieCastAdapter.MovieCastViewHolder>() {
+class MovieCastAdapter : RecyclerView.Adapter<MovieCastAdapter.MovieCastViewHolder>() {
     private var movieCast : MutableList<MovieCast>? = null
-
     fun setupMovieCastData(movieCast: MutableList<MovieCast>?){
         this.movieCast = movieCast
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieCastViewHolder {
-        val itemView = LayoutInflater.from(mContext).inflate(R.layout.item_cast, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_cast, parent, false)
         return MovieCastViewHolder(itemView)
     }
 
     override fun getItemCount(): Int {
-        return if (movieCast != null) {
-            movieCast!!.size
-        }else{
-            0
-        }
+        return movieCast?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: MovieCastViewHolder, position: Int) {
@@ -45,9 +39,7 @@ class MovieCastAdapter(private val mContext: Context?) : RecyclerView.Adapter<Mo
         fun bind(movieCast: MovieCast?){
             tvCastName.text = movieCast?.name
             tvCastRole.text = movieCast?.character
-            if (mContext != null) {
-                Glide.with(mContext).load(BuildConfig.URL_IMG_APP_92+movieCast?.profilePath).into(ivCastPict)
-            }
+            Glide.with(itemView.context).load(BuildConfig.URL_IMG_APP_92+movieCast?.profilePath).into(ivCastPict)
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.wildanka.moviecatalogue.view
 
-
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,10 +18,6 @@ import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import com.wildanka.moviecatalogue.view.adapter.MovieRVAdapter
 import com.wildanka.moviecatalogue.viewmodel.MainMoviesViewModel
 
-/**
- * Fragment for displaying Movie / TV Show lists.
- *
- */
 class MovieFragment : Fragment() {
     private lateinit var srlMovies: SwipeRefreshLayout
     private lateinit var pbMovies: ProgressBar

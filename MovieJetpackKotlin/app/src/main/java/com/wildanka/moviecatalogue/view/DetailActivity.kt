@@ -66,7 +66,7 @@ class DetailActivity : AppCompatActivity() {
             })
 
             //load cast data
-            val castAdapter = MovieCastAdapter(this)
+            val castAdapter = MovieCastAdapter()
             rvCast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             rvCast.adapter = castAdapter
 
@@ -103,15 +103,13 @@ class DetailActivity : AppCompatActivity() {
             })
 
             //load cast data
-            val castAdapter = MovieCastAdapter(this)
+            val castAdapter = MovieCastAdapter()
             rvCast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             rvCast.adapter = castAdapter
 
             EspressoIdlingResource.increment()
             viewModel.getTVShowCastData(tvShowId)?.observe(this, Observer { movieCreadits ->
                 shimmerViewContainer.hideShimmer()
-//                shimmerViewContainer.stopShimmer()
-//                shimmerViewContainer.clearAnimation()
 
                 if (movieCreadits != null) {
                     castAdapter.setupMovieCastData(movieCreadits.cast)

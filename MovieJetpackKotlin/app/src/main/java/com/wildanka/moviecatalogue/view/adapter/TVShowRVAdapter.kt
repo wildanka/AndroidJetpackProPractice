@@ -33,7 +33,7 @@ class TVShowRVAdapter(private val mContext: Context) : RecyclerView.Adapter<TVSh
 
     override fun onBindViewHolder(holder: TVShowViewHolder, position: Int) {
         val movie = tvShowList?.get(position)
-        movie?.let { holder.bind(it) }
+        movie?.let(holder::bind)
     }
 
     inner class TVShowViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
