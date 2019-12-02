@@ -78,7 +78,7 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
     testImplementation "org.mockito:mockito-inline:$mockito_version"
     testImplementation group: 'org.mockito', name: 'mockito-core', version: "$mockito_version"
-    testImplementation("androidx.arch.core:core-testing:$lifecycle_version"){
+    testImplementation("androidx.arch.core:core-testing:$lifecycle_version") {
         exclude group: 'org.mockito', module: 'mockito-core'
     }
     androidTestImplementation("androidx.arch.core:core-testing:$lifecycle_version") {

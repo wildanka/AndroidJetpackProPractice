@@ -7,4 +7,6 @@
               android:label="MovieFragment" tools:layout="@layout/fragment_movie"/>
     <fragment android:id="@+id/tvShowFragment" android:name="com.wildanka.moviecatalogue.view.TVShowFragment"
               android:label="TVShowFragment" tools:layout="@layout/fragment_movie"/>
+    <fragment android:id="@+id/favoritesFragment" android:name="com.wildanka.moviecatalogue.view.FavoritesFragment"
+              android:label="FavoritesFragment" tools:layout="@layout/fragment_favorites"/>
 </navigation>
