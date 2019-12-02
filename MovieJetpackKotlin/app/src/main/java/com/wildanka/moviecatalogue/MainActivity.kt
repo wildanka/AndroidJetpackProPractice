@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.wildanka.moviecatalogue.view.MovieFragment
 import com.wildanka.moviecatalogue.view.TVShowFragment
-import com.wildanka.moviecatalogue.view.adapter.MovieFSPAdapter
+import com.wildanka.moviecatalogue.view.adapter.MovieFragmentPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,11 +19,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        val adapter = MovieFSPAdapter(supportFragmentManager)
-        adapter.addFragment(MovieFragment(), "Movie")
-        adapter.addFragment(TVShowFragment(), "TV Show")
-        vp_movie.adapter = adapter
-        tl_menu.setupWithViewPager(vp_movie)
+        val navView : BottomNavigationView = findViewById(R.id.nav_view)
+        val navController = findNavController(R.id.nav_host_fragment)
+        navView.setupWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
