@@ -12,7 +12,7 @@ interface FavoritesDao{
     fun getAllFavoriteMovies(): LiveData<List<MovieData>>
 
     @Query("SELECT * FROM movies WHERE movie_id LIKE :idMovie LIMIT 1")
-    fun getFavoriteMovieDetails(idMovie: String): LiveData<MovieData>
+    fun getFavoriteMovieDetails(idMovie: String?): LiveData<MovieData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFavoriteMovie(movieDataFavorite: MovieData)

@@ -13,7 +13,7 @@ class FavoritesRepository(application: Application) {
     init {
         executorService = Executors.newSingleThreadExecutor()
 
-        val db = MovieCatalogueDatabase.getDatabase(application)
+        val db = MovieCatalogueDatabase.getInstance(application)
         mFavoritesDao = db?.favoritesDao()
     }
 
@@ -31,5 +31,9 @@ class FavoritesRepository(application: Application) {
         executorService?.execute(Runnable {
             mFavoritesDao?.deleteFavoriteMovie(favoriteMovieData)
         })
+    }
+
+    fun getFavoriteMoviesDetails(idMovie: String?) : LiveData<MovieData>? {
+        return mFavoritesDao?.getFavoriteMovieDetails(idMovie)
     }
 }

@@ -23,8 +23,8 @@ class FavoritesFragment : Fragment() {
 
         val vpMovie = rootView.findViewById<ViewPager>(R.id.vp_movie)
         val tlMenu = rootView.findViewById<TabLayout>(R.id.tl_menu)
-        adapter.addFragment(MovieFragment(), "Movies")
-        adapter.addFragment(TVShowFragment(), "TV Shows")
+        adapter.addFragment(FavoritesMovieFragment(), "Movies")
+        adapter.addFragment(FavoritesTVShowFragment(), "TV Shows")
         vpMovie.adapter = adapter
         tlMenu.setupWithViewPager(vpMovie)
         return rootView
