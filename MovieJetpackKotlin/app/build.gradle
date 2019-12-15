@@ -76,9 +76,9 @@ dependencies {
     //region room
     implementation "android.arch.persistence.room:runtime:$room_version"
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "android.arch.persistence.room:compiler:$room_version"
+    kapt "android.arch.persistence.room:compiler:$room_version"
     // use kapt for Kotlin
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
     // For Kotlin use kapt instead of annotationProcessor
 //    implementation "androidx.room:room-rxjava2:$room_version" // optional - RxJava support for Room
     implementation "androidx.room:room-guava:$room_version"

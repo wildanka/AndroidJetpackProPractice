@@ -1,18 +1,32 @@
 package com.wildanka.moviecatalogue.model.entity
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.math.BigInteger
 
+@Entity(tableName = "tv_show")
 data class TVShowData(
-    @SerializedName("id") val idTVShow: String?,
-    @SerializedName("vote_count") val voteCount: BigInteger?,
+    @PrimaryKey
+    @ColumnInfo(name = "tv_show_id") @SerializedName("id") val idTVShow: String,
+    @ColumnInfo(name = "vote_count")
+    @SerializedName("vote_count") val voteCount: Long?,
+    @ColumnInfo(name = "original_name")
     @SerializedName("original_name") val originalName: String?,
+    @ColumnInfo(name = "name")
     @SerializedName("name") val title: String?,
+    @ColumnInfo(name = "first_air_date")
     @SerializedName("first_air_date") val airDate: String?,
+    @ColumnInfo(name = "vote_average")
     @SerializedName("vote_average") val voteAverage: Double?,
+    @ColumnInfo(name = "overview")
     @SerializedName("overview") val overview: String?,
+    @ColumnInfo(name = "poster_path")
     @SerializedName("poster_path") val posterPath: String?,
+    @ColumnInfo(name = "original_language")
     @SerializedName("original_language") val originalLanguage: String?,
+    @ColumnInfo(name = "popularity")
     @SerializedName("popularity") val popularity: String?
 )
 

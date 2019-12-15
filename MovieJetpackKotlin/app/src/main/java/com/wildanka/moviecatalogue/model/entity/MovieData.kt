@@ -10,9 +10,9 @@ import java.math.BigInteger
 data class MovieData(
     @PrimaryKey
     @ColumnInfo(name = "movie_id")
-    @SerializedName("id") val idMovie: String?,
+    @SerializedName("id") val idMovie: String,
     @ColumnInfo(name = "vote_count")
-    @SerializedName("vote_count") val voteCount: BigInteger?,
+    @SerializedName("vote_count") val voteCount: Long?,
     @ColumnInfo(name = "title")
     @SerializedName("title") val title: String?,
     @ColumnInfo(name = "release_date")

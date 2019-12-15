@@ -1,12 +1,10 @@
 package com.wildanka.moviecatalogue.model.db
 
 import androidx.lifecycle.LiveData
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.wildanka.moviecatalogue.model.entity.MovieData
 
+@Dao
 interface FavoritesDao{
     @Query("SELECT * FROM movies")
     fun getAllFavoriteMovies(): LiveData<List<MovieData>>
