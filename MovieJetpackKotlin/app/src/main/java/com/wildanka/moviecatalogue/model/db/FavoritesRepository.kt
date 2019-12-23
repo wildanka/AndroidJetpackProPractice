@@ -2,9 +2,7 @@ package com.wildanka.moviecatalogue.model.db
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.wildanka.moviecatalogue.model.entity.MovieData
-import com.wildanka.moviecatalogue.model.entity.MovieDetail
-import com.wildanka.moviecatalogue.model.entity.MovieFavorites
+import com.wildanka.moviecatalogue.model.entity.FavoriteMovie
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -19,23 +17,23 @@ class FavoritesRepository(application: Application) {
         mFavoritesDao = db?.favoritesDao()
     }
 
-    fun getAllFavoriteMovies() : LiveData<List<MovieFavorites>>? {
+    fun getAllFavoriteMovies() : LiveData<List<FavoriteMovie>>? {
         return mFavoritesDao?.getAllFavoriteMovies()
     }
 
-    fun addToFavoriteMovies(favoriteMovieData: MovieFavorites){
+    fun addToFavoriteMovies(favoriteMovieData: FavoriteMovie){
         executorService?.execute(Runnable {
             mFavoritesDao?.insertFavoriteMovie(favoriteMovieData)
         })
     }
 
-    fun removeFromFavoriteMovies(favoriteMovieData: MovieFavorites){
+    fun removeFromFavoriteMovies(favoriteMovieData: FavoriteMovie){
         executorService?.execute(Runnable {
             mFavoritesDao?.deleteFavoriteMovie(favoriteMovieData)
         })
     }
 
-    fun getFavoriteMoviesDetails(idMovie: String?) : LiveData<MovieFavorites>? {
+    fun getFavoriteMoviesDetails(idMovie: String?) : LiveData<FavoriteMovie>? {
         return mFavoritesDao?.getFavoriteMovieDetails(idMovie)
     }
 }

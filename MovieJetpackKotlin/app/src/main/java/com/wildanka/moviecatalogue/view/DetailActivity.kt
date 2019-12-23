@@ -169,12 +169,16 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun removeFromFavorite(){
-
+        Log.e("addTOFavorites", "${movieDetail?.idMovie} - ${movieDetail?.title}")
+        if (movieDetail != null) {
+            viewModel.removeFavoriteMovieData(movieDetail!!)
+            isFavorite = true
+            setFavorite()
+        }
     }
     private fun addToFavorite(){
         Log.e("addTOFavorites", "${movieDetail?.idMovie} - ${movieDetail?.title}")
         if (movieDetail != null) {
-
             viewModel.insertFavoriteMovieData(movieDetail!!)
             isFavorite = true
             setFavorite()

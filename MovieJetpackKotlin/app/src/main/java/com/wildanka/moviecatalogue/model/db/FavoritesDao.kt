@@ -2,22 +2,20 @@ package com.wildanka.moviecatalogue.model.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.wildanka.moviecatalogue.model.entity.MovieData
-import com.wildanka.moviecatalogue.model.entity.MovieDetail
-import com.wildanka.moviecatalogue.model.entity.MovieFavorites
+import com.wildanka.moviecatalogue.model.entity.FavoriteMovie
 
 @Dao
 interface FavoritesDao{
     @Query("SELECT * FROM favorite_movies")
-    fun getAllFavoriteMovies(): LiveData<List<MovieFavorites>>
+    fun getAllFavoriteMovies(): LiveData<List<FavoriteMovie>>
 
     @Query("SELECT * FROM favorite_movies WHERE idMovie LIKE :idMovie LIMIT 1")
-    fun getFavoriteMovieDetails(idMovie: String?): LiveData<MovieFavorites>
+    fun getFavoriteMovieDetails(idMovie: String?): LiveData<FavoriteMovie>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFavoriteMovie(movieDataFavorite: MovieFavorites)
+    fun insertFavoriteMovie(movieDataFavorite: FavoriteMovie)
 
     @Delete
-    fun deleteFavoriteMovie(movieDataFavorite: MovieFavorites)
+    fun deleteFavoriteMovie(movieDataFavorite: FavoriteMovie)
 
 }

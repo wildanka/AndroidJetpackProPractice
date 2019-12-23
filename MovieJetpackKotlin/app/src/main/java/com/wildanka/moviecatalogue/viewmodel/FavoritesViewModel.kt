@@ -4,55 +4,34 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.wildanka.moviecatalogue.MoviesRepository
 import com.wildanka.moviecatalogue.model.db.FavoritesRepository
-import com.wildanka.moviecatalogue.model.db.MovieCatalogueDatabase
 import com.wildanka.moviecatalogue.model.entity.*
 
 class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
     private var favoritesRepository = FavoritesRepository(application)
     private var repo = MoviesRepository()
-    private var favoriteMovieLiveData: LiveData<MovieFavorites>? = null
+    private var favoriteMovieLiveData: LiveData<FavoriteMovie>? = null
 
     //region local
-    fun checkIsFavorite(movieID: String): LiveData<MovieFavorites>? {
+    fun checkIsFavorite(movieID: String): LiveData<FavoriteMovie>? {
         favoriteMovieLiveData = favoritesRepository?.getFavoriteMoviesDetails(movieID)
         return favoriteMovieLiveData
     }
 
-    fun getAllFavoritesMovies() : LiveData<List<MovieFavorites>>? {
+    fun getAllFavoritesMovies() : LiveData<List<FavoriteMovie>>? {
         return favoritesRepository?.getAllFavoriteMovies()
     }
 
     fun insertFavoriteMovieData(movie: MovieDetail) {
         //convert MovieDetail to MovieFavorites
-        val genreList : String? = movie.genres.joinToString()
-        val favoriteMovies = MovieFavorites(
-            movie.idMovie,
-            movie.adult,
-            movie.backdropPath,
-            genreList,
-            movie.homePageUrl,
-            movie.originalLanguage,
-            movie.overview,
-            movie.popularity,
-            movie.posterPath,
-            movie.releaseDate,
-            movie.revenue,
-            movie.duration,
-            movie.status,
-            movie.tagline,
-            movie.title,
-            movie.voteAverage,
-            movie.voteCount
-        )
-
-        favoritesRepository?.addToFavoriteMovies(favoriteMovies)
+        val favoriteMovie = MovieDetailConverter.convertToMovieFavorites(movie)
+        favoritesRepository?.addToFavoriteMovies(favoriteMovie)
     }
 
-    fun removeFavoriteMovieData(movies: MovieFavorites) {
-        favoritesRepository?.removeFromFavoriteMovies(movies)
+    fun removeFavoriteMovieData(movie: MovieDetail) {
+        val favoriteMovie = MovieDetailConverter.convertToMovieFavorites(movie)
+        favoritesRepository?.removeFromFavoriteMovies(favoriteMovie)
     }
     //endregion local
 

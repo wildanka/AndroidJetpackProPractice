@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "favorite_movies")
-data class MovieFavorites(
+data class FavoriteMovie(
     @PrimaryKey
     @SerializedName("id") val idMovie: String,
     @SerializedName("adult") val adult: Boolean?,
