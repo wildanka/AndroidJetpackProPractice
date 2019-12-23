@@ -25,8 +25,30 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         return favoritesRepository?.getAllFavoriteMovies()
     }
 
-    fun insertFavoriteMovieData(movie: MovieFavorites) {
-        favoritesRepository?.addToFavoriteMovies(movie)
+    fun insertFavoriteMovieData(movie: MovieDetail) {
+        //convert MovieDetail to MovieFavorites
+        val genreList : String? = movie.genres.joinToString()
+        val favoriteMovies = MovieFavorites(
+            movie.idMovie,
+            movie.adult,
+            movie.backdropPath,
+            genreList,
+            movie.homePageUrl,
+            movie.originalLanguage,
+            movie.overview,
+            movie.popularity,
+            movie.posterPath,
+            movie.releaseDate,
+            movie.revenue,
+            movie.duration,
+            movie.status,
+            movie.tagline,
+            movie.title,
+            movie.voteAverage,
+            movie.voteCount
+        )
+
+        favoritesRepository?.addToFavoriteMovies(favoriteMovies)
     }
 
     fun removeFavoriteMovieData(movies: MovieFavorites) {

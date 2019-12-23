@@ -29,6 +29,7 @@ class DetailActivity : AppCompatActivity() {
     private var isFavorite: Boolean = false
     private var menuItem: Menu? = null
     private var movieDetail: MovieDetail? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
@@ -173,7 +174,8 @@ class DetailActivity : AppCompatActivity() {
     private fun addToFavorite(){
         Log.e("addTOFavorites", "${movieDetail?.idMovie} - ${movieDetail?.title}")
         if (movieDetail != null) {
-//            viewModel.insertFavoriteMovieData(movieDetail!!)
+
+            viewModel.insertFavoriteMovieData(movieDetail!!)
             isFavorite = true
             setFavorite()
         }
