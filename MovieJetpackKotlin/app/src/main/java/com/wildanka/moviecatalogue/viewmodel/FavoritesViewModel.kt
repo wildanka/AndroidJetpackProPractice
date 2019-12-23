@@ -8,31 +8,28 @@ import androidx.lifecycle.ViewModel
 import com.wildanka.moviecatalogue.MoviesRepository
 import com.wildanka.moviecatalogue.model.db.FavoritesRepository
 import com.wildanka.moviecatalogue.model.db.MovieCatalogueDatabase
-import com.wildanka.moviecatalogue.model.entity.MovieCredits
-import com.wildanka.moviecatalogue.model.entity.MovieData
-import com.wildanka.moviecatalogue.model.entity.MovieDetail
-import com.wildanka.moviecatalogue.model.entity.TVShowDetail
+import com.wildanka.moviecatalogue.model.entity.*
 
 class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
     private var favoritesRepository = FavoritesRepository(application)
     private var repo = MoviesRepository()
-    private var favoriteMovieLiveData: LiveData<MovieData>? = null
+    private var favoriteMovieLiveData: LiveData<MovieFavorites>? = null
 
     //region local
-    fun checkIsFavorite(movieID: String): LiveData<MovieData>? {
+    fun checkIsFavorite(movieID: String): LiveData<MovieFavorites>? {
         favoriteMovieLiveData = favoritesRepository?.getFavoriteMoviesDetails(movieID)
         return favoriteMovieLiveData
     }
 
-    fun getAllFavoritesMovies() : LiveData<List<MovieData>>? {
+    fun getAllFavoritesMovies() : LiveData<List<MovieFavorites>>? {
         return favoritesRepository?.getAllFavoriteMovies()
     }
 
-    fun insertFavoriteMovieData(movie: MovieData) {
+    fun insertFavoriteMovieData(movie: MovieFavorites) {
         favoritesRepository?.addToFavoriteMovies(movie)
     }
 
-    fun removeFavoriteMovieData(movies: MovieData) {
+    fun removeFavoriteMovieData(movies: MovieFavorites) {
         favoritesRepository?.removeFromFavoriteMovies(movies)
     }
     //endregion local

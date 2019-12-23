@@ -17,18 +17,16 @@ import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.wildanka.moviecatalogue.BuildConfig.URL_IMG_APP
 import com.wildanka.moviecatalogue.R
-import com.wildanka.moviecatalogue.model.entity.MovieDetail
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import com.wildanka.moviecatalogue.view.adapter.MovieCastAdapter
 import com.wildanka.moviecatalogue.viewmodel.*
 import kotlinx.android.synthetic.main.activity_detail.*
 
-class DetailActivity : AppCompatActivity() {
+class DetailTVShowActivity : AppCompatActivity() {
     private lateinit var shimmerViewContainer: ShimmerFrameLayout
     private lateinit var viewModel: FavoritesViewModel
     private var isFavorite: Boolean = false
     private var menuItem: Menu? = null
-    private var movieDetail: MovieDetail? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
@@ -55,7 +53,6 @@ class DetailActivity : AppCompatActivity() {
             EspressoIdlingResource.increment()
             viewModel.getMoviesDetailWithID(movieId)?.observe(this, Observer { movieDetails ->
                 if (movieDetails != null) {
-                    movieDetail = movieDetails
                     tvTitle.text = movieDetails.title
                     tvYear.text = movieDetails.releaseDate
                     tvTagline.text = movieDetails.tagline
@@ -171,12 +168,7 @@ class DetailActivity : AppCompatActivity() {
 
     }
     private fun addToFavorite(){
-        Log.e("addTOFavorites", "${movieDetail?.idMovie} - ${movieDetail?.title}")
-        if (movieDetail != null) {
-//            viewModel.insertFavoriteMovieData(movieDetail!!)
-            isFavorite = true
-            setFavorite()
-        }
+
     }
 
     private fun checkFavorite(movieId: String) {

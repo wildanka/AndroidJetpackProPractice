@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.wildanka.moviecatalogue.model.entity.MovieData
-import com.wildanka.moviecatalogue.model.entity.TVShowData
+import androidx.room.TypeConverters
+import com.wildanka.moviecatalogue.model.entity.*
 
-@Database(entities = [MovieData::class, TVShowData::class], version = 1, exportSchema = false)
+@Database(entities = [MovieFavorites::class, TVShowData::class], version = 1, exportSchema = false)
 abstract class MovieCatalogueDatabase : RoomDatabase() {
 
     abstract fun favoritesDao(): FavoritesDao
