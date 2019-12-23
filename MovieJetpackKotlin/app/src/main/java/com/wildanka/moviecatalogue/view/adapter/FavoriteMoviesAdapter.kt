@@ -1,6 +1,5 @@
 package com.wildanka.moviecatalogue.view.adapter
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -10,50 +9,53 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.wildanka.moviecatalogue.BuildConfig.URL_IMG_APP
+import com.wildanka.moviecatalogue.BuildConfig
 import com.wildanka.moviecatalogue.R
-import com.wildanka.moviecatalogue.model.entity.MovieData
+import com.wildanka.moviecatalogue.model.entity.FavoriteMovie
 import com.wildanka.moviecatalogue.view.DetailActivity
 
-class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<MovieRVAdapter.MovieViewHolder>() {
-    private var movieList : MutableList<MovieData>? = null
+class FavoriteMoviesAdapter() : RecyclerView.Adapter<FavoriteMoviesAdapter.FavoriteMoviesViewHolder>() {
+    private var favoriteMovies: List<FavoriteMovie>? = null
 
-    fun setupMovieList(movies: MutableList<MovieData>?) {
-        movieList = movies
-        notifyDataSetChanged()
+
+    fun setupFavoriteMoviesData(favoriteMovies: List<FavoriteMovie>?){
+        if (favoriteMovies != null) {
+            this.favoriteMovies = favoriteMovies
+            notifyDataSetChanged()
+        }
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return MovieViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_movie, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteMoviesViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+        return FavoriteMoviesViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return movieList?.size ?: 0
+        return favoriteMovies?.size ?: 0
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val movie = movieList?.get(position)
-        if (movie != null) {
-            holder.bind(movie)
+    override fun onBindViewHolder(holder: FavoriteMoviesViewHolder, position: Int) {
+        val selectedItem = favoriteMovies?.get(position)
+        if (selectedItem != null) {
+            holder.bind(selectedItem)
         }
     }
 
-    inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class FavoriteMoviesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvTitle = itemView.findViewById<TextView>(R.id.tv_item_title)
         private val tvRating = itemView.findViewById<TextView>(R.id.tv_item_rating)
         private val tvReleaseDate = itemView.findViewById<TextView>(R.id.tv_item_release_date)
         private val tvShortDesc = itemView.findViewById<TextView>(R.id.tv_item_short_desc)
         private val ivPoster = itemView.findViewById<ImageView>(R.id.iv_item_movie_poster)
 
-        fun bind(movie: MovieData) {
+        fun bind(favoriteMovie: FavoriteMovie){
             when {
-                movie.voteAverage!! > 7 -> tvRating.setTextColor(
+                favoriteMovie.voteAverage!! > 7 -> tvRating.setTextColor(
                     ContextCompat.getColor(
                         itemView.context,
                         R.color.colorGreen
                     )
                 )
-                movie.voteAverage > 4 -> tvRating.setTextColor(
+                favoriteMovie.voteAverage > 4 -> tvRating.setTextColor(
                     ContextCompat.getColor(
                         itemView.context,
                         R.color.colorYellow
@@ -66,21 +68,19 @@ class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<Movie
                     )
                 )
             }
-            tvTitle.text = movie.title
-            tvRating.text = movie.voteAverage.toString()
-            tvReleaseDate.text = movie.releaseDate
-            tvShortDesc.text = movie.overview
-            Glide.with(itemView.context).load(URL_IMG_APP+movie.posterPath).into(ivPoster)
+            tvTitle.text = favoriteMovie.title
+            tvRating.text = favoriteMovie.voteAverage.toString()
+            tvReleaseDate.text = favoriteMovie.releaseDate
+            tvShortDesc.text = favoriteMovie.overview
+            Glide.with(itemView.context).load(BuildConfig.URL_IMG_APP +favoriteMovie.posterPath).into(ivPoster)
 
             itemView.setOnClickListener {
                 itemView.context.startActivity(
                     Intent(itemView.context, DetailActivity::class.java)
                         .putExtra("dataType", "MOVIE")
-                        .putExtra("movieID", movie.idMovie)
+                        .putExtra("movieID", favoriteMovie.idMovie)
                 )
             }
         }
-
-
     }
 }

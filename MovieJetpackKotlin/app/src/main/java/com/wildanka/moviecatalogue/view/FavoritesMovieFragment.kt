@@ -15,13 +15,15 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.model.entity.MovieData
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
+import com.wildanka.moviecatalogue.view.adapter.FavoriteMoviesAdapter
 import com.wildanka.moviecatalogue.view.adapter.MovieRVAdapter
+import com.wildanka.moviecatalogue.viewmodel.FavoritesViewModel
 import com.wildanka.moviecatalogue.viewmodel.MainMoviesViewModel
 
 class FavoritesMovieFragment : Fragment() {
-//    private lateinit var srlMovies: SwipeRefreshLayout
-//    private lateinit var pbMovies: ProgressBar
-//    private lateinit var rvMovie: RecyclerView
+    private lateinit var srlMovies: SwipeRefreshLayout
+    private lateinit var pbMovies: ProgressBar
+    private lateinit var rvMovie: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,16 +34,20 @@ class FavoritesMovieFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        rvMovie = view.findViewById(R.id.rv_movie)
-//        pbMovies = view.findViewById(R.id.pb_movies)
-//        srlMovies = view.findViewById(R.id.srl_movies)
-//        pbMovies.visibility = View.VISIBLE
-//
-//        val viewModel = ViewModelProviders.of(this).get(MainMoviesViewModel::class.java)
-//        val rvAdapter = MovieRVAdapter(activity!!)
-//        rvMovie.layoutManager = LinearLayoutManager(activity!!)
-//        rvMovie.adapter = rvAdapter
+        rvMovie = view.findViewById(R.id.rv_movie)
+        pbMovies = view.findViewById(R.id.pb_movies)
+        srlMovies = view.findViewById(R.id.srl_movies)
+        pbMovies.visibility = View.VISIBLE
 
+        val viewModel = ViewModelProviders.of(this).get(FavoritesViewModel::class.java)
+        val rvAdapter = FavoriteMoviesAdapter()
+        rvMovie.layoutManager = LinearLayoutManager(activity!!)
+        rvMovie.adapter = rvAdapter
+
+        viewModel.getAllFavoritesMovies()?.observe(this, Observer {
+            rvAdapter.setupFavoriteMoviesData(it)
+            pbMovies.visibility = View.INVISIBLE
+        })
         super.onViewCreated(view, savedInstanceState)
     }
 

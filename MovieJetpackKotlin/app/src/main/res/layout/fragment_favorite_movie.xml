@@ -5,7 +5,17 @@
                 android:layout_height="match_parent"
                 tools:context=".view.MovieFragment">
 
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-              android:text="FRAGMENT MOVIE" android:layout_centerInParent="true"
-    />
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srl_movies" android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_movie"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <ProgressBar
+            android:id="@+id/pb_movies" android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
 </RelativeLayout>
