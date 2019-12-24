@@ -23,4 +23,28 @@ object MovieDetailConverter{
             movie.voteCount
         )
     }
+    fun convertToMovieFavorites(tvShow: TVShowDetail): FavoriteTVShow{
+        val genreList : String? = tvShow.genres.joinToString()
+        return FavoriteTVShow(
+            tvShow.idMovie,
+            tvShow.backdropPath,
+            genreList,
+            tvShow.homePageUrl,
+            tvShow.originalLanguage,
+            tvShow.overview,
+            tvShow.popularity,
+            tvShow.posterPath,
+            tvShow.firstAirDate,
+            tvShow.lastAirDate,
+            tvShow.revenue,
+            tvShow.duration,
+            tvShow.status,
+            tvShow.tagline,
+            tvShow.title,
+            tvShow.voteAverage,
+            tvShow.voteCount
+        )
+    }
+
+
 }

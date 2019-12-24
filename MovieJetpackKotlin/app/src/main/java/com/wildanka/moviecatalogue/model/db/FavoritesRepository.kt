@@ -3,6 +3,7 @@ package com.wildanka.moviecatalogue.model.db
 import android.app.Application
 import androidx.lifecycle.LiveData
 import com.wildanka.moviecatalogue.model.entity.FavoriteMovie
+import com.wildanka.moviecatalogue.model.entity.FavoriteTVShow
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -35,5 +36,25 @@ class FavoritesRepository(application: Application) {
 
     fun getFavoriteMoviesDetails(idMovie: String?) : LiveData<FavoriteMovie>? {
         return mFavoritesDao?.getFavoriteMovieDetails(idMovie)
+    }
+
+    fun getAllFavoriteTVShow() : LiveData<List<FavoriteMovie>>? {
+        return mFavoritesDao?.getAllFavoriteTVShow()
+    }
+
+    fun addToFavoriteTVShow(favoriteTVShowData: FavoriteTVShow){
+        executorService?.execute(Runnable {
+            mFavoritesDao?.insertFavoriteTVShow(favoriteTVShowData)
+        })
+    }
+
+    fun removeFromFavoriteTVShow(favoriteTVShowData: FavoriteTVShow){
+        executorService?.execute(Runnable {
+            mFavoritesDao?.deleteFavoriteTVShow(favoriteTVShowData)
+        })
+    }
+
+    fun getFavoriteTVShowDetails(idTVShow: String?) : LiveData<FavoriteTVShow>? {
+        return mFavoritesDao?.getFavoriteTVShowDetails(idTVShow)
     }
 }

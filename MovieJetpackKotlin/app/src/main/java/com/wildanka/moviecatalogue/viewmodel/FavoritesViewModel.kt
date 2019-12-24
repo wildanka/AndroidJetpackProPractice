@@ -34,6 +34,28 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         favoritesRepository?.removeFromFavoriteMovies(favoriteMovie)
     }
     //endregion local
+    //region local TV Show
+    fun checkIsFavoriteTVShow(movieID: String): LiveData<FavoriteMovie>? {
+        favoriteMovieLiveData = favoritesRepository?.getFavoriteMoviesDetails(movieID)
+        return favoriteMovieLiveData
+    }
+
+    fun getAllFavoritesTvShow() : LiveData<List<FavoriteMovie>>? {
+        return favoritesRepository?.getAllFavoriteTVShow()
+    }
+
+    fun insertFavoriteTVShowData(tvShow: TVShowDetail) {
+        //convert MovieDetail to MovieFavorites
+        val favoriteMovie = MovieDetailConverter.convertToMovieFavorites(tvShow)
+        favoritesRepository?.addToFavoriteTVShow(favoriteMovie)
+    }
+
+    fun removeFavoriteTVShowData(tvShow: TVShowDetail) {
+        val favoriteMovie = MovieDetailConverter.convertToMovieFavorites(tvShow)
+        favoritesRepository?.removeFromFavoriteTVShow(favoriteMovie)
+    }
+    //region local TV Show
+
 
     //region online
     private var movieDetail : MutableLiveData<MovieDetail>? = null

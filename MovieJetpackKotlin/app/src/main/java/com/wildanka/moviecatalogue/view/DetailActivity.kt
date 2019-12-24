@@ -18,17 +18,23 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.wildanka.moviecatalogue.BuildConfig.URL_IMG_APP
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.model.entity.MovieDetail
+import com.wildanka.moviecatalogue.model.entity.TVShowDetail
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import com.wildanka.moviecatalogue.view.adapter.MovieCastAdapter
 import com.wildanka.moviecatalogue.viewmodel.*
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
+    private val TYPE_MOVIE = "MOVIE"
+    private val TYPE_TV_SHOW = "TV_SHOW"
+
     private lateinit var shimmerViewContainer: ShimmerFrameLayout
     private lateinit var viewModel: FavoritesViewModel
     private var isFavorite: Boolean = false
     private var menuItem: Menu? = null
     private var movieDetail: MovieDetail? = null
+    private var tvShowDetail: TVShowDetail? = null
+    private var type: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +43,7 @@ class DetailActivity : AppCompatActivity() {
         shimmerViewContainer = shimmer_view_container
         val movieId: String? = intent.getStringExtra("movieID")
         val tvShowId: String? = intent.getStringExtra("tvShowID")
-        val type= intent.getStringExtra("dataType")
+        type = intent.getStringExtra("dataType")
         val tvTitle = findViewById<TextView>(R.id.tv_title)
         val tvTagline = findViewById<TextView>(R.id.tv_tagline)
         val tvYear = findViewById<TextView>(R.id.tv_detail_year)
@@ -50,7 +56,7 @@ class DetailActivity : AppCompatActivity() {
         val ivMoviePosterDetail = findViewById<ImageView>(R.id.iv_movie_poster_detail)
         viewModel = ViewModelProviders.of(this).get(FavoritesViewModel::class.java)
 
-        if (type == "MOVIE"){
+        if (type == TYPE_MOVIE) {
             Log.e("DetailActivity", movieId)
             //load detail data
             EspressoIdlingResource.increment()
@@ -96,22 +102,23 @@ class DetailActivity : AppCompatActivity() {
             Log.e("DetailActivity", tvShowId)
             //load detail data
             EspressoIdlingResource.increment()
-            viewModel.getTVShowDetailWithId(tvShowId)?.observe(this, Observer { tvShowData ->
-                if (tvShowData != null) {
-                    tvTitle.text = tvShowData.title
-                    tvYear.text = tvShowData.firstAirDate
+            viewModel.getTVShowDetailWithId(tvShowId)?.observe(this, Observer { tvShowDetails ->
+                if (tvShowDetails != null) {
+                    tvShowDetail = tvShowDetails
+                    tvTitle.text = tvShowDetails.title
+                    tvYear.text = tvShowDetails.firstAirDate
                     tvTagline.text = ""
-                    tvRating.text = getString(R.string.score_s, tvShowData.voteAverage.toString())
-                    tvOverview.text = tvShowData.overview
+                    tvRating.text = getString(R.string.score_s, tvShowDetails.voteAverage.toString())
+                    tvOverview.text = tvShowDetails.overview
                     tvDuration.text = ""
-                    tvPopularity.text = tvShowData.popularity
+                    tvPopularity.text = tvShowDetails.popularity
                     //load genre
                     var genresString: String? = ""
-                    for (genre in tvShowData.genres) {
+                    for (genre in tvShowDetails.genres) {
                         genresString = genresString + genre?.genreName + ", "
                     }
                     tvGenre.text = genresString
-                    Glide.with(this).load(URL_IMG_APP + tvShowData.posterPath).into(ivMoviePosterDetail)
+                    Glide.with(this).load(URL_IMG_APP + tvShowDetails.posterPath).into(ivMoviePosterDetail)
                 }
                 if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
             })
@@ -137,7 +144,7 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_favorites, menu)
         menuItem = menu
-        setFavorite()
+//        setFavorite()
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -169,28 +176,69 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun removeFromFavorite(){
-        Log.e("addTOFavorites", "${movieDetail?.idMovie} - ${movieDetail?.title}")
-        if (movieDetail != null) {
-            viewModel.removeFavoriteMovieData(movieDetail!!)
-            isFavorite = true
-            setFavorite()
-        }
-    }
-    private fun addToFavorite(){
-        Log.e("addTOFavorites", "${movieDetail?.idMovie} - ${movieDetail?.title}")
-        if (movieDetail != null) {
-            viewModel.insertFavoriteMovieData(movieDetail!!)
-            isFavorite = true
-            setFavorite()
-        }
-    }
-
-    private fun checkFavorite(movieId: String) {
-        viewModel.checkIsFavorite(movieId)?.observe(this, Observer { movieDataLiveData ->
-            if (movieDataLiveData != null) {
+        when (type) {
+            TYPE_MOVIE -> {
+                Log.e("removeFromFavorite", "${movieDetail?.idMovie} - ${movieDetail?.title}")
+                viewModel.removeFavoriteMovieData(movieDetail!!)
                 isFavorite = true
                 setFavorite()
             }
-        })
+            TYPE_TV_SHOW -> {
+                Log.e("removeFromFavorite", "${tvShowDetail?.idMovie} - ${tvShowDetail?.title}")
+                viewModel.removeFavoriteTVShowData(tvShowDetail!!)
+                isFavorite = true
+                setFavorite()
+            }
+            else -> {
+                Log.e("removeFromFavorite", "WUUT?")
+
+            }
+        }
+    }
+    private fun addToFavorite(){
+        when (type) {
+            TYPE_MOVIE -> {
+                Log.e("addTOFavorites", "${movieDetail?.idMovie} - ${movieDetail?.title}")
+                viewModel.insertFavoriteMovieData(movieDetail!!)
+                isFavorite = true
+                setFavorite()
+            }
+            TYPE_TV_SHOW -> {
+                Log.e("addTOFavorites", "${tvShowDetail?.idMovie} - ${tvShowDetail?.title}")
+                viewModel.insertFavoriteTVShowData(tvShowDetail!!)
+                isFavorite = true
+                setFavorite()
+            }
+            else -> {
+                Log.e("addToFavorite", "WUUT?")
+            }
+        }
+    }
+
+    private fun checkFavorite(movieOrTVShowId: String) {
+        when (type) {
+            TYPE_MOVIE -> {
+                Log.e("checkFavorite(Movie)", "$movieOrTVShowId ")
+                viewModel.checkIsFavorite(movieOrTVShowId)?.observe(this, Observer { movieDataLiveData ->
+                    if (movieDataLiveData != null) {
+                        isFavorite = true
+                        setFavorite()
+                    }
+                })
+            }
+            TYPE_TV_SHOW -> {
+                Log.e("checkFavorite(TVShow)", "${tvShowDetail?.idMovie} - ${tvShowDetail?.title}")
+                viewModel.checkIsFavoriteTVShow(movieOrTVShowId)?.observe(this, Observer { movieDataLiveData ->
+                    if (movieDataLiveData != null) {
+                        isFavorite = true
+                        setFavorite()
+                    }
+                })
+            }
+            else -> {
+                Log.e("checkFavorite", "WUUT?")
+            }
+        }
+
     }
 }

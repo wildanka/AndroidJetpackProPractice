@@ -36,7 +36,7 @@ data class TVShowFeeds(
 )
 
 data class TVShowDetail(
-    @SerializedName("id") val idMovie: String?,
+    @SerializedName("id") val idMovie: String,
     @SerializedName("backdrop_path") val backdropPath: String?,
     @SerializedName("genres") val genres: MutableList<Genre?>,
     @SerializedName("homepage") val homePageUrl: String?,
