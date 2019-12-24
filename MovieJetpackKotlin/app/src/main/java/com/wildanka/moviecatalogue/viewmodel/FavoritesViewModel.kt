@@ -12,6 +12,7 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     private var favoritesRepository = FavoritesRepository(application)
     private var repo = MoviesRepository()
     private var favoriteMovieLiveData: LiveData<FavoriteMovie>? = null
+    private var favoritTVShowLiveData: LiveData<FavoriteTVShow>? = null
 
     //region local
     fun checkIsFavorite(movieID: String): LiveData<FavoriteMovie>? {
@@ -25,34 +26,35 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun insertFavoriteMovieData(movie: MovieDetail) {
         //convert MovieDetail to MovieFavorites
-        val favoriteMovie = MovieDetailConverter.convertToMovieFavorites(movie)
+        val favoriteMovie = MovieDetailConverter.convertToTVShowFavorites(movie)
         favoritesRepository?.addToFavoriteMovies(favoriteMovie)
     }
 
     fun removeFavoriteMovieData(movie: MovieDetail) {
-        val favoriteMovie = MovieDetailConverter.convertToMovieFavorites(movie)
+        val favoriteMovie = MovieDetailConverter.convertToTVShowFavorites(movie)
         favoritesRepository?.removeFromFavoriteMovies(favoriteMovie)
     }
     //endregion local
+
     //region local TV Show
-    fun checkIsFavoriteTVShow(movieID: String): LiveData<FavoriteMovie>? {
-        favoriteMovieLiveData = favoritesRepository?.getFavoriteMoviesDetails(movieID)
-        return favoriteMovieLiveData
+    fun checkIsFavoriteTVShow(tvShowId: String): LiveData<FavoriteTVShow>? {
+        favoritTVShowLiveData = favoritesRepository?.getFavoriteTVShowDetails(tvShowId)
+        return favoritTVShowLiveData
     }
 
-    fun getAllFavoritesTvShow() : LiveData<List<FavoriteMovie>>? {
+    fun getAllFavoritesTvShow() : LiveData<List<FavoriteTVShow>>? {
         return favoritesRepository?.getAllFavoriteTVShow()
     }
 
     fun insertFavoriteTVShowData(tvShow: TVShowDetail) {
         //convert MovieDetail to MovieFavorites
-        val favoriteMovie = MovieDetailConverter.convertToMovieFavorites(tvShow)
-        favoritesRepository?.addToFavoriteTVShow(favoriteMovie)
+        val favoriteTvShow= MovieDetailConverter.convertToTVShowFavorites(tvShow)
+        favoritesRepository?.addToFavoriteTVShow(favoriteTvShow)
     }
 
     fun removeFavoriteTVShowData(tvShow: TVShowDetail) {
-        val favoriteMovie = MovieDetailConverter.convertToMovieFavorites(tvShow)
-        favoritesRepository?.removeFromFavoriteTVShow(favoriteMovie)
+        val favoriteTvShow= MovieDetailConverter.convertToTVShowFavorites(tvShow)
+        favoritesRepository?.removeFromFavoriteTVShow(favoriteTvShow)
     }
     //region local TV Show
 

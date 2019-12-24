@@ -19,8 +19,9 @@ interface FavoritesDao{
     @Delete
     fun deleteFavoriteMovie(movieDataFavorite: FavoriteMovie)
 
-    @Query("SELECT * FROM favorite_movies")
-    fun getAllFavoriteTVShow(): LiveData<List<FavoriteMovie>>
+    //tvShow
+    @Query("SELECT * FROM favorite_tv_show")
+    fun getAllFavoriteTVShow(): LiveData<List<FavoriteTVShow>>
 
     @Query("SELECT * FROM favorite_tv_show WHERE idTVShow LIKE :idTVShow LIMIT 1")
     fun getFavoriteTVShowDetails(idTVShow: String?): LiveData<FavoriteTVShow>

@@ -1,7 +1,7 @@
 package com.wildanka.moviecatalogue.model.entity
 
 object MovieDetailConverter{
-    fun convertToMovieFavorites(movie: MovieDetail): FavoriteMovie{
+    fun convertToTVShowFavorites(movie: MovieDetail): FavoriteMovie{
         val genreList : String? = movie.genres.joinToString()
         return FavoriteMovie(
             movie.idMovie,
@@ -23,7 +23,7 @@ object MovieDetailConverter{
             movie.voteCount
         )
     }
-    fun convertToMovieFavorites(tvShow: TVShowDetail): FavoriteTVShow{
+    fun convertToTVShowFavorites(tvShow: TVShowDetail): FavoriteTVShow{
         val genreList : String? = tvShow.genres.joinToString()
         return FavoriteTVShow(
             tvShow.idMovie,

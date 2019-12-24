@@ -38,7 +38,7 @@ class FavoritesRepository(application: Application) {
         return mFavoritesDao?.getFavoriteMovieDetails(idMovie)
     }
 
-    fun getAllFavoriteTVShow() : LiveData<List<FavoriteMovie>>? {
+    fun getAllFavoriteTVShow() : LiveData<List<FavoriteTVShow>>? {
         return mFavoritesDao?.getAllFavoriteTVShow()
     }
 
