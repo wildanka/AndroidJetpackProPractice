@@ -1,6 +1,7 @@
 package com.wildanka.moviecatalogue.model.db
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import com.wildanka.moviecatalogue.model.entity.FavoriteMovie
 import com.wildanka.moviecatalogue.model.entity.FavoriteTVShow
@@ -32,4 +33,8 @@ interface FavoritesDao{
     @Delete
     fun deleteFavoriteTVShow(movieDataFavorite: FavoriteTVShow)
 
+    @Query("SELECT * from favorite_tv_show ORDER BY idTVShow ASC")
+    fun getAllFavoritTVShowPaging() : DataSource.Factory<Integer, FavoriteTVShow>
+
+    
 }

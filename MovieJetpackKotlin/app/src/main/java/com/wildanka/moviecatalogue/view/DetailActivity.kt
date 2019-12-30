@@ -160,7 +160,7 @@ class DetailActivity : AppCompatActivity() {
                 true
             }
             R.id.favorites_toggle -> {
-                //TODO buat simpan atau remove ke favorites
+                //buat simpan atau remove ke favorites
                 if (isFavorite) removeFromFavorite() else addToFavorite()
                 isFavorite = !isFavorite
                 setFavorite()
