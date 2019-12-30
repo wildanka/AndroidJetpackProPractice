@@ -34,7 +34,7 @@ interface FavoritesDao{
     fun deleteFavoriteTVShow(movieDataFavorite: FavoriteTVShow)
 
     @Query("SELECT * from favorite_tv_show ORDER BY idTVShow ASC")
-    fun getAllFavoritTVShowPaging() : DataSource.Factory<Integer, FavoriteTVShow>
+    fun getAllFavoritTVShowPaging() : DataSource.Factory<Int, FavoriteTVShow>
 
-    
+
 }

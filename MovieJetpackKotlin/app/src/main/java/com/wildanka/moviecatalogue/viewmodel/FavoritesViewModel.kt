@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.wildanka.moviecatalogue.MoviesRepository
 import com.wildanka.moviecatalogue.model.db.FavoritesRepository
 import com.wildanka.moviecatalogue.model.entity.*
@@ -56,8 +58,13 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         val favoriteTvShow= MovieDetailConverter.convertToTVShowFavorites(tvShow)
         favoritesRepository?.removeFromFavoriteTVShow(favoriteTvShow)
     }
-    //region local TV Show
+    //endregion local TV Show
 
+    //region paging
+    fun getAllFavoriteTVShowPaging(): LiveData<PagedList<FavoriteTVShow>> {
+        return LivePagedListBuilder(favoritesRepository.getAllFavoriteTVShowPaging()!!,5).build()
+    }
+    //endregion paging
 
     //region online
     private var movieDetail : MutableLiveData<MovieDetail>? = null

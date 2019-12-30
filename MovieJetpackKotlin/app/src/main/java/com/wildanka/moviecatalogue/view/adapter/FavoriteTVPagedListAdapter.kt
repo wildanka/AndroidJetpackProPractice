@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide
 import com.wildanka.moviecatalogue.BuildConfig
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.model.entity.FavoriteTVShow
-import com.wildanka.moviecatalogue.model.entity.TVShowData
 import com.wildanka.moviecatalogue.view.DetailActivity
 
 class FavoriteTVPagedListAdapter() :

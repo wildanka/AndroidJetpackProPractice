@@ -6,6 +6,9 @@ import com.wildanka.moviecatalogue.model.entity.FavoriteMovie
 import com.wildanka.moviecatalogue.model.entity.FavoriteTVShow
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import android.provider.ContactsContract.CommonDataKinds.Note
+import androidx.paging.DataSource
+
 
 class FavoritesRepository(application: Application) {
     private var mFavoritesDao: FavoritesDao? = null
@@ -56,5 +59,9 @@ class FavoritesRepository(application: Application) {
 
     fun getFavoriteTVShowDetails(idTVShow: String?) : LiveData<FavoriteTVShow>? {
         return mFavoritesDao?.getFavoriteTVShowDetails(idTVShow)
+    }
+
+    fun getAllFavoriteTVShowPaging(): DataSource.Factory<Int, FavoriteTVShow>? {
+        return mFavoritesDao?.getAllFavoritTVShowPaging()
     }
 }
