@@ -123,7 +123,7 @@ class DetailActivity : AppCompatActivity() {
                 if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
             })
 
-            //load cast data
+            //region cast data
             val castAdapter = MovieCastAdapter()
             rvCast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             rvCast.adapter = castAdapter
@@ -137,6 +137,11 @@ class DetailActivity : AppCompatActivity() {
                 }
                 if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
             })
+            //endregion cast data
+
+            if (tvShowId != null) {
+                checkFavorite(tvShowId)
+            }
         }
     }
 
@@ -178,13 +183,13 @@ class DetailActivity : AppCompatActivity() {
     private fun removeFromFavorite(){
         when (type) {
             TYPE_MOVIE -> {
-                Log.e("removeFromFavorite", "${movieDetail?.idMovie} - ${movieDetail?.title}")
+                Log.e("removeFromMOVIEFavorite", "${movieDetail?.idMovie} - ${movieDetail?.title}")
                 viewModel.removeFavoriteMovieData(movieDetail!!)
                 isFavorite = true
                 setFavorite()
             }
             TYPE_TV_SHOW -> {
-                Log.e("removeFromFavorite", "${tvShowDetail?.idMovie} - ${tvShowDetail?.title}")
+                Log.e("removeFromTVSHOWFavorite", "${tvShowDetail?.idMovie} - ${tvShowDetail?.title}")
                 viewModel.removeFavoriteTVShowData(tvShowDetail!!)
                 isFavorite = true
                 setFavorite()
@@ -198,13 +203,13 @@ class DetailActivity : AppCompatActivity() {
     private fun addToFavorite(){
         when (type) {
             TYPE_MOVIE -> {
-                Log.e("addTOFavorites", "${movieDetail?.idMovie} - ${movieDetail?.title}")
+                Log.e("addTOFavoritesMOVIE", "${movieDetail?.idMovie} - ${movieDetail?.title}")
                 viewModel.insertFavoriteMovieData(movieDetail!!)
                 isFavorite = true
                 setFavorite()
             }
             TYPE_TV_SHOW -> {
-                Log.e("addTOFavorites", "${tvShowDetail?.idMovie} - ${tvShowDetail?.title}")
+                Log.e("addTOFavoritesTVSHOW", "${tvShowDetail?.idMovie} - ${tvShowDetail?.title}")
                 viewModel.insertFavoriteTVShowData(tvShowDetail!!)
                 isFavorite = true
                 setFavorite()
@@ -216,6 +221,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun checkFavorite(movieOrTVShowId: String) {
+        Log.e("checkFavorite", "dataType $type")
         when (type) {
             TYPE_MOVIE -> {
                 Log.e("checkFavorite(Movie)", "$movieOrTVShowId ")
