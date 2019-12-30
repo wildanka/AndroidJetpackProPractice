@@ -15,7 +15,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.model.entity.TVShowData
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
+import com.wildanka.moviecatalogue.view.adapter.FavoriteMoviesAdapter
+import com.wildanka.moviecatalogue.view.adapter.FavoriteTVShowAdapter
 import com.wildanka.moviecatalogue.view.adapter.TVShowRVAdapter
+import com.wildanka.moviecatalogue.viewmodel.FavoritesViewModel
 import com.wildanka.moviecatalogue.viewmodel.MainMoviesViewModel
 
 /**
@@ -36,32 +39,22 @@ class FavoritesTVShowFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        rvMovie = view.findViewById(R.id.rv_movie)
-//        pbMovies = view.findViewById(R.id.pb_movies)
-//        srlMovies = view.findViewById(R.id.srl_movies)
-//        val viewModel = ViewModelProviders.of(this).get(MainMoviesViewModel::class.java)
-//        pbMovies.visibility = View.VISIBLE
-//        val rvAdapter = TVShowRVAdapter(activity!!)
-//        rvMovie.layoutManager = LinearLayoutManager(activity!!)
-//        rvMovie.adapter = rvAdapter
-//
-//        observeData(viewModel, rvAdapter)
-//        srlMovies.setOnRefreshListener {
-//            observeData(viewModel, rvAdapter)
-//        }
+        rvMovie = view.findViewById(R.id.rv_movie)
+        pbMovies = view.findViewById(R.id.pb_movies)
+        srlMovies = view.findViewById(R.id.srl_movies)
+        pbMovies.visibility = View.VISIBLE
+
+        val viewModel = ViewModelProviders.of(this).get(FavoritesViewModel::class.java)
+        val rvAdapter = FavoriteTVShowAdapter()
+        rvMovie.layoutManager = LinearLayoutManager(activity!!)
+        rvMovie.adapter = rvAdapter
+
+        viewModel.getAllFavoritesTvShow()?.observe(this, Observer {
+            rvAdapter.setupFavoriteTVShowData(it)
+            pbMovies.visibility = View.INVISIBLE
+        })
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun observeData(viewModel: MainMoviesViewModel, rvAdapter: TVShowRVAdapter) {
-        EspressoIdlingResource.increment()
-        viewModel.getTVShowList()?.observe(this, Observer<MutableList<TVShowData>> {
-            if (it != null) {
-                rvAdapter.setupTVShowList(it)
-            }
-            if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
-            pbMovies.visibility = View.INVISIBLE
-            srlMovies.isRefreshing = false
-        })
-    }
 
 }

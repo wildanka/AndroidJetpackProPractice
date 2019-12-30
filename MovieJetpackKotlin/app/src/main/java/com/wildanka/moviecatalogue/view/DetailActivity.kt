@@ -21,7 +21,7 @@ import com.wildanka.moviecatalogue.model.entity.MovieDetail
 import com.wildanka.moviecatalogue.model.entity.TVShowDetail
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import com.wildanka.moviecatalogue.view.adapter.MovieCastAdapter
-import com.wildanka.moviecatalogue.viewmodel.*
+import com.wildanka.moviecatalogue.viewmodel.FavoritesViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
@@ -189,7 +189,7 @@ class DetailActivity : AppCompatActivity() {
                 setFavorite()
             }
             TYPE_TV_SHOW -> {
-                Log.e("removeFromTVSHOWFavorite", "${tvShowDetail?.idMovie} - ${tvShowDetail?.title}")
+                Log.e("removeFromTVFavorite", "${tvShowDetail?.idMovie} - ${tvShowDetail?.title}")
                 viewModel.removeFavoriteTVShowData(tvShowDetail!!)
                 isFavorite = true
                 setFavorite()
