@@ -27,13 +27,6 @@ class FavoritesTVShowFragment : Fragment() {
     private lateinit var pbMovies: ProgressBar
     private lateinit var rvMovie: RecyclerView
     private lateinit var adapter: FavoriteTVPagedListAdapter
-    private val favoriteTVShowObserver =
-        Observer<PagedList<FavoriteTVShow>> {
-            if (it != null) {
-                adapter.submitList(it)
-                pbMovies.visibility = View.INVISIBLE
-            }
-        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,9 +45,9 @@ class FavoritesTVShowFragment : Fragment() {
         pbMovies.visibility = View.VISIBLE
 
         val viewModel = ViewModelProviders.of(this).get(FavoritesViewModel::class.java)
-        val rvAdapter = FavoriteTVPagedListAdapter()
+        adapter = FavoriteTVPagedListAdapter()
         rvMovie.layoutManager = LinearLayoutManager(activity!!)
-        rvMovie.adapter = rvAdapter
+        rvMovie.adapter = adapter
 
         viewModel.getAllFavoriteTVShowPaging().observe(this, favoriteTVShowObserver)
 /*        viewModel.getAllFavoritesTvShow()?.observe(this, Observer {
@@ -64,5 +57,11 @@ class FavoritesTVShowFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-
+    private val favoriteTVShowObserver =
+        Observer<PagedList<FavoriteTVShow>> {
+            if (it != null) {
+                adapter.submitList(it)
+                pbMovies.visibility = View.INVISIBLE
+            }
+        }
 }
