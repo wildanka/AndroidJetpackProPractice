@@ -8,15 +8,16 @@ import okhttp3.internal.toImmutableList
 
 object MovieDetailConverter{
     fun convertToTVShowFavorites(movie: MovieDetail): FavoriteMovie {
-        var genreList : String? = ""
-        movie.genres.forEach{
-            genreList = genreList+", "+it?.genreName
+        val genreList: MutableList<String> = mutableListOf()
+        movie.genres.forEachIndexed { _, genre ->
+            genreList.add(genre?.genreName.toString())
         }
+
         return FavoriteMovie(
             movie.idMovie,
             movie.adult,
             movie.backdropPath,
-            genreList,
+            genreList.joinToString(),
             movie.homePageUrl,
             movie.originalLanguage,
             movie.overview,
@@ -33,16 +34,15 @@ object MovieDetailConverter{
         )
     }
     fun convertToTVShowFavorites(tvShow: TVShowDetail): FavoriteTVShow {
-        var genreList : String? = ""
-
-        tvShow.genres.forEach{
-            genreList = genreList+", "+it?.genreName
+        val genreList: MutableList<String> = mutableListOf()
+        tvShow.genres.forEachIndexed { _, genre ->
+            genreList.add(genre?.genreName.toString())
         }
 
         return FavoriteTVShow(
             tvShow.idMovie,
             tvShow.backdropPath,
-            genreList,
+            genreList.joinToString(),
             tvShow.homePageUrl,
             tvShow.originalLanguage,
             tvShow.overview,
