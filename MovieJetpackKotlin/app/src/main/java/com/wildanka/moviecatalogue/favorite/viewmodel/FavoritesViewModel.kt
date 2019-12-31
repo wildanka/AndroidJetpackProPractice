@@ -11,6 +11,7 @@ import com.wildanka.moviecatalogue.favorite.model.entity.FavoriteMovie
 import com.wildanka.moviecatalogue.favorite.model.entity.FavoriteTVShow
 import com.wildanka.moviecatalogue.favorite.repo.FavoritesRepository
 import com.wildanka.moviecatalogue.remote.model.entity.*
+import com.wildanka.moviecatalogue.util.MovieDetailConverter
 
 class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
     private var favoritesRepository = FavoritesRepository(application)
@@ -24,19 +25,28 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         return favoriteMovieLiveData
     }
 
-    fun getAllFavoritesMovies() : LiveData<List<FavoriteMovie>>? {
-        return favoritesRepository?.getAllFavoriteMovies()
+    fun getAllFavoriteMoviePaging(): LiveData<PagedList<FavoriteMovie>> {
+        return LivePagedListBuilder(favoritesRepository.getAllFavoriteMoviePaging()!!, 5).build()
     }
 
     fun insertFavoriteMovieData(movie: MovieDetail) {
         //convert MovieDetail to MovieFavorites
         val favoriteMovie = MovieDetailConverter.convertToTVShowFavorites(movie)
-        favoritesRepository?.addToFavoriteMovies(favoriteMovie)
+        favoritesRepository.addToFavoriteMovies(favoriteMovie)
+    }
+
+    fun insertFavoriteMovie(favoriteMovie: FavoriteMovie) {
+        favoritesRepository.addToFavoriteMovies(favoriteMovie)
     }
 
     fun removeFavoriteMovieData(movie: MovieDetail) {
         val favoriteMovie = MovieDetailConverter.convertToTVShowFavorites(movie)
-        favoritesRepository?.removeFromFavoriteMovies(favoriteMovie)
+        favoritesRepository.removeFromFavoriteMovies(favoriteMovie)
+    }
+
+    fun getFavoriteMoviesDetails(movieId: String?): LiveData<FavoriteMovie>? {
+        if (favoriteMovieLiveData == null) favoriteMovieLiveData = favoritesRepository.getFavoriteMoviesDetails(movieId)
+        return favoriteMovieLiveData
     }
     //endregion local
 
@@ -46,30 +56,32 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         return favoritTVShowLiveData
     }
 
-    fun getAllFavoritesTvShow() : LiveData<List<FavoriteTVShow>>? {
-        return favoritesRepository?.getAllFavoriteTVShow()
+    fun getAllFavoriteTVShowPaging(): LiveData<PagedList<FavoriteTVShow>> {
+        return LivePagedListBuilder(favoritesRepository.getAllFavoriteTVShowPaging()!!, 5).build()
     }
 
     fun insertFavoriteTVShowData(tvShow: TVShowDetail) {
         //convert MovieDetail to MovieFavorites
         val favoriteTvShow= MovieDetailConverter.convertToTVShowFavorites(tvShow)
-        favoritesRepository?.addToFavoriteTVShow(favoriteTvShow)
+        favoritesRepository.addToFavoriteTVShow(favoriteTvShow)
+    }
+
+    fun insertFavoriteTVShow(favoriteTVShow: FavoriteTVShow) {
+        favoritesRepository.addToFavoriteTVShow(favoriteTVShow)
     }
 
     fun removeFavoriteTVShowData(tvShow: TVShowDetail) {
         val favoriteTvShow= MovieDetailConverter.convertToTVShowFavorites(tvShow)
         favoritesRepository?.removeFromFavoriteTVShow(favoriteTvShow)
     }
-    //endregion local TV Show
 
-    //region paging
-    fun getAllFavoriteTVShowPaging(): LiveData<PagedList<FavoriteTVShow>> {
-        return LivePagedListBuilder(favoritesRepository.getAllFavoriteTVShowPaging()!!,5).build()
+    fun getFavoriteTVShowDetails(movieId: String?): LiveData<FavoriteTVShow>? {
+        if (favoritTVShowLiveData == null) favoritTVShowLiveData = favoritesRepository.getFavoriteTVShowDetails(
+            movieId
+        )
+        return favoritTVShowLiveData
     }
-    fun getAllFavoriteMoviePaging(): LiveData<PagedList<FavoriteMovie>> {
-        return LivePagedListBuilder(favoritesRepository.getAllFavoriteMoviePaging()!!,5).build()
-    }
-    //endregion paging
+    //endregion local TV Show
 
     //region online
     private var movieDetail : MutableLiveData<MovieDetail>? = null

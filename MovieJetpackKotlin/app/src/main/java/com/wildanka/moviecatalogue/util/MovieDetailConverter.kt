@@ -1,11 +1,17 @@
-package com.wildanka.moviecatalogue.remote.model.entity
+package com.wildanka.moviecatalogue.util
 
 import com.wildanka.moviecatalogue.favorite.model.entity.FavoriteMovie
 import com.wildanka.moviecatalogue.favorite.model.entity.FavoriteTVShow
+import com.wildanka.moviecatalogue.remote.model.entity.MovieDetail
+import com.wildanka.moviecatalogue.remote.model.entity.TVShowDetail
+import okhttp3.internal.toImmutableList
 
 object MovieDetailConverter{
     fun convertToTVShowFavorites(movie: MovieDetail): FavoriteMovie {
-        val genreList : String? = movie.genres.joinToString()
+        var genreList : String? = ""
+        movie.genres.forEach{
+            genreList = genreList+", "+it?.genreName
+        }
         return FavoriteMovie(
             movie.idMovie,
             movie.adult,
@@ -27,7 +33,12 @@ object MovieDetailConverter{
         )
     }
     fun convertToTVShowFavorites(tvShow: TVShowDetail): FavoriteTVShow {
-        val genreList : String? = tvShow.genres.joinToString()
+        var genreList : String? = ""
+
+        tvShow.genres.forEach{
+            genreList = genreList+", "+it?.genreName
+        }
+
         return FavoriteTVShow(
             tvShow.idMovie,
             tvShow.backdropPath,
@@ -48,6 +59,4 @@ object MovieDetailConverter{
             tvShow.voteCount
         )
     }
-
-
 }

@@ -22,8 +22,8 @@ class FavoritesRepository(application: Application) {
         mFavoritesDao = db?.favoritesDao()
     }
 
-    fun getAllFavoriteMovies() : LiveData<List<FavoriteMovie>>? {
-        return mFavoritesDao?.getAllFavoriteMovies()
+    fun getAllFavoriteMoviePaging(): DataSource.Factory<Int, FavoriteMovie>? {
+        return mFavoritesDao?.getAllFavoritMoviePaging()
     }
 
     fun addToFavoriteMovies(favoriteMovieData: FavoriteMovie){
@@ -42,8 +42,8 @@ class FavoritesRepository(application: Application) {
         return mFavoritesDao?.getFavoriteMovieDetails(idMovie)
     }
 
-    fun getAllFavoriteTVShow() : LiveData<List<FavoriteTVShow>>? {
-        return mFavoritesDao?.getAllFavoriteTVShow()
+    fun getAllFavoriteTVShowPaging(): DataSource.Factory<Int, FavoriteTVShow>? {
+        return mFavoritesDao?.getAllFavoritTVShowPaging()
     }
 
     fun addToFavoriteTVShow(favoriteTVShowData: FavoriteTVShow){
@@ -62,11 +62,4 @@ class FavoritesRepository(application: Application) {
         return mFavoritesDao?.getFavoriteTVShowDetails(idTVShow)
     }
 
-    fun getAllFavoriteTVShowPaging(): DataSource.Factory<Int, FavoriteTVShow>? {
-        return mFavoritesDao?.getAllFavoritTVShowPaging()
-    }
-
-    fun getAllFavoriteMoviePaging(): DataSource.Factory<Int, FavoriteMovie>? {
-        return mFavoritesDao?.getAllFavoritMoviePaging()
-    }
 }

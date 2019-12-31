@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.wildanka.moviecatalogue">
+
     <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -9,8 +11,17 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".remote.view.DetailActivity"
-                  android:parentActivityName=".MainActivity">
+        <activity
+                android:name=".favorite.view.FavoritesDetailActivity"
+                android:label="@string/title_activity_favorites_detail"
+                android:parentActivityName=".MainActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.wildanka.moviecatalogue.MainActivity"/>
+        </activity>
+        <activity
+                android:name=".remote.view.DetailActivity"
+                android:parentActivityName=".MainActivity">
         </activity>
         <activity
                 android:name=".MainActivity"

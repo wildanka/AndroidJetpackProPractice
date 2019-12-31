@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.wildanka.moviecatalogue.BuildConfig
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.favorite.model.entity.FavoriteMovie
+import com.wildanka.moviecatalogue.favorite.view.FavoritesDetailActivity
 import com.wildanka.moviecatalogue.remote.view.DetailActivity
 
 class FavoriteMoviePagedListAdapter() :
@@ -79,7 +80,7 @@ class FavoriteMoviePagedListAdapter() :
 
             itemView.setOnClickListener {
                 itemView.context.startActivity(
-                    Intent(itemView.context, DetailActivity::class.java)
+                    Intent(itemView.context, FavoritesDetailActivity::class.java)
                         .putExtra("dataType", "MOVIE")
                         .putExtra("movieID", favoriteMovie.idMovie)
                 )
