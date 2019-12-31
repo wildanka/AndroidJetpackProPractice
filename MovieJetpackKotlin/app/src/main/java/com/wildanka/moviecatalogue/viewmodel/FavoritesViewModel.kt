@@ -64,6 +64,9 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     fun getAllFavoriteTVShowPaging(): LiveData<PagedList<FavoriteTVShow>> {
         return LivePagedListBuilder(favoritesRepository.getAllFavoriteTVShowPaging()!!,5).build()
     }
+    fun getAllFavoriteMoviePaging(): LiveData<PagedList<FavoriteMovie>> {
+        return LivePagedListBuilder(favoritesRepository.getAllFavoriteMoviePaging()!!,5).build()
+    }
     //endregion paging
 
     //region online

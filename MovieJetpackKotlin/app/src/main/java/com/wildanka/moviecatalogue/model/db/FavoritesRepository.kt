@@ -64,4 +64,8 @@ class FavoritesRepository(application: Application) {
     fun getAllFavoriteTVShowPaging(): DataSource.Factory<Int, FavoriteTVShow>? {
         return mFavoritesDao?.getAllFavoritTVShowPaging()
     }
+
+    fun getAllFavoriteMoviePaging(): DataSource.Factory<Int, FavoriteMovie>? {
+        return mFavoritesDao?.getAllFavoritMoviePaging()
+    }
 }

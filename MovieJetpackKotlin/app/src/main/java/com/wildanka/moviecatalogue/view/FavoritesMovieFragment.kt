@@ -9,12 +9,16 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.wildanka.moviecatalogue.R
+import com.wildanka.moviecatalogue.model.entity.FavoriteMovie
+import com.wildanka.moviecatalogue.model.entity.FavoriteTVShow
 import com.wildanka.moviecatalogue.model.entity.MovieData
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
+import com.wildanka.moviecatalogue.view.adapter.FavoriteMoviePagedListAdapter
 import com.wildanka.moviecatalogue.view.adapter.FavoriteMoviesAdapter
 import com.wildanka.moviecatalogue.view.adapter.MovieRVAdapter
 import com.wildanka.moviecatalogue.viewmodel.FavoritesViewModel
@@ -24,6 +28,7 @@ class FavoritesMovieFragment : Fragment() {
     private lateinit var srlMovies: SwipeRefreshLayout
     private lateinit var pbMovies: ProgressBar
     private lateinit var rvMovie: RecyclerView
+    private lateinit var adapter: FavoriteMoviePagedListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,15 +45,19 @@ class FavoritesMovieFragment : Fragment() {
         pbMovies.visibility = View.VISIBLE
 
         val viewModel = ViewModelProviders.of(this).get(FavoritesViewModel::class.java)
-        val rvAdapter = FavoriteMoviesAdapter()
+        adapter = FavoriteMoviePagedListAdapter()
         rvMovie.layoutManager = LinearLayoutManager(activity!!)
-        rvMovie.adapter = rvAdapter
+        rvMovie.adapter = adapter
 
-        viewModel.getAllFavoritesMovies()?.observe(this, Observer {
-            rvAdapter.setupFavoriteMoviesData(it)
-            pbMovies.visibility = View.INVISIBLE
-        })
+        viewModel.getAllFavoriteMoviePaging()?.observe(this, favoriteMovieObserver)
         super.onViewCreated(view, savedInstanceState)
     }
 
+    private val favoriteMovieObserver =
+        Observer<PagedList<FavoriteMovie>> {
+            if (it != null) {
+                adapter.submitList(it)
+                pbMovies.visibility = View.INVISIBLE
+            }
+        }
 }

@@ -50,10 +50,6 @@ class FavoritesTVShowFragment : Fragment() {
         rvMovie.adapter = adapter
 
         viewModel.getAllFavoriteTVShowPaging().observe(this, favoriteTVShowObserver)
-/*        viewModel.getAllFavoritesTvShow()?.observe(this, Observer {
-            rvAdapter.setupFavoriteTVShowData(it)
-            pbMovies.visibility = View.INVISIBLE
-        })*/
         super.onViewCreated(view, savedInstanceState)
     }
 

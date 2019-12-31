@@ -36,5 +36,8 @@ interface FavoritesDao{
     @Query("SELECT * from favorite_tv_show ORDER BY idTVShow ASC")
     fun getAllFavoritTVShowPaging() : DataSource.Factory<Int, FavoriteTVShow>
 
+    @Query("SELECT * from favorite_movies ORDER BY idMovie ASC")
+    fun getAllFavoritMoviePaging() : DataSource.Factory<Int, FavoriteMovie>
+
 
 }
