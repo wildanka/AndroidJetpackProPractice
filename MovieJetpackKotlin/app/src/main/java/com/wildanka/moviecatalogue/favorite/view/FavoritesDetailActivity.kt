@@ -61,7 +61,6 @@ class FavoritesDetailActivity : AppCompatActivity() {
             //load detail data
             EspressoIdlingResource.increment()
             viewModel.getFavoriteMoviesDetails(movieId)?.observe(this, Observer {
-                Log.e("DetailActivity", it.title)
                 if (it != null) {
                     movieDetail = it
                     tvTitle.text = it.title
@@ -175,13 +174,13 @@ class FavoritesDetailActivity : AppCompatActivity() {
         when (type) {
             TYPE_MOVIE -> {
                 Log.e("removeFromMOVIEFavorite", "${movieDetail?.idMovie} - ${movieDetail?.title}")
-                viewModel.insertFavoriteMovie(movieDetail!!)
+                viewModel.removeFavoriteMovie(movieDetail!!)
                 isFavorite = true
                 setFavorite()
             }
             TYPE_TV_SHOW -> {
                 Log.e("removeFromTVFavorite", "${tvShowDetail?.idTVShow} - ${tvShowDetail?.title}")
-                viewModel.insertFavoriteTVShow(tvShowDetail!!)
+                viewModel.removeFavoriteTVShow(tvShowDetail!!)
                 isFavorite = true
                 setFavorite()
             }

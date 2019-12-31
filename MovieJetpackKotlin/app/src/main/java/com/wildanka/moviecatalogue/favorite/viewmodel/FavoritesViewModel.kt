@@ -44,6 +44,10 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         favoritesRepository.removeFromFavoriteMovies(favoriteMovie)
     }
 
+    fun removeFavoriteMovie(favoriteMovie: FavoriteMovie) {
+        favoritesRepository.removeFromFavoriteMovies(favoriteMovie)
+    }
+
     fun getFavoriteMoviesDetails(movieId: String?): LiveData<FavoriteMovie>? {
         if (favoriteMovieLiveData == null) favoriteMovieLiveData = favoritesRepository.getFavoriteMoviesDetails(movieId)
         return favoriteMovieLiveData
@@ -73,6 +77,10 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     fun removeFavoriteTVShowData(tvShow: TVShowDetail) {
         val favoriteTvShow= MovieDetailConverter.convertToTVShowFavorites(tvShow)
         favoritesRepository?.removeFromFavoriteTVShow(favoriteTvShow)
+    }
+
+    fun removeFavoriteTVShow(favoriteTVShow: FavoriteTVShow) {
+        favoritesRepository?.removeFromFavoriteTVShow(favoriteTVShow)
     }
 
     fun getFavoriteTVShowDetails(movieId: String?): LiveData<FavoriteTVShow>? {
