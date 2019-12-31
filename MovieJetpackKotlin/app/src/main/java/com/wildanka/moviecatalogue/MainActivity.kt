@@ -7,9 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.wildanka.moviecatalogue.view.MovieFragment
-import com.wildanka.moviecatalogue.view.TVShowFragment
-import com.wildanka.moviecatalogue.view.adapter.MovieFragmentPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

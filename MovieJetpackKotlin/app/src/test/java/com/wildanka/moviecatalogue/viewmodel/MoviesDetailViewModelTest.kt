@@ -1,7 +1,8 @@
 package com.wildanka.moviecatalogue.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.wildanka.moviecatalogue.MoviesRepository
+import com.wildanka.moviecatalogue.remote.viewmodel.MoviesDetailViewModel
+import com.wildanka.moviecatalogue.remote.repository.MoviesRepository
 import com.wildanka.moviecatalogue.util.getOrAwaitValue
 import org.junit.Assert
 import org.junit.Before
