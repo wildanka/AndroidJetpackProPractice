@@ -1,5 +1,6 @@
 package com.wildanka.moviecatalogue.favorite.viewmodel
 
+import com.wildanka.moviecatalogue.favorite.model.entity.FavoriteMovie
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -16,6 +17,7 @@ class FavoritesViewModelTest {
 
     @Test
     fun insertFavoriteMovieData() {
+
     }
 
     @Test
@@ -28,6 +30,7 @@ class FavoritesViewModelTest {
 
     @Test
     fun removeFavoriteMovie() {
+
     }
 
     @Test
