@@ -28,18 +28,5 @@ abstract class MovieCatalogueDatabase : RoomDatabase() {
             return INSTANCE as MovieCatalogueDatabase
         }
 
-        fun getDatabase(context: Context): MovieCatalogueDatabase? {
-            if (INSTANCE == null) {
-                synchronized(MovieCatalogueDatabase::class.java) {
-                    if (INSTANCE == null) {
-                        INSTANCE = Room.databaseBuilder(
-                            context.applicationContext,
-                            MovieCatalogueDatabase::class.java, "favorites_database"
-                        ).build()
-                    }
-                }
-            }
-            return INSTANCE
-        }
     }
 }

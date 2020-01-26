@@ -1,4 +1,4 @@
-package com.wildanka.moviecatalogue.viewmodel
+package com.wildanka.moviecatalogue.remote.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.wildanka.moviecatalogue.remote.viewmodel.MoviesDetailViewModel
