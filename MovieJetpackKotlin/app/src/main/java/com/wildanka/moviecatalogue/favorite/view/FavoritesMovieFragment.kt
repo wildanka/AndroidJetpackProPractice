@@ -42,7 +42,7 @@ class FavoritesMovieFragment : Fragment() {
         rvMovie.layoutManager = LinearLayoutManager(activity!!)
         rvMovie.adapter = adapter
 
-        viewModel.getAllFavoriteMoviePaging()?.observe(this, favoriteMovieObserver)
+        viewModel.getAllFavoriteMoviePaging().observe(this, favoriteMovieObserver)
         super.onViewCreated(view, savedInstanceState)
     }
 

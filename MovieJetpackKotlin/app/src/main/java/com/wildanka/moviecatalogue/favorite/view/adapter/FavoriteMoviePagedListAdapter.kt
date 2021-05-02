@@ -15,9 +15,8 @@ import com.wildanka.moviecatalogue.BuildConfig
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.favorite.model.entity.FavoriteMovie
 import com.wildanka.moviecatalogue.favorite.view.FavoritesDetailActivity
-import com.wildanka.moviecatalogue.remote.view.DetailActivity
 
-class FavoriteMoviePagedListAdapter() :
+class FavoriteMoviePagedListAdapter :
     PagedListAdapter<FavoriteMovie, FavoriteMoviePagedListAdapter.FavoriteMoviesViewHolder>(
         DIFF_CALLBACK
     ) {
@@ -28,7 +27,8 @@ class FavoriteMoviePagedListAdapter() :
             override fun areItemsTheSame(oldItem: FavoriteMovie, newItem: FavoriteMovie) =
                 oldItem.idMovie == newItem.idMovie
 
-            override fun areContentsTheSame(oldItem: FavoriteMovie, newItem: FavoriteMovie) = oldItem == newItem
+            override fun areContentsTheSame(oldItem: FavoriteMovie, newItem: FavoriteMovie) =
+                oldItem == newItem
             // Favorite Movie may have changed if reloaded from the database,
             // but ID is fixed.
 
@@ -36,7 +36,9 @@ class FavoriteMoviePagedListAdapter() :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteMoviesViewHolder {
-        return FavoriteMoviesViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false))
+        return FavoriteMoviesViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: FavoriteMoviesViewHolder, position: Int) {
@@ -52,31 +54,34 @@ class FavoriteMoviePagedListAdapter() :
         private val ivPoster = itemView.findViewById<ImageView>(R.id.iv_item_movie_poster)
 
         fun bind(favoriteMovie: FavoriteMovie) {
-            when {
-                favoriteMovie.voteAverage!! > 7 -> tvRating.setTextColor(
-                    ContextCompat.getColor(
-                        itemView.context,
-                        R.color.colorGreen
+            if (favoriteMovie.voteAverage != null) {
+                when {
+                    favoriteMovie.voteAverage!! > 7 -> tvRating.setTextColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.colorGreen
+                        )
                     )
-                )
-                favoriteMovie.voteAverage > 4 -> tvRating.setTextColor(
-                    ContextCompat.getColor(
-                        itemView.context,
-                        R.color.colorYellow
+                    favoriteMovie.voteAverage!! > 4 -> tvRating.setTextColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.colorYellow
+                        )
                     )
-                )
-                else -> tvRating.setTextColor(
-                    ContextCompat.getColor(
-                        itemView.context,
-                        R.color.colorRed
+                    else -> tvRating.setTextColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.colorRed
+                        )
                     )
-                )
+                }
             }
             tvTitle.text = favoriteMovie.title
             tvRating.text = favoriteMovie.voteAverage.toString()
             tvReleaseDate.text = favoriteMovie.releaseDate
             tvShortDesc.text = favoriteMovie.overview
-            Glide.with(itemView.context).load(BuildConfig.URL_IMG_APP + favoriteMovie.posterPath).into(ivPoster)
+            Glide.with(itemView.context).load(BuildConfig.URL_IMG_APP + favoriteMovie.posterPath)
+                .into(ivPoster)
 
             itemView.setOnClickListener {
                 itemView.context.startActivity(

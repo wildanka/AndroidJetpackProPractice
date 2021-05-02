@@ -13,13 +13,11 @@ import com.wildanka.moviecatalogue.favorite.model.entity.FavoriteTVShow
 
 class FavoritesRepository(application: Application) {
     private var mFavoritesDao: FavoritesDao? = null
-    private var executorService: ExecutorService? = null
+    private var executorService: ExecutorService = Executors.newSingleThreadExecutor()
 
     init {
-        executorService = Executors.newSingleThreadExecutor()
-
         val db = MovieCatalogueDatabase.getInstance(application)
-        mFavoritesDao = db?.favoritesDao()
+        mFavoritesDao = db.favoritesDao()
     }
 
     fun getAllFavoriteMoviePaging(): DataSource.Factory<Int, FavoriteMovie>? {
@@ -27,35 +25,32 @@ class FavoritesRepository(application: Application) {
     }
 
     fun addToFavoriteMovies(favoriteMovieData: FavoriteMovie){
-        executorService?.execute(Runnable {
-            mFavoritesDao?.insertFavoriteMovie(favoriteMovieData)
-        })
+        executorService.execute { mFavoritesDao?.insertFavoriteMovie(favoriteMovieData) }
     }
 
     fun removeFromFavoriteMovies(favoriteMovieData: FavoriteMovie){
-        executorService?.execute(Runnable {
+        executorService.execute {
             mFavoritesDao?.deleteFavoriteMovie(favoriteMovieData)
-        })
+        }
     }
 
     fun getFavoriteMoviesDetails(idMovie: String?) : LiveData<FavoriteMovie>? {
         return mFavoritesDao?.getFavoriteMovieDetails(idMovie)
     }
 
+    //TODO : What to do with this DataSource.Factory
     fun getAllFavoriteTVShowPaging(): DataSource.Factory<Int, FavoriteTVShow>? {
         return mFavoritesDao?.getAllFavoritTVShowPaging()
     }
 
     fun addToFavoriteTVShow(favoriteTVShowData: FavoriteTVShow){
-        executorService?.execute(Runnable {
-            mFavoritesDao?.insertFavoriteTVShow(favoriteTVShowData)
-        })
+        executorService.execute { mFavoritesDao?.insertFavoriteTVShow(favoriteTVShowData) }
     }
 
     fun removeFromFavoriteTVShow(favoriteTVShowData: FavoriteTVShow){
-        executorService?.execute(Runnable {
+        executorService.execute {
             mFavoritesDao?.deleteFavoriteTVShow(favoriteTVShowData)
-        })
+        }
     }
 
     fun getFavoriteTVShowDetails(idTVShow: String?) : LiveData<FavoriteTVShow>? {

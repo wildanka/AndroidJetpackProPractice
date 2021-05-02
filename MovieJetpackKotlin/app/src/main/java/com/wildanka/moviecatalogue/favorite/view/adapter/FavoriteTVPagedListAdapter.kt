@@ -15,9 +15,8 @@ import com.wildanka.moviecatalogue.BuildConfig
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.favorite.model.entity.FavoriteTVShow
 import com.wildanka.moviecatalogue.favorite.view.FavoritesDetailActivity
-import com.wildanka.moviecatalogue.remote.view.DetailActivity
 
-class FavoriteTVPagedListAdapter() :
+class FavoriteTVPagedListAdapter :
     PagedListAdapter<FavoriteTVShow, FavoriteTVPagedListAdapter.FavoriteTVShowViewHolder>(
         DIFF_CALLBACK
     ) {

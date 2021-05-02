@@ -24,9 +24,9 @@ import com.wildanka.moviecatalogue.remote.view.adapter.MovieCastAdapter
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import kotlinx.android.synthetic.main.activity_detail.*
 
+private const val TYPE_MOVIE = "MOVIE"
+private const val TYPE_TV_SHOW = "TV_SHOW"
 class FavoritesDetailActivity : AppCompatActivity() {
-    private val TYPE_MOVIE = "MOVIE"
-    private val TYPE_TV_SHOW = "TV_SHOW"
     private lateinit var shimmerViewContainer: ShimmerFrameLayout
     private lateinit var viewModel: FavoritesViewModel
     private var isFavorite: Boolean = false
@@ -34,7 +34,6 @@ class FavoritesDetailActivity : AppCompatActivity() {
     private var movieDetail: FavoriteMovie? = null
     private var tvShowDetail: FavoriteTVShow? = null
     private var type: String? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -235,6 +234,5 @@ class FavoritesDetailActivity : AppCompatActivity() {
                 Log.e("checkFavorite", "WUUT?")
             }
         }
-
     }
 }

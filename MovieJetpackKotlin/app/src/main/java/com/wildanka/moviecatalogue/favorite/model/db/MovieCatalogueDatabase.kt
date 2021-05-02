@@ -21,7 +21,7 @@ abstract class MovieCatalogueDatabase : RoomDatabase() {
             if (INSTANCE == null) {
                 INSTANCE = Room.databaseBuilder<MovieCatalogueDatabase>(
                     context.applicationContext,
-                    MovieCatalogueDatabase::class.java!!,
+                    MovieCatalogueDatabase::class.java,
                     "favorites_database"
                 ).fallbackToDestructiveMigration().build()
             }
