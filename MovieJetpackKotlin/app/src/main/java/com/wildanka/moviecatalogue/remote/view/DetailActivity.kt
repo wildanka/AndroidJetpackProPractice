@@ -10,18 +10,18 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.wildanka.moviecatalogue.BuildConfig.URL_IMG_APP
 import com.wildanka.moviecatalogue.R
+import com.wildanka.moviecatalogue.favorite.viewmodel.FavoritesViewModel
 import com.wildanka.moviecatalogue.remote.model.entity.MovieDetail
 import com.wildanka.moviecatalogue.remote.model.entity.TVShowDetail
-import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import com.wildanka.moviecatalogue.remote.view.adapter.MovieCastAdapter
-import com.wildanka.moviecatalogue.favorite.viewmodel.FavoritesViewModel
+import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
@@ -54,10 +54,11 @@ class DetailActivity : AppCompatActivity() {
         val tvGenre = findViewById<TextView>(R.id.tv_genre)
         val rvCast = findViewById<RecyclerView>(R.id.rv_movie_casts)
         val ivMoviePosterDetail = findViewById<ImageView>(R.id.iv_movie_poster_detail)
-        viewModel = ViewModelProviders.of(this).get(FavoritesViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
 
         if (type == TYPE_MOVIE) {
-            Log.e("DetailActivity", movieId)
+            //TODO : remove logger
+            movieId?.let { Log.e("DetailActivity", it) }
             //load detail data
             EspressoIdlingResource.increment()
             viewModel.getMoviesDetailWithID(movieId)?.observe(this, Observer { movieDetails ->
@@ -99,7 +100,8 @@ class DetailActivity : AppCompatActivity() {
                 checkFavorite(movieId)
             }
         }else{
-            Log.e("DetailActivity", tvShowId)
+            //TODO : remove logger
+            movieId?.let { Log.e("DetailActivity", it) }
             //load detail data
             EspressoIdlingResource.increment()
             viewModel.getTVShowDetailWithId(tvShowId)?.observe(this, Observer { tvShowDetails ->
@@ -153,8 +155,8 @@ class DetailActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId){
             android.R.id.home -> {
                 finish()
                 true

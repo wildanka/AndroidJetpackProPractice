@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -37,7 +37,7 @@ class MovieFragment : Fragment() {
         srlMovies = view.findViewById(R.id.srl_movies)
         pbMovies.visibility = View.VISIBLE
 
-        val viewModel = ViewModelProviders.of(this).get(MainMoviesViewModel::class.java)
+        val viewModel = ViewModelProvider(this).get(MainMoviesViewModel::class.java)
         val rvAdapter = MovieRVAdapter(activity!!)
         rvMovie.layoutManager = LinearLayoutManager(activity!!)
         rvMovie.adapter = rvAdapter

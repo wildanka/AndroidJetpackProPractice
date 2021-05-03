@@ -20,6 +20,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+const val core_testing = "androidx.arch.core:core-testing:2.1.0"
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)

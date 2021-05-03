@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.wildanka.moviecatalogue.R
-import com.wildanka.moviecatalogue.favorite.view.adapter.FavoriteMoviePagedListAdapter
 import com.wildanka.moviecatalogue.favorite.model.entity.FavoriteMovie
+import com.wildanka.moviecatalogue.favorite.view.adapter.FavoriteMoviePagedListAdapter
 import com.wildanka.moviecatalogue.favorite.viewmodel.FavoritesViewModel
 
 class FavoritesMovieFragment : Fragment() {
@@ -37,12 +37,12 @@ class FavoritesMovieFragment : Fragment() {
         srlMovies = view.findViewById(R.id.srl_movies)
         pbMovies.visibility = View.VISIBLE
 
-        val viewModel = ViewModelProviders.of(this).get(FavoritesViewModel::class.java)
+        val viewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
         adapter = FavoriteMoviePagedListAdapter()
-        rvMovie.layoutManager = LinearLayoutManager(activity!!)
+        rvMovie.layoutManager = LinearLayoutManager(activity)
         rvMovie.adapter = adapter
 
-        viewModel.getAllFavoriteMoviePaging().observe(this, favoriteMovieObserver)
+        viewModel.getAllFavoriteMoviePaging().observe(viewLifecycleOwner, favoriteMovieObserver)
         super.onViewCreated(view, savedInstanceState)
     }
 

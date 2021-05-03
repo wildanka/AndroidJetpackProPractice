@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -44,12 +44,12 @@ class FavoritesTVShowFragment : Fragment() {
         srlMovies = view.findViewById(com.wildanka.moviecatalogue.R.id.srl_movies)
         pbMovies.visibility = View.VISIBLE
 
-        val viewModel = ViewModelProviders.of(this).get(FavoritesViewModel::class.java)
+        val viewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
         adapter = FavoriteTVPagedListAdapter()
-        rvMovie.layoutManager = LinearLayoutManager(activity!!)
+        rvMovie.layoutManager = LinearLayoutManager(activity)
         rvMovie.adapter = adapter
 
-        viewModel.getAllFavoriteTVShowPaging().observe(this, favoriteTVShowObserver)
+        viewModel.getAllFavoriteTVShowPaging().observe(viewLifecycleOwner, favoriteTVShowObserver)
         super.onViewCreated(view, savedInstanceState)
     }
 

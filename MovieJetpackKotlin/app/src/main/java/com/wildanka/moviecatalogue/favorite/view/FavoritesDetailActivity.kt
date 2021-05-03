@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -53,10 +53,11 @@ class FavoritesDetailActivity : AppCompatActivity() {
         val tvGenre = findViewById<TextView>(R.id.tv_genre)
         val rvCast = findViewById<RecyclerView>(R.id.rv_movie_casts)
         val ivMoviePosterDetail = findViewById<ImageView>(R.id.iv_movie_poster_detail)
-        viewModel = ViewModelProviders.of(this).get(FavoritesViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
 
         if (type == TYPE_MOVIE) {
-            Log.e("DetailActivity", movieId)
+            //TODO : delete the logs
+            movieId?.let { Log.e("DetailActivity", it) }
             //load detail data
             EspressoIdlingResource.increment()
             viewModel.getFavoriteMoviesDetails(movieId)?.observe(this, Observer {
@@ -94,7 +95,8 @@ class FavoritesDetailActivity : AppCompatActivity() {
                 checkFavorite(movieId)
             }
         }else{
-            Log.e("DetailActivity", tvShowId)
+            //TODO : delete the logs
+            tvShowId?.let { Log.e("DetailActivity", it) }
             //load detail data
             EspressoIdlingResource.increment()
             viewModel.getFavoriteTVShowDetails(tvShowId)?.observe(this, Observer { tvShowDetails ->
@@ -142,8 +144,8 @@ class FavoritesDetailActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId){
             android.R.id.home -> {
                 finish()
                 true
