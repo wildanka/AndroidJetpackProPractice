@@ -1,8 +1,8 @@
-package com.wildanka.moviecatalogue.remote.viewmodel
+package com.wildanka.moviecatalogue.presentation.ui.movies
+
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.wildanka.moviecatalogue.data.MoviesRepository
-import com.wildanka.moviecatalogue.presentation.ui.movies.MoviesDetailViewModel
 import com.wildanka.moviecatalogue.util.getOrAwaitValue
 import org.junit.Assert
 import org.junit.Before
@@ -82,7 +82,7 @@ class MoviesDetailViewModelTest {
         // maka result seharusnya adalah aktor bernama "Freddie Highmore" dengan character "Shaun Murphy"
         val movieIndex = "71712"
         val expectedActor = "Freddie Highmore"
-        val expectedCharacter = "Shaun Murphy"
+        val expectedCharacter = "Dr. Shaun Murphy"
         Assert.assertEquals(
             expectedActor,
             moviesDetailViewModel.getTVShowCastData(movieIndex)?.getOrAwaitValue()?.cast?.get(0)?.name

@@ -1,4 +1,4 @@
-package com.wildanka.moviecatalogue.remote.viewmodel
+package com.wildanka.moviecatalogue.presentation.ui.movies
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer
 import com.wildanka.moviecatalogue.data.MoviesRepository
 import com.wildanka.moviecatalogue.domain.entity.MovieData
 import com.wildanka.moviecatalogue.domain.entity.TVShowData
-import com.wildanka.moviecatalogue.presentation.ui.movies.MainMoviesViewModel
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
