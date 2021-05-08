@@ -3,11 +3,11 @@
             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/home_nav" app:startDestination="@id/movieFragment">
 
-    <fragment android:id="@+id/movieFragment" android:name="com.wildanka.moviecatalogue.remote.view.MovieFragment"
+    <fragment android:id="@+id/movieFragment" android:name="com.wildanka.moviecatalogue.presentation.ui.movies.MovieFragment"
               android:label="MovieFragment" tools:layout="@layout/fragment_movie"/>
-    <fragment android:id="@+id/tvShowFragment" android:name="com.wildanka.moviecatalogue.remote.view.TVShowFragment"
+    <fragment android:id="@+id/tvShowFragment" android:name="com.wildanka.moviecatalogue.presentation.ui.movies.TVShowFragment"
               android:label="TVShowFragment" tools:layout="@layout/fragment_movie"/>
-    <fragment android:id="@+id/favoritesFragment" android:name="com.wildanka.moviecatalogue.favorite.view.FavoritesFragment"
+    <fragment android:id="@+id/favoritesFragment" android:name="com.wildanka.moviecatalogue.presentation.ui.favorites.FavoritesFragment"
               android:label="FavoritesFragment" tools:layout="@layout/fragment_favorites">
         <action android:id="@+id/action_favoritesFragment_self" app:destination="@id/favoritesFragment"
                 app:popUpTo="@id/favoritesFragment" app:launchSingleTop="true"/>

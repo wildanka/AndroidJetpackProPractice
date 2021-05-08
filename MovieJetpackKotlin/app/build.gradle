@@ -98,6 +98,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     // alternatively - without Android dependencies for testing
     testImplementation "androidx.paging:paging-common-ktx:$paging_version" // For Kotlin use paging-common-ktx
+    testImplementation "org.mockito:mockito-core:$mockito_version"
     testImplementation "org.mockito:mockito-inline:$mockito_version"
     testImplementation group: 'org.mockito', name: 'mockito-core', version: "$mockito_version"
 

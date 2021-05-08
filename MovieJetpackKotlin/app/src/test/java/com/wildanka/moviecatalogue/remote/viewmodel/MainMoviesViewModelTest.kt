@@ -3,17 +3,16 @@ package com.wildanka.moviecatalogue.remote.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.wildanka.moviecatalogue.remote.repository.MoviesRepository
-import com.wildanka.moviecatalogue.remote.model.entity.MovieData
-import com.wildanka.moviecatalogue.remote.model.entity.TVShowData
-import com.wildanka.moviecatalogue.remote.viewmodel.MainMoviesViewModel
+import com.wildanka.moviecatalogue.data.MoviesRepository
+import com.wildanka.moviecatalogue.domain.entity.MovieData
+import com.wildanka.moviecatalogue.domain.entity.TVShowData
+import com.wildanka.moviecatalogue.presentation.ui.movies.MainMoviesViewModel
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.*
-import java.math.BigInteger
 
 class MainMoviesViewModelTest {
     @get:Rule
@@ -28,7 +27,8 @@ class MainMoviesViewModelTest {
     @Before
     fun setUp() {
         moviesRepository = Mockito.mock(MoviesRepository::class.java)
-        mainViewModel = MainMoviesViewModel()
+        mainViewModel =
+            MainMoviesViewModel()
     }
 
     @Test

@@ -1,8 +1,8 @@
 package com.wildanka.moviecatalogue.remote.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.wildanka.moviecatalogue.remote.viewmodel.MoviesDetailViewModel
-import com.wildanka.moviecatalogue.remote.repository.MoviesRepository
+import com.wildanka.moviecatalogue.data.MoviesRepository
+import com.wildanka.moviecatalogue.presentation.ui.movies.MoviesDetailViewModel
 import com.wildanka.moviecatalogue.util.getOrAwaitValue
 import org.junit.Assert
 import org.junit.Before
@@ -25,7 +25,8 @@ class MoviesDetailViewModelTest {
     @Before
     fun setUp() {
         moviesRepository = Mockito.mock(MoviesRepository::class.java)
-        moviesDetailViewModel = MoviesDetailViewModel()
+        moviesDetailViewModel =
+            MoviesDetailViewModel()
     }
 
     @Test

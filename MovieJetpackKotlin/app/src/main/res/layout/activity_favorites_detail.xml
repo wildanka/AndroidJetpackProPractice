@@ -9,7 +9,7 @@
             android:layout_height="wrap_content">
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent" android:layout_height="wrap_content"
-                tools:context=".remote.view.DetailActivity">
+                tools:context=".presentation.ui.movies.DetailActivity">
             <ImageView
                     android:id="@+id/iv_movie_poster_detail"
                     android:contentDescription="@string/cd_movie_poster"

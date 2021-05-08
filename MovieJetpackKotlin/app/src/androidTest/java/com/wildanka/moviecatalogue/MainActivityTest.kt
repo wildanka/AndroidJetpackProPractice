@@ -11,8 +11,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
-import com.wildanka.moviecatalogue.remote.view.adapter.MovieRVAdapter
-import com.wildanka.moviecatalogue.remote.view.adapter.TVShowRVAdapter
+import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.MovieRVAdapter
+import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.TVShowRVAdapter
 import org.hamcrest.Matchers.allOf
 import org.junit.After
 import org.junit.Before

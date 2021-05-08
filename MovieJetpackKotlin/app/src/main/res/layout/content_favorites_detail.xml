@@ -7,6 +7,6 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_favorites_detail"
-        tools:context=".favorite.view.FavoritesDetailActivity">
+        tools:context=".presentation.ui.favorites.FavoritesDetailActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

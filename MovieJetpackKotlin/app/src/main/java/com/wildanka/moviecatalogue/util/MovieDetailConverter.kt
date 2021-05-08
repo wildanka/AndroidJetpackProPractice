@@ -1,10 +1,9 @@
 package com.wildanka.moviecatalogue.util
 
-import com.wildanka.moviecatalogue.favorite.model.entity.FavoriteMovie
-import com.wildanka.moviecatalogue.favorite.model.entity.FavoriteTVShow
-import com.wildanka.moviecatalogue.remote.model.entity.MovieDetail
-import com.wildanka.moviecatalogue.remote.model.entity.TVShowDetail
-import okhttp3.internal.toImmutableList
+import com.wildanka.moviecatalogue.domain.entity.FavoriteMovie
+import com.wildanka.moviecatalogue.domain.entity.FavoriteTVShow
+import com.wildanka.moviecatalogue.domain.entity.MovieDetail
+import com.wildanka.moviecatalogue.domain.entity.TVShowDetail
 
 object MovieDetailConverter{
     fun convertToTVShowFavorites(movie: MovieDetail): FavoriteMovie {

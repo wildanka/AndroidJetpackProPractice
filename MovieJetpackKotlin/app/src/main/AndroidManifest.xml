@@ -12,7 +12,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".favorite.view.FavoritesDetailActivity"
+                android:name="com.wildanka.moviecatalogue.presentation.ui.favorites.FavoritesDetailActivity"
                 android:label="@string/title_activity_favorites_detail"
                 android:parentActivityName=".MainActivity">
             <meta-data
@@ -20,7 +20,7 @@
                     android:value="com.wildanka.moviecatalogue.MainActivity"/>
         </activity>
         <activity
-                android:name=".remote.view.DetailActivity"
+                android:name="com.wildanka.moviecatalogue.presentation.ui.movies.DetailActivity"
                 android:parentActivityName=".MainActivity">
         </activity>
         <activity
