@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.wildanka.moviecatalogue.domain.entity.FavoriteMovie
-import com.wildanka.moviecatalogue.domain.entity.FavoriteTVShow
+import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteMovie
+import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteTVShow
 
 @Database(entities = [FavoriteMovie::class, FavoriteTVShow::class], version = 2, exportSchema = false)
 abstract class MovieCatalogueDatabase : RoomDatabase() {

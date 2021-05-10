@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wildanka.moviecatalogue.BuildConfig
 import com.wildanka.moviecatalogue.R
-import com.wildanka.moviecatalogue.domain.entity.FavoriteMovie
+import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteMovie
 import com.wildanka.moviecatalogue.presentation.ui.movies.DetailActivity
 
 class FavoriteMoviesAdapter() :

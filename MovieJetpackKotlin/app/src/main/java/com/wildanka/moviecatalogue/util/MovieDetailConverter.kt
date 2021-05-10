@@ -1,7 +1,7 @@
 package com.wildanka.moviecatalogue.util
 
-import com.wildanka.moviecatalogue.domain.entity.FavoriteMovie
-import com.wildanka.moviecatalogue.domain.entity.FavoriteTVShow
+import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteMovie
+import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteTVShow
 import com.wildanka.moviecatalogue.domain.entity.MovieDetail
 import com.wildanka.moviecatalogue.domain.entity.TVShowDetail
 

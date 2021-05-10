@@ -17,8 +17,8 @@ import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.wildanka.moviecatalogue.BuildConfig
 import com.wildanka.moviecatalogue.R
-import com.wildanka.moviecatalogue.domain.entity.FavoriteMovie
-import com.wildanka.moviecatalogue.domain.entity.FavoriteTVShow
+import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteMovie
+import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteTVShow
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.MovieCastAdapter
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -59,22 +59,24 @@ class FavoritesDetailActivity : AppCompatActivity() {
             movieId?.let { Log.e("DetailActivity", it) }
             //load detail data
             EspressoIdlingResource.increment()
-            viewModel.getFavoriteMoviesDetails(movieId)?.observe(this, Observer {
-                if (it != null) {
-                    movieDetail = it
-                    tvTitle.text = it.title
-                    tvYear.text = it.releaseDate
-                    tvTagline.text = it.tagline
-                    tvRating.text = getString(R.string.score_s, it.voteAverage.toString())
-                    tvOverview.text = it.overview
-                    tvDuration.text = getString(R.string.duration_s_min, it.duration.toString())
-                    tvPopularity.text = it.popularity
-                    //load genre
-                    tvGenre.text = it.genres
-                    Glide.with(this).load(BuildConfig.URL_IMG_APP + it.posterPath).into(ivMoviePosterDetail)
-                }
-                if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
-            })
+            movieId?.let {
+                viewModel.getFavoriteMoviesDetails(it)?.observe(this, Observer {
+                    if (it != null) {
+                        movieDetail = it
+                        tvTitle.text = it.title
+                        tvYear.text = it.releaseDate
+                        tvTagline.text = it.tagline
+                        tvRating.text = getString(R.string.score_s, it.voteAverage.toString())
+                        tvOverview.text = it.overview
+                        tvDuration.text = getString(R.string.duration_s_min, it.duration.toString())
+                        tvPopularity.text = it.popularity
+                        //load genre
+                        tvGenre.text = it.genres
+                        Glide.with(this).load(BuildConfig.URL_IMG_APP + it.posterPath).into(ivMoviePosterDetail)
+                    }
+                    if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
+                })
+            }
 
             //load cast data
             val castAdapter =
@@ -99,21 +101,23 @@ class FavoritesDetailActivity : AppCompatActivity() {
             tvShowId?.let { Log.e("DetailActivity", it) }
             //load detail data
             EspressoIdlingResource.increment()
-            viewModel.getFavoriteTVShowDetails(tvShowId)?.observe(this, Observer { tvShowDetails ->
-                if (tvShowDetails != null) {
-                    tvShowDetail = tvShowDetails
-                    tvTitle.text = tvShowDetails.title
-                    tvYear.text = tvShowDetails.firstAirDate
-                    tvTagline.text = ""
-                    tvRating.text = getString(R.string.score_s, tvShowDetails.voteAverage.toString())
-                    tvOverview.text = tvShowDetails.overview
-                    tvDuration.text = ""
-                    tvPopularity.text = tvShowDetails.popularity
-                    tvGenre.text = tvShowDetails.genres
-                    Glide.with(this).load(BuildConfig.URL_IMG_APP + tvShowDetails.posterPath).into(ivMoviePosterDetail)
-                }
-                if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
-            })
+            tvShowId?.let {
+                viewModel.getFavoriteTVShowDetails(it)?.observe(this, Observer { tvShowDetails ->
+                    if (tvShowDetails != null) {
+                        tvShowDetail = tvShowDetails
+                        tvTitle.text = tvShowDetails.title
+                        tvYear.text = tvShowDetails.firstAirDate
+                        tvTagline.text = ""
+                        tvRating.text = getString(R.string.score_s, tvShowDetails.voteAverage.toString())
+                        tvOverview.text = tvShowDetails.overview
+                        tvDuration.text = ""
+                        tvPopularity.text = tvShowDetails.popularity
+                        tvGenre.text = tvShowDetails.genres
+                        Glide.with(this).load(BuildConfig.URL_IMG_APP + tvShowDetails.posterPath).into(ivMoviePosterDetail)
+                    }
+                    if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
+                })
+            }
 
             //region cast data
             val castAdapter =

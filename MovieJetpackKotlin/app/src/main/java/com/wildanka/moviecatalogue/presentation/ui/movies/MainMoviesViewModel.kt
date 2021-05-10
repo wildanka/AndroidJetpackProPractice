@@ -3,7 +3,7 @@ package com.wildanka.moviecatalogue.presentation.ui.movies
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.wildanka.moviecatalogue.data.MoviesRepository
-import com.wildanka.moviecatalogue.domain.entity.MovieData
+import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieData
 import com.wildanka.moviecatalogue.domain.entity.TVShowData
 
 class MainMoviesViewModel : ViewModel(){

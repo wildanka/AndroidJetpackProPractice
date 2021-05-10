@@ -3,8 +3,8 @@ package com.wildanka.moviecatalogue.data.datasource.local
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
-import com.wildanka.moviecatalogue.domain.entity.FavoriteMovie
-import com.wildanka.moviecatalogue.domain.entity.FavoriteTVShow
+import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteMovie
+import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteTVShow
 
 @Dao
 interface FavoritesDao{
@@ -34,10 +34,10 @@ interface FavoritesDao{
     fun deleteFavoriteTVShow(movieDataFavorite: FavoriteTVShow)
 
     @Query("SELECT * from favorite_tv_show ORDER BY idTVShow ASC")
-    fun getAllFavoritTVShowPaging() : DataSource.Factory<Int, FavoriteTVShow>
+    fun getAllFavoriteTVShowPaging() : DataSource.Factory<Int, FavoriteTVShow>
 
     @Query("SELECT * from favorite_movies ORDER BY idMovie ASC")
-    fun getAllFavoritMoviePaging() : DataSource.Factory<Int, FavoriteMovie>
+    fun getAllFavoriteMoviePaging() : DataSource.Factory<Int, FavoriteMovie>
 
 
 }

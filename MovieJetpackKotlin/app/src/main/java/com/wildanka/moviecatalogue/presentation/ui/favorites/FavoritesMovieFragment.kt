@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.wildanka.moviecatalogue.R
-import com.wildanka.moviecatalogue.domain.entity.FavoriteMovie
+import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteMovie
 import com.wildanka.moviecatalogue.presentation.ui.favorites.adapter.FavoriteMoviePagedListAdapter
 
 class FavoritesMovieFragment : Fragment() {
@@ -36,7 +36,8 @@ class FavoritesMovieFragment : Fragment() {
         srlMovies = view.findViewById(R.id.srl_movies)
         pbMovies.visibility = View.VISIBLE
 
-        val viewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
+        val factory = FavoritesViewModelFactory.getInstance(requireActivity())
+        val viewModel = ViewModelProvider(this, factory).get(FavoritesViewModel::class.java)
         adapter = FavoriteMoviePagedListAdapter()
         rvMovie.layoutManager = LinearLayoutManager(activity)
         rvMovie.adapter = adapter

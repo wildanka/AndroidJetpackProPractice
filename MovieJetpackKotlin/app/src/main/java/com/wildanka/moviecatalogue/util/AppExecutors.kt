@@ -12,7 +12,8 @@ open class AppExecutors @VisibleForTesting
 constructor(private val diskIO: Executor, private val networkIO: Executor, private val mainThread: Executor) {
 
     constructor() : this(
-        DiskIOThreadExecutor(), Executors.newFixedThreadPool(THREAD_COUNT),
+        DiskIOThreadExecutor(),
+        Executors.newFixedThreadPool(THREAD_COUNT),
         MainThreadExecutor()
     )
 

@@ -2,6 +2,7 @@ package com.wildanka.moviecatalogue.data
 
 import androidx.lifecycle.MutableLiveData
 import com.wildanka.moviecatalogue.BuildConfig.API_V3_KEY
+import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieData
 import com.wildanka.moviecatalogue.domain.entity.*
 import com.wildanka.moviecatalogue.data.datasource.remote.service.ApiMovie
 import com.wildanka.moviecatalogue.util.ApiClient

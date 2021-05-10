@@ -1,4 +1,4 @@
-package com.wildanka.moviecatalogue.domain.entity
+package com.wildanka.moviecatalogue.data.datasource.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

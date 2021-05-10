@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.wildanka.moviecatalogue.data.MoviesRepository
-import com.wildanka.moviecatalogue.domain.entity.MovieData
+import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieData
 import com.wildanka.moviecatalogue.domain.entity.TVShowData
 import org.junit.Before
 import org.junit.Rule

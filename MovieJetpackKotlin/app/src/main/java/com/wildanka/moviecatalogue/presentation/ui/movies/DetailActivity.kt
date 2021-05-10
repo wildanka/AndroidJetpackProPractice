@@ -20,6 +20,7 @@ import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.presentation.ui.favorites.FavoritesViewModel
 import com.wildanka.moviecatalogue.domain.entity.MovieDetail
 import com.wildanka.moviecatalogue.domain.entity.TVShowDetail
+import com.wildanka.moviecatalogue.presentation.ui.favorites.FavoritesViewModelFactory
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.MovieCastAdapter
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -54,7 +55,9 @@ class DetailActivity : AppCompatActivity() {
         val tvGenre = findViewById<TextView>(R.id.tv_genre)
         val rvCast = findViewById<RecyclerView>(R.id.rv_movie_casts)
         val ivMoviePosterDetail = findViewById<ImageView>(R.id.iv_movie_poster_detail)
-        viewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
+
+        val factory = FavoritesViewModelFactory.getInstance(this)
+        viewModel = ViewModelProvider(this, factory).get(FavoritesViewModel::class.java)
 
         if (type == TYPE_MOVIE) {
             //TODO : remove logger
