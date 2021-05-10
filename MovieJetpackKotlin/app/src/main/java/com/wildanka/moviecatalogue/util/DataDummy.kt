@@ -1,12 +1,15 @@
 package com.wildanka.moviecatalogue.util
 
+import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteMovie
+import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteTVShow
 import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieData
 import com.wildanka.moviecatalogue.domain.entity.Genre
 import com.wildanka.moviecatalogue.domain.entity.MovieDetail
+import com.wildanka.moviecatalogue.domain.entity.TVShowData
 
 object DataDummy {
 
-    fun generateDummyMovies(): List<MovieData> {
+    fun generateRemoteDummyMovies(): List<MovieData> {
         val movies = ArrayList<MovieData>()
 
         movies.add(
@@ -307,7 +310,216 @@ object DataDummy {
         return movies
     }
 
-    fun generateRemoteDummyMovie(movieId: String): MovieDetail {
+    fun generateRemoteDummyTVShow(): List<TVShowData> {
+        val tvShows = ArrayList<TVShowData>()
+
+        tvShows.add(
+            TVShowData(
+                "88396",
+                5360,
+                "The Falcon and the Winter Soldier",
+                "The Falcon and the Winter Soldier",
+                "2021-03-19",
+                7.9,
+                "Following the events of â€œAvengers: Endgameâ€�, the Falcon, Sam Wilson and the Winter Soldier, Bucky Barnes team up in a global adventure that tests their abilities, and their patience.",
+                "/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
+                "en",
+                "1829.941"
+            )
+        )
+        tvShows.add(
+            TVShowData(
+                "95557",
+                1416,
+                "Invincible",
+                "Invincible",
+                "2021-03-26",
+                8.9,
+                "Mark Grayson is a normal teenager except for the fact that his father is the most powerful superhero on the planet. Shortly after his seventeenth birthday, Mark begins to develop powers of his own and enters into his fatherâ€™s tutelage.",
+                "/yDWJYRAwMNKbIYT8ZB33qy84uzO.jpg",
+                "en",
+                "1829.941"
+            )
+        )
+        tvShows.add(
+            TVShowData(
+                "60735",
+                7545,
+                "The Flash",
+                "The Flash",
+                "2014-10-07",
+                7.7,
+                "After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only \\\"meta-human\\\" who was created in the wake of the accelerator explosion -- and not everyone is using their new powers for good. Barry partners with S.T.A.R. Labs and dedicates his life to protect the innocent. For now, only a few close friends and associates know that Barry is literally the fastest man alive, but it won't be long before the world learns what Barry Allen has become...The Flash.",
+                "/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg",
+                "en",
+                "1254.767"
+            )
+        )
+
+        return tvShows
+    }
+
+    fun generateLocalDummyFavoriteMovies(): List<FavoriteMovie> {
+        val genres = ArrayList<Genre>()
+        genres.add(Genre("28", "tes"))
+        genres.add(Genre("14", "tes"))
+        genres.add(Genre("12", "tes"))
+        genres.add(Genre("878", "tes"))
+
+        val movies = ArrayList<FavoriteMovie>()
+
+        movies.add(
+            FavoriteMovie(
+                "460465",
+                false,
+                "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
+                "Action, Fantasy, Adventure, Science Fiction, ",
+                "https://www.mortalkombatmovie.net",
+                "2021-04-07",
+                "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
+                "5419.678",
+                "/xGuOF1T3WmPsAcQEQJfnG7Ud9f8.jpg",
+                "en",
+                "50115000",
+                "110",
+                "Released",
+                "Get over here.",
+                "Mortal Kombat",
+                7.7,
+                "2240"
+            )
+        )
+        movies.add(
+            FavoriteMovie(
+                "460465",
+                false,
+                "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
+                "Action, Fantasy, Adventure, Science Fiction, ",
+                "https://www.mortalkombatmovie.net",
+                "2021-04-07",
+                "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
+                "5419.678",
+                "/xGuOF1T3WmPsAcQEQJfnG7Ud9f8.jpg",
+                "en",
+                "50115000",
+                "110",
+                "Released",
+                "Get over here.",
+                "Mortal Kombat",
+                7.7,
+                "2240"
+            )
+        )
+        movies.add(
+            FavoriteMovie(
+                "460465",
+                false,
+                "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
+                "Action, Fantasy, Adventure, Science Fiction, ",
+                "https://www.mortalkombatmovie.net",
+                "2021-04-07",
+                "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
+                "5419.678",
+                "/xGuOF1T3WmPsAcQEQJfnG7Ud9f8.jpg",
+                "en",
+                "50115000",
+                "110",
+                "Released",
+                "Get over here.",
+                "Mortal Kombat",
+                7.7,
+                "2240"
+            )
+        )
+
+        return movies
+    }
+
+    fun generateLocalDummyMovieDetail(): FavoriteMovie {
+        return generateLocalDummyFavoriteMovies()[0]
+    }
+
+    fun generateLocalDummyFavoriteTVShow(): List<FavoriteTVShow> {
+        val genres = ArrayList<Genre>()
+        genres.add(Genre("28", "tes"))
+        genres.add(Genre("14", "tes"))
+        genres.add(Genre("12", "tes"))
+        genres.add(Genre("878", "tes"))
+
+        val tvShows = ArrayList<FavoriteTVShow>()
+
+        tvShows.add(
+            FavoriteTVShow(
+                "88396",
+                "/b0WmHGc8LHTdGCVzxRb3IBMur57.jpg",
+                "Action, Fantasy, Adventure, Science Fiction, ",
+                "",
+                "en",
+                "Following the events of â€œAvengers: Endgameâ€�, the Falcon, Sam Wilson and the Winter Soldier, Bucky Barnes team up in a global adventure that tests their abilities, and their patience.",
+                "1829.941",
+                "/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
+                "2021-03-19",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "The Falcon and the Winter Soldier",
+                7.9,
+                "5360"
+            )
+        )
+        tvShows.add(
+            FavoriteTVShow(
+                "95557",
+                "/6UH52Fmau8RPsMAbQbjwN3wJSCj.jpg",
+                "Action, Fantasy, Adventure, Science Fiction, ",
+                "",
+                "en",
+                "Mark Grayson is a normal teenager except for the fact that his father is the most powerful superhero on the planet. Shortly after his seventeenth birthday, Mark begins to develop powers of his own and enters into his fatherâ€™s tutelage.",
+                "1744.687",
+                "/yDWJYRAwMNKbIYT8ZB33qy84uzO.jpg",
+                "2021-03-26",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "Invincible",
+                8.9,
+                "1416"
+            )
+        )
+        tvShows.add(
+            FavoriteTVShow(
+                "60735",
+                "/z59kJfcElR9eHO9rJbWp4qWMuee.jpg",
+                "Action, Fantasy, Adventure, Science Fiction, ",
+                "",
+                "en",
+                "After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only \\\"meta-human\\\" who was created in the wake of the accelerator explosion -- and not everyone is using their new powers for good. Barry partners with S.T.A.R. Labs and dedicates his life to protect the innocent. For now, only a few close friends and associates know that Barry is literally the fastest man alive, but it won't be long before the world learns what Barry Allen has become...The Flash.",
+                "1254.767",
+                "/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg",
+                "2014-10-07",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "The Flash",
+                7.7,
+                "7545"
+            )
+        )
+
+        return tvShows
+    }
+
+    fun generateLocalDummyTVShowDetail(): FavoriteTVShow {
+        return generateLocalDummyFavoriteTVShow()[0]
+    }
+
+    fun generateRemoteDummyMovieDetail(movieId: String): MovieDetail {
         val genres = ArrayList<Genre>()
 
         genres.add(Genre("28", "tes"))
