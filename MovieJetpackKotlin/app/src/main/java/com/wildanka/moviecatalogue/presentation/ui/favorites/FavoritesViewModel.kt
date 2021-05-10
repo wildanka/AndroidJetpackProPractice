@@ -75,11 +75,11 @@ class FavoritesViewModel(private val favoritesRepository: FavoritesRepository) :
 
     fun removeFavoriteTVShowData(tvShow: TVShowDetail) {
         val favoriteTvShow= MovieDetailConverter.convertToTVShowFavorites(tvShow)
-        favoritesRepository.insertTVShow(favoriteTvShow)
+        favoritesRepository.deleteTVShow(favoriteTvShow)
     }
 
     fun removeFavoriteTVShow(favoriteTVShow: FavoriteTVShow) {
-        favoritesRepository.insertTVShow(favoriteTVShow)
+        favoritesRepository.deleteTVShow(favoriteTVShow)
     }
 
     fun getFavoriteTVShowDetails(movieId: String): LiveData<FavoriteTVShow>? {
