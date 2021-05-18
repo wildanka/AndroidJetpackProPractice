@@ -1,9 +1,10 @@
-package com.wildanka.moviecatalogue.domain.entity
+package com.wildanka.moviecatalogue.data.datasource.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import com.wildanka.moviecatalogue.domain.entity.Genre
 
 @Entity(tableName = "tv_show")
 data class TVShowData(

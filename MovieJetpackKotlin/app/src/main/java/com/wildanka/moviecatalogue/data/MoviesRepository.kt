@@ -3,6 +3,9 @@ package com.wildanka.moviecatalogue.data
 import androidx.lifecycle.MutableLiveData
 import com.wildanka.moviecatalogue.BuildConfig.API_V3_KEY
 import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieData
+import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowData
+import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowDetail
+import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowFeeds
 import com.wildanka.moviecatalogue.domain.entity.*
 import com.wildanka.moviecatalogue.data.datasource.remote.service.ApiMovie
 import com.wildanka.moviecatalogue.util.ApiClient
@@ -11,12 +14,12 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MoviesRepository {
-    val TAG = "Fixture Repository"
 
     private val placeHolderApi: ApiMovie = ApiClient.createService(
-        ApiMovie::class.java)
+        ApiMovie::class.java
+    )
 
-    fun fetchMovieData(): MutableLiveData<MutableList<MovieData>>? {
+    fun fetchMovieData(): MutableLiveData<MutableList<MovieData>> {
         val movieList = MutableLiveData<MutableList<MovieData>>()
         val call = placeHolderApi.loadMovieList(API_V3_KEY, "en")
         call.enqueue(object : Callback<MovieFeeds?> {
@@ -32,7 +35,7 @@ class MoviesRepository {
         return movieList
     }
 
-    fun fetchTvShowData(): MutableLiveData<MutableList<TVShowData>>? {
+    fun fetchTvShowData(): MutableLiveData<MutableList<TVShowData>> {
         val tvShowList = MutableLiveData<MutableList<TVShowData>>()
         val call = placeHolderApi.loadTVShowList(API_V3_KEY, "en")
         call.enqueue(object : Callback<TVShowFeeds?> {
@@ -48,7 +51,7 @@ class MoviesRepository {
         return tvShowList
     }
 
-    fun fetchMovieDataDetail(movieId: String?): MutableLiveData<MovieDetail>? {
+    fun fetchMovieDataDetail(movieId: String?): MutableLiveData<MovieDetail> {
         val movie = MutableLiveData<MovieDetail>()
         val call = placeHolderApi.loadMovieDetail(movieId, API_V3_KEY)
         call.enqueue(object : Callback<MovieDetail?> {
@@ -63,7 +66,7 @@ class MoviesRepository {
         return movie
     }
 
-    fun fetchMovieDetailCredits(movieId: String?): MutableLiveData<MovieCredits>? {
+    fun fetchMovieDetailCredits(movieId: String?): MutableLiveData<MovieCredits> {
         val movieCredits = MutableLiveData<MovieCredits>()
         val call = placeHolderApi.loadMovieCredits(movieId, API_V3_KEY)
         call.enqueue(object : Callback<MovieCredits?> {
@@ -78,7 +81,7 @@ class MoviesRepository {
         return movieCredits
     }
 
-    fun fetchTVShowDetailCredits(tvShowId: String?): MutableLiveData<MovieCredits>? {
+    fun fetchTVShowDetailCredits(tvShowId: String?): MutableLiveData<MovieCredits> {
         val movieCredits = MutableLiveData<MovieCredits>()
         val call = placeHolderApi.loadTVShowCredits(tvShowId, API_V3_KEY)
         call.enqueue(object : Callback<MovieCredits?> {
@@ -93,7 +96,7 @@ class MoviesRepository {
         return movieCredits
     }
 
-    fun fetchTvShowDataDetail(tvShowId: String?): MutableLiveData<TVShowDetail>? {
+    fun fetchTvShowDataDetail(tvShowId: String?): MutableLiveData<TVShowDetail> {
         val tvShow = MutableLiveData<TVShowDetail>()
         val call = placeHolderApi.loadTVShowDetail(tvShowId, API_V3_KEY)
         call.enqueue(object : Callback<TVShowDetail?> {

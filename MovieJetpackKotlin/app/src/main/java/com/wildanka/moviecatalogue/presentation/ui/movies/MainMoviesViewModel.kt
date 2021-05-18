@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.wildanka.moviecatalogue.data.MoviesRepository
 import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieData
-import com.wildanka.moviecatalogue.domain.entity.TVShowData
+import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowData
 
 class MainMoviesViewModel : ViewModel(){
     private var repo = MoviesRepository()

@@ -19,7 +19,7 @@ import com.wildanka.moviecatalogue.BuildConfig.URL_IMG_APP
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.presentation.ui.favorites.FavoritesViewModel
 import com.wildanka.moviecatalogue.domain.entity.MovieDetail
-import com.wildanka.moviecatalogue.domain.entity.TVShowDetail
+import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowDetail
 import com.wildanka.moviecatalogue.presentation.ui.favorites.FavoritesViewModelFactory
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.MovieCastAdapter
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource

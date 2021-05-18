@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteMovie
 import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteTVShow
-import com.wildanka.moviecatalogue.vo.Resource
 
 interface FavoritesDataSource {
     fun getFavoriteMovies(): LiveData<PagedList<FavoriteMovie>>

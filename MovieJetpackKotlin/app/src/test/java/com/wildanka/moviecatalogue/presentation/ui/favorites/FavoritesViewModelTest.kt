@@ -1,6 +1,5 @@
 package com.wildanka.moviecatalogue.presentation.ui.favorites
 
-import org.junit.Assert.*
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
 

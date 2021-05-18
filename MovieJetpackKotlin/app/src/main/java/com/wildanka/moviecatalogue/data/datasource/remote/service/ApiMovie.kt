@@ -1,5 +1,7 @@
 package com.wildanka.moviecatalogue.data.datasource.remote.service
 
+import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowDetail
+import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowFeeds
 import com.wildanka.moviecatalogue.domain.entity.*
 import retrofit2.Call
 import retrofit2.http.*

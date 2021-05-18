@@ -1,7 +1,6 @@
 package com.wildanka.moviecatalogue.domain.entity
 
 import com.google.gson.annotations.SerializedName
-import com.wildanka.moviecatalogue.domain.entity.Genre
 
 data class MovieDetail(
     @SerializedName("id") val idMovie: String,

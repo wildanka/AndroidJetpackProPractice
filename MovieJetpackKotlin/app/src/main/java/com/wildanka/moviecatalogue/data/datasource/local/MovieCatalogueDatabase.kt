@@ -19,7 +19,7 @@ abstract class MovieCatalogueDatabase : RoomDatabase() {
         @Synchronized
         fun getInstance(context: Context): MovieCatalogueDatabase {
             if (INSTANCE == null) {
-                INSTANCE = Room.databaseBuilder<MovieCatalogueDatabase>(
+                INSTANCE = Room.databaseBuilder(
                     context.applicationContext,
                     MovieCatalogueDatabase::class.java,
                     "favorites_database"

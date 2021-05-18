@@ -10,7 +10,7 @@ import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteMovie
 import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteTVShow
 import com.wildanka.moviecatalogue.domain.entity.MovieCredits
 import com.wildanka.moviecatalogue.domain.entity.MovieDetail
-import com.wildanka.moviecatalogue.domain.entity.TVShowDetail
+import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowDetail
 import com.wildanka.moviecatalogue.util.MovieDetailConverter
 
 class FavoritesViewModel(private val favoritesRepository: FavoritesRepository) : ViewModel() {

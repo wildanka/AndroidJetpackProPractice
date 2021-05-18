@@ -3,7 +3,7 @@ package com.wildanka.moviecatalogue.util
 import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteMovie
 import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteTVShow
 import com.wildanka.moviecatalogue.domain.entity.MovieDetail
-import com.wildanka.moviecatalogue.domain.entity.TVShowDetail
+import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowDetail
 
 object MovieDetailConverter{
     fun convertToTVShowFavorites(movie: MovieDetail): FavoriteMovie {

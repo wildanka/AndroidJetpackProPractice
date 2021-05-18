@@ -5,7 +5,7 @@ import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteTVShow
 import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieData
 import com.wildanka.moviecatalogue.domain.entity.Genre
 import com.wildanka.moviecatalogue.domain.entity.MovieDetail
-import com.wildanka.moviecatalogue.domain.entity.TVShowData
+import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowData
 
 object DataDummy {
 
