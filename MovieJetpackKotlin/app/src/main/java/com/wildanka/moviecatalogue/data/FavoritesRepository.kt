@@ -1,16 +1,12 @@
 package com.wildanka.moviecatalogue.data
 
 import androidx.lifecycle.LiveData
-import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.wildanka.moviecatalogue.data.datasource.local.LocalDataSource
-import com.wildanka.moviecatalogue.data.datasource.local.MovieCatalogueDatabase
 import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteMovie
 import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteTVShow
 import com.wildanka.moviecatalogue.util.AppExecutors
-import com.wildanka.moviecatalogue.util.NetworkBoundResource
-import com.wildanka.moviecatalogue.vo.Resource
 
 
 class FavoritesRepository(
