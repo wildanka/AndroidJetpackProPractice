@@ -26,7 +26,6 @@
     <string name="score_s">Score: %1$s</string>
     <string name="duration_s_min">%1$s min.</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_favorites">Add to Favorites</string>
     <string name="title_activity_favorites_detail">FavoritesDetailActivity</string>
     <string name="movies">Movies</string>
@@ -34,8 +33,9 @@
     <string name="search_movie">Search Movie / TV Show</string>
     <string name="movie_tv_show_title">Movie/TV Show Title</string>
     <string name="no_data_message">No matching data founds, try another keywords.</string>
-    <string name="error_occured_message">an error occured, please try again.</string>
+    <string name="error_occurred_message">an error occurred, please try again.</string>
     <string name="search_movie_title_label">search movie title</string>
     <string name="search_tv_show_title_label">search TV show title</string>
+    <string name="favorites">Favorites</string>
 
 </resources>

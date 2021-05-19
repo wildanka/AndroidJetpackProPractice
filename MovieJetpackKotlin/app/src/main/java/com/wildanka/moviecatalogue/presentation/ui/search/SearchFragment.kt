@@ -131,7 +131,7 @@ class SearchFragment : BottomSheetDialogFragment() {
             } else {
                 Toast.makeText(
                     activity,
-                    getString(R.string.error_occured_message),
+                    getString(R.string.error_occurred_message),
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -160,7 +160,7 @@ class SearchFragment : BottomSheetDialogFragment() {
             } else {
                 Toast.makeText(
                     activity,
-                    getString(R.string.error_occured_message),
+                    getString(R.string.error_occurred_message),
                     Toast.LENGTH_SHORT
                 ).show()
             }
