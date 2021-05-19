@@ -35,5 +35,8 @@
     <string name="search_movie">Search Movie</string>
     <string name="movie_tv_show_title">Movie/TV Show Title</string>
     <string name="no_data_message">No matching data founds, try another keywords.</string>
+    <string name="error_occured_message">an error occured, please try again.</string>
+    <string name="search_movie_title_label">search movie title</string>
+    <string name="search_tv_show_title_label">search TV show title</string>
 
 </resources>

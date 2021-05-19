@@ -105,10 +105,10 @@ class SearchFragment : BottomSheetDialogFragment() {
     private fun changeTextHint() {
         if (binding.radioGroup.checkedRadioButtonId == R.id.rb_movie) {
             isSearchMovie = true
-            binding.searchTitle.queryHint = "search movie title"
+            binding.searchTitle.queryHint = getString(R.string.search_movie_title_label)
         } else {
             isSearchMovie = false
-            binding.searchTitle.queryHint = "search TV show title"
+            binding.searchTitle.queryHint = getString(R.string.search_tv_show_title_label)
         }
     }
 
@@ -129,8 +129,11 @@ class SearchFragment : BottomSheetDialogFragment() {
                     binding.rvSearchResult.adapter = movieRVAdapter
                 }
             } else {
-                Toast.makeText(activity, "an error occured, please try again.", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(
+                    activity,
+                    getString(R.string.error_occured_message),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
             binding.pbSearch.visibility = View.GONE
@@ -157,7 +160,7 @@ class SearchFragment : BottomSheetDialogFragment() {
             } else {
                 Toast.makeText(
                     activity,
-                    "an error occured, please try again.",
+                    getString(R.string.error_occured_message),
                     Toast.LENGTH_SHORT
                 ).show()
             }
