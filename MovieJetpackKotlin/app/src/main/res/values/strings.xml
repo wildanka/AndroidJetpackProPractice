@@ -34,5 +34,6 @@
     <string name="tv_show">TV Show</string>
     <string name="search_movie">Search Movie</string>
     <string name="movie_tv_show_title">Movie/TV Show Title</string>
+    <string name="no_data_message">No matching data founds, try another keywords.</string>
 
 </resources>

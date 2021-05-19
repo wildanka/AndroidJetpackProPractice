@@ -2,7 +2,6 @@ package com.wildanka.moviecatalogue.presentation.ui.search
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -106,60 +105,66 @@ class SearchFragment : BottomSheetDialogFragment() {
     private fun changeTextHint() {
         if (binding.radioGroup.checkedRadioButtonId == R.id.rb_movie) {
             isSearchMovie = true
-            binding.searchTitle.queryHint = "Movie title"
+            binding.searchTitle.queryHint = "search movie title"
         } else {
             isSearchMovie = false
-            binding.searchTitle.queryHint = "TV Show title"
+            binding.searchTitle.queryHint = "search TV show title"
         }
     }
 
 
     private fun searchMoviesData(query: String) {
+        binding.pbSearch.visibility = View.VISIBLE
+        binding.tvNoData.visibility = View.GONE
 
         EspressoIdlingResource.increment()
         viewModel.getSearchedMovies(query)?.observe(this, {
             if (it != null) {
-                if (it.size == 0){ // there is no result found
-                    binding.rvSearchResult.visibility = View.GONE
-                }else { // success
+                if (it.size == 0) { // there is no result found
+                    binding.rvSearchResult.visibility = View.INVISIBLE
+                    binding.tvNoData.visibility = View.VISIBLE
+                } else { // success
                     binding.rvSearchResult.visibility = View.VISIBLE
                     movieRVAdapter.setupMovieList(it)
                     binding.rvSearchResult.adapter = movieRVAdapter
                 }
             } else {
-                Log.e("TAG", "OQTS Failed")
-                Toast.makeText(activity, "OQTS failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "an error occured, please try again.", Toast.LENGTH_SHORT)
+                    .show()
             }
-//            pbMovies.visibility = View.INVISIBLE
 
+            binding.pbSearch.visibility = View.GONE
             if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
 
-//            srlMovies.isRefreshing = false
         })
     }
 
     private fun searchTVShows(query: String) {
+        binding.pbSearch.visibility = View.VISIBLE
+        binding.tvNoData.visibility = View.GONE
 
         EspressoIdlingResource.increment()
         viewModel.getSearchedTVShows(query)?.observe(this, {
             if (it != null) {
-                if (it.size == 0){ // there is no result found
-                    binding.rvSearchResult.visibility = View.GONE
-                }else{ // success
+                if (it.size == 0) { // there is no result found
+                    binding.rvSearchResult.visibility = View.INVISIBLE
+                    binding.tvNoData.visibility = View.VISIBLE
+                } else { // success
                     binding.rvSearchResult.visibility = View.VISIBLE
                     tvShowRVAdapter.setupTVShowList(it)
                     binding.rvSearchResult.adapter = tvShowRVAdapter
                 }
-
             } else {
-                Log.e("TAG", "OQTS Failed")
-                Toast.makeText(activity, "OQTS failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    activity,
+                    "an error occured, please try again.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-//            pbMovies.visibility = View.INVISIBLE
 
+            binding.pbSearch.visibility = View.GONE
             if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
 
-//            srlMovies.isRefreshing = false
         })
     }
 
