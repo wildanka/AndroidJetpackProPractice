@@ -9,7 +9,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -61,8 +60,8 @@ class FavoritesDetailActivity : AppCompatActivity() {
             movieId?.let { Log.e("DetailActivity", it) }
             //load detail data
             EspressoIdlingResource.increment()
-            movieId?.let {
-                viewModel.getFavoriteMoviesDetails(it)?.observe(this, Observer {
+            movieId?.let {idMovie->
+                viewModel.getFavoriteMoviesDetails(idMovie)?.observe(this, {
                     if (it != null) {
                         movieDetail = it
                         tvTitle.text = it.title
@@ -87,10 +86,10 @@ class FavoritesDetailActivity : AppCompatActivity() {
             rvCast.adapter = castAdapter
 
             EspressoIdlingResource.increment()
-            viewModel.getMoviesCastData(movieId)?.observe(this, Observer { movieCreadits ->
+            viewModel.getMoviesCastData(movieId)?.observe(this, { movieCredits ->
                 shimmerViewContainer.hideShimmer()
-                if (movieCreadits != null) {
-                    castAdapter.setupMovieCastData(movieCreadits.cast)
+                if (movieCredits != null) {
+                    castAdapter.setupMovieCastData(movieCredits.cast)
                 }
                 if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
             })
@@ -104,7 +103,7 @@ class FavoritesDetailActivity : AppCompatActivity() {
             //load detail data
             EspressoIdlingResource.increment()
             tvShowId?.let {
-                viewModel.getFavoriteTVShowDetails(it)?.observe(this, Observer { tvShowDetails ->
+                viewModel.getFavoriteTVShowDetails(it)?.observe(this, { tvShowDetails ->
                     if (tvShowDetails != null) {
                         tvShowDetail = tvShowDetails
                         tvTitle.text = tvShowDetails.title
@@ -128,11 +127,11 @@ class FavoritesDetailActivity : AppCompatActivity() {
             rvCast.adapter = castAdapter
 
             EspressoIdlingResource.increment()
-            viewModel.getTVShowCastData(tvShowId)?.observe(this, Observer { movieCreadits ->
+            viewModel.getTVShowCastData(tvShowId)?.observe(this, { movieCredits ->
                 shimmerViewContainer.hideShimmer()
 
-                if (movieCreadits != null) {
-                    castAdapter.setupMovieCastData(movieCreadits.cast)
+                if (movieCredits != null) {
+                    castAdapter.setupMovieCastData(movieCredits.cast)
                 }
                 if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
             })
@@ -223,7 +222,7 @@ class FavoritesDetailActivity : AppCompatActivity() {
         when (type) {
             TYPE_MOVIE -> {
                 Log.e("checkFavorite(Movie)", "$movieOrTVShowId ")
-                viewModel.checkIsFavorite(movieOrTVShowId)?.observe(this, Observer { movieDataLiveData ->
+                viewModel.checkIsFavorite(movieOrTVShowId)?.observe(this, { movieDataLiveData ->
                     if (movieDataLiveData != null) {
                         isFavorite = true
                         setFavorite()
@@ -232,7 +231,7 @@ class FavoritesDetailActivity : AppCompatActivity() {
             }
             TYPE_TV_SHOW -> {
                 Log.e("checkFavorite(TVShow)", "${tvShowDetail?.idTVShow} - ${tvShowDetail?.title}")
-                viewModel.checkIsFavoriteTVShow(movieOrTVShowId)?.observe(this, Observer { movieDataLiveData ->
+                viewModel.checkIsFavoriteTVShow(movieOrTVShowId)?.observe(this, { movieDataLiveData ->
                     if (movieDataLiveData != null) {
                         isFavorite = true
                         setFavorite()

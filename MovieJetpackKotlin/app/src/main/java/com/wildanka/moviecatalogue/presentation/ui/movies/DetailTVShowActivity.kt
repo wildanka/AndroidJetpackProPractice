@@ -9,7 +9,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,8 +17,8 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.wildanka.moviecatalogue.BuildConfig.URL_IMG_APP
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.presentation.ui.favorites.FavoritesViewModel
-import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.MovieCastAdapter
+import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailTVShowActivity : AppCompatActivity() {
@@ -52,7 +51,7 @@ class DetailTVShowActivity : AppCompatActivity() {
             movieId?.let { Log.e("DetailActivity", it) }
             //load detail data
             EspressoIdlingResource.increment()
-            viewModel.getMoviesDetailWithID(movieId)?.observe(this, Observer { movieDetails ->
+            viewModel.getMoviesDetailWithID(movieId)?.observe(this, { movieDetails ->
                 if (movieDetails != null) {
                     tvTitle.text = movieDetails.title
                     tvYear.text = movieDetails.releaseDate
@@ -79,10 +78,10 @@ class DetailTVShowActivity : AppCompatActivity() {
             rvCast.adapter = castAdapter
 
             EspressoIdlingResource.increment()
-            viewModel.getMoviesCastData(movieId)?.observe(this, Observer { movieCreadits ->
+            viewModel.getMoviesCastData(movieId)?.observe(this, { movieCredits ->
                 shimmerViewContainer.hideShimmer()
-                if (movieCreadits != null) {
-                    castAdapter.setupMovieCastData(movieCreadits.cast)
+                if (movieCredits != null) {
+                    castAdapter.setupMovieCastData(movieCredits.cast)
                 }
                 if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
             })
@@ -95,7 +94,7 @@ class DetailTVShowActivity : AppCompatActivity() {
             movieId?.let { Log.e("DetailActivity", it) }
             //load detail data
             EspressoIdlingResource.increment()
-            viewModel.getTVShowDetailWithId(tvShowId)?.observe(this, Observer { tvShowData ->
+            viewModel.getTVShowDetailWithId(tvShowId)?.observe(this, { tvShowData ->
                 if (tvShowData != null) {
                     tvTitle.text = tvShowData.title
                     tvYear.text = tvShowData.firstAirDate
@@ -122,11 +121,11 @@ class DetailTVShowActivity : AppCompatActivity() {
             rvCast.adapter = castAdapter
 
             EspressoIdlingResource.increment()
-            viewModel.getTVShowCastData(tvShowId)?.observe(this, Observer { movieCreadits ->
+            viewModel.getTVShowCastData(tvShowId)?.observe(this, { movieCredits ->
                 shimmerViewContainer.hideShimmer()
 
-                if (movieCreadits != null) {
-                    castAdapter.setupMovieCastData(movieCreadits.cast)
+                if (movieCredits != null) {
+                    castAdapter.setupMovieCastData(movieCredits.cast)
                 }
                 if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
             })
@@ -176,7 +175,7 @@ class DetailTVShowActivity : AppCompatActivity() {
     }
 
     private fun checkFavorite(movieId: String) {
-        viewModel.checkIsFavorite(movieId)?.observe(this, Observer { movieDataLiveData ->
+        viewModel.checkIsFavorite(movieId)?.observe(this, { movieDataLiveData ->
             if (movieDataLiveData != null) {
                 isFavorite = true
                 setFavorite()

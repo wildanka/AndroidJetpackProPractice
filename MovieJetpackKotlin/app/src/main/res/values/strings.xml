@@ -26,7 +26,6 @@
     <string name="score_s">Score: %1$s</string>
     <string name="duration_s_min">%1$s min.</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_favorites">Add to Favorites</string>
     <string name="title_activity_favorites_detail">FavoritesDetailActivity</string>
