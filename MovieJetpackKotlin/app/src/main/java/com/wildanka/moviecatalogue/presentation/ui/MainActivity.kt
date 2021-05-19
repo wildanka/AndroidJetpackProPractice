@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
                 when (navController.currentDestination?.id) {
                     R.id.movieFragment -> findNavController(R.id.nav_host_fragment).navigate(R.id.action_movieFragment_to_searchFragment)
                     R.id.tvShowFragment -> findNavController(R.id.nav_host_fragment).navigate(R.id.action_tvShowFragment_to_searchFragment)
+                    R.id.favoritesFragment -> findNavController(R.id.nav_host_fragment).navigate(R.id.action_favoritesFragment_to_searchFragment)
                 }
                 return true
             }

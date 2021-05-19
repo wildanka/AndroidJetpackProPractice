@@ -22,6 +22,9 @@
               android:label="FavoritesFragment" tools:layout="@layout/fragment_favorites">
         <action android:id="@+id/action_favoritesFragment_self" app:destination="@id/favoritesFragment"
                 app:popUpTo="@id/favoritesFragment" app:launchSingleTop="true"/>
+        <action
+                android:id="@+id/action_favoritesFragment_to_searchFragment"
+                app:destination="@id/searchFragment" />
     </fragment>
     <dialog
             android:id="@+id/searchFragment"
