@@ -33,5 +33,6 @@
     <string name="movies">Movies</string>
     <string name="tv_show">TV Show</string>
     <string name="search_movie">Search Movie</string>
+    <string name="movie_tv_show_title">Movie/TV Show Title</string>
 
 </resources>

@@ -6,14 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.RadioGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.wildanka.moviecatalogue.R
+import com.wildanka.moviecatalogue.databinding.SearchFragmentBinding
 
 
 class SearchFragment : BottomSheetDialogFragment() {
+    lateinit var binding: SearchFragmentBinding
 
     companion object {
         fun newInstance() = SearchFragment()
@@ -39,8 +43,15 @@ class SearchFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.search_fragment, container, false)
+    ): View {
+        binding = DataBindingUtil.inflate(inflater, R.layout.search_fragment, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.radioGroup.setOnCheckedChangeListener { _, _ -> changeTextHint() }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -54,5 +65,18 @@ class SearchFragment : BottomSheetDialogFragment() {
         val layoutParams = bottomSheet.layoutParams
         layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
         bottomSheet.layoutParams = layoutParams
+    }
+
+    override fun onResume() {
+        super.onResume()
+        changeTextHint()
+    }
+
+    private fun changeTextHint(){
+        if (binding.radioGroup.checkedRadioButtonId == R.id.rb_movie){
+            binding.textInputLayout.queryHint = "Movie title"
+        }else{
+            binding.textInputLayout.queryHint = "TV Show title"
+        }
     }
 }
