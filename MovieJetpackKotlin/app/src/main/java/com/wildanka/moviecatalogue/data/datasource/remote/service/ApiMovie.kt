@@ -45,14 +45,14 @@ interface ApiMovie {
         @Query("api_key") apiKey: String
     ): Call<MovieCredits>
 
-    @GET("discover/movie")
+    @GET("search/movie")
     fun searchMovie(
         @Query("api_key") apiKey: String,
         @Query("language") language: String, //en-US
         @Query("query") query: String
     ): Call<MovieFeeds>
 
-    @GET("discover/tv")
+    @GET("search/tv")
     fun searchTv(
         @Query("api_key") apiKey: String,
         @Query("language") language: String, //en-US

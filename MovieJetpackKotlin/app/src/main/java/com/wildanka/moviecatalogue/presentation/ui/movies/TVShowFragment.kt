@@ -7,15 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.wildanka.moviecatalogue.R
-import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowData
-import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.TVShowRVAdapter
+import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 
 /**
  * Fragment for displaying Movie / TV Show lists.
@@ -40,11 +38,8 @@ class TVShowFragment : Fragment() {
         srlMovies = view.findViewById(R.id.srl_movies)
         val viewModel = ViewModelProvider(this).get(MainMoviesViewModel::class.java)
         pbMovies.visibility = View.VISIBLE
-        val rvAdapter =
-            TVShowRVAdapter(
-                activity!!
-            )
-        rvMovie.layoutManager = LinearLayoutManager(activity!!)
+        val rvAdapter = TVShowRVAdapter()
+        rvMovie.layoutManager = LinearLayoutManager(activity)
         rvMovie.adapter = rvAdapter
 
         observeData(viewModel, rvAdapter)
@@ -56,7 +51,7 @@ class TVShowFragment : Fragment() {
 
     private fun observeData(viewModel: MainMoviesViewModel, rvAdapter: TVShowRVAdapter) {
         EspressoIdlingResource.increment()
-        viewModel.getTVShowList()?.observe(this, Observer<MutableList<TVShowData>> {
+        viewModel.getTVShowList()?.observe(viewLifecycleOwner, {
             if (it != null) {
                 rvAdapter.setupTVShowList(it)
             }

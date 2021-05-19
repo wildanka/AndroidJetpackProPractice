@@ -10,18 +10,23 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.databinding.SearchFragmentBinding
+import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.MovieRVAdapter
+import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.TVShowRVAdapter
+import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 
 
 class SearchFragment : BottomSheetDialogFragment() {
     private lateinit var binding: SearchFragmentBinding
     private var isSearchMovie = false
+    private lateinit var movieRVAdapter: MovieRVAdapter
+    private lateinit var tvShowRVAdapter: TVShowRVAdapter
 
 
     private lateinit var viewModel: SearchViewModel
@@ -53,21 +58,20 @@ class SearchFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.radioGroup.setOnCheckedChangeListener { _, _ -> changeTextHint() }
+        binding.rvSearchResult.layoutManager = LinearLayoutManager(activity)
+        movieRVAdapter = MovieRVAdapter()
+        tvShowRVAdapter = TVShowRVAdapter()
 
         binding.searchTitle.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 //search movie or tv show
-                if (isSearchMovie){
+                if (isSearchMovie) {
                     query?.let {
-                        viewModel.getSearchedMovies(it)?.observe(viewLifecycleOwner, {
-                            if (it != null){
-                                Log.e("TAG", "OQTS")
-                                Toast.makeText(activity, "OQTS", Toast.LENGTH_SHORT).show()
-                            }else{
-                                Log.e("TAG", "OQTS Failed")
-                                Toast.makeText(activity, "OQTS failed", Toast.LENGTH_SHORT).show()
-                            }
-                        })
+                        searchMoviesData(it)
+                    }
+                } else {
+                    query?.let {
+                        searchTVShows(it)
                     }
                 }
 
@@ -84,7 +88,7 @@ class SearchFragment : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
-        // TODO: Use the ViewModel
+        //if isMovie, observe movieData, else observe tvShow data
     }
 
 
@@ -99,13 +103,64 @@ class SearchFragment : BottomSheetDialogFragment() {
         changeTextHint()
     }
 
-    private fun changeTextHint(){
-        if (binding.radioGroup.checkedRadioButtonId == R.id.rb_movie){
+    private fun changeTextHint() {
+        if (binding.radioGroup.checkedRadioButtonId == R.id.rb_movie) {
             isSearchMovie = true
             binding.searchTitle.queryHint = "Movie title"
-        }else{
+        } else {
             isSearchMovie = false
             binding.searchTitle.queryHint = "TV Show title"
         }
     }
+
+
+    private fun searchMoviesData(query: String) {
+
+        EspressoIdlingResource.increment()
+        viewModel.getSearchedMovies(query)?.observe(this, {
+            if (it != null) {
+                if (it.size == 0){ // there is no result found
+                    binding.rvSearchResult.visibility = View.GONE
+                }else { // success
+                    binding.rvSearchResult.visibility = View.VISIBLE
+                    movieRVAdapter.setupMovieList(it)
+                    binding.rvSearchResult.adapter = movieRVAdapter
+                }
+            } else {
+                Log.e("TAG", "OQTS Failed")
+                Toast.makeText(activity, "OQTS failed", Toast.LENGTH_SHORT).show()
+            }
+//            pbMovies.visibility = View.INVISIBLE
+
+            if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
+
+//            srlMovies.isRefreshing = false
+        })
+    }
+
+    private fun searchTVShows(query: String) {
+
+        EspressoIdlingResource.increment()
+        viewModel.getSearchedTVShows(query)?.observe(this, {
+            if (it != null) {
+                if (it.size == 0){ // there is no result found
+                    binding.rvSearchResult.visibility = View.GONE
+                }else{ // success
+                    binding.rvSearchResult.visibility = View.VISIBLE
+                    tvShowRVAdapter.setupTVShowList(it)
+                    binding.rvSearchResult.adapter = tvShowRVAdapter
+                }
+
+            } else {
+                Log.e("TAG", "OQTS Failed")
+                Toast.makeText(activity, "OQTS failed", Toast.LENGTH_SHORT).show()
+            }
+//            pbMovies.visibility = View.INVISIBLE
+
+            if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
+
+//            srlMovies.isRefreshing = false
+        })
+    }
+
 }

@@ -1,6 +1,5 @@
 package com.wildanka.moviecatalogue.presentation.ui.movies.adapter
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,7 @@ import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieData
 import com.wildanka.moviecatalogue.presentation.ui.movies.DetailActivity
 
-class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<MovieRVAdapter.MovieViewHolder>() {
+class MovieRVAdapter : RecyclerView.Adapter<MovieRVAdapter.MovieViewHolder>() {
     private var movieList : MutableList<MovieData>? = null
 
     fun setupMovieList(movies: MutableList<MovieData>?) {
@@ -24,7 +23,7 @@ class MovieRVAdapter(private val mContext: Context) : RecyclerView.Adapter<Movie
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return MovieViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_movie, parent, false))
+        return MovieViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false))
     }
 
     override fun getItemCount(): Int {

@@ -12,12 +12,12 @@ class SearchViewModel : ViewModel() {
     private var tvShowList : MutableLiveData<MutableList<TVShowData>>? = null
 
     fun getSearchedMovies(query: String) : MutableLiveData<MutableList<MovieData>>? {
-        if (movieList == null) movieList = repo.searchMovies(query)
+        movieList = repo.searchMovies(query)
         return movieList
     }
 
     fun getSearchedTVShows(query: String) : MutableLiveData<MutableList<TVShowData>>? {
-        if (tvShowList == null) tvShowList = repo.searchTVShows(query)
+        tvShowList = repo.searchTVShows(query)
         return tvShowList
     }
 

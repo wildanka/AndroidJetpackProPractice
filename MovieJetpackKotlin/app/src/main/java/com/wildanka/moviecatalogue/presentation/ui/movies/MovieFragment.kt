@@ -7,15 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.wildanka.moviecatalogue.R
-import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieData
-import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.MovieRVAdapter
+import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 
 class MovieFragment : Fragment() {
     private lateinit var srlMovies: SwipeRefreshLayout
@@ -37,11 +35,8 @@ class MovieFragment : Fragment() {
         pbMovies.visibility = View.VISIBLE
 
         val viewModel = ViewModelProvider(this).get(MainMoviesViewModel::class.java)
-        val rvAdapter =
-            MovieRVAdapter(
-                activity!!
-            )
-        rvMovie.layoutManager = LinearLayoutManager(activity!!)
+        val rvAdapter = MovieRVAdapter()
+        rvMovie.layoutManager = LinearLayoutManager(activity)
         rvMovie.adapter = rvAdapter
 
         // Get Data dari API
@@ -54,7 +49,7 @@ class MovieFragment : Fragment() {
 
     private fun observeData(viewModel: MainMoviesViewModel, rvAdapter: MovieRVAdapter) {
         EspressoIdlingResource.increment()
-        viewModel.getMovieList()?.observe(this, Observer<MutableList<MovieData>> {
+        viewModel.getMovieList()?.observe(viewLifecycleOwner, {
             if (it != null) {
                 rvAdapter.setupMovieList(it)
             } else {
