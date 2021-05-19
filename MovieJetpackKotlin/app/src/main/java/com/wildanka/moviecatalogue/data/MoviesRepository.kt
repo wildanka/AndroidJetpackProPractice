@@ -111,4 +111,37 @@ class MoviesRepository {
 
         return tvShow
     }
+
+    fun searchMovies(query: String): MutableLiveData<MutableList<MovieData>> {
+        val movieList = MutableLiveData<MutableList<MovieData>>()
+        val call = placeHolderApi.searchMovie(API_V3_KEY, "en", query)
+        call.enqueue(object : Callback<MovieFeeds?> {
+            override fun onFailure(call: Call<MovieFeeds?>, t: Throwable) {
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<MovieFeeds?>, response: Response<MovieFeeds?>) {
+                movieList.value = response.body()?.movieList
+            }
+        })
+
+        return movieList
+    }
+
+    fun searchTVShows(query: String): MutableLiveData<MutableList<TVShowData>> {
+        val tvShowList = MutableLiveData<MutableList<TVShowData>>()
+        val call = placeHolderApi.searchTv(API_V3_KEY, "en", query)
+        call.enqueue(object : Callback<TVShowFeeds?> {
+            override fun onFailure(call: Call<TVShowFeeds?>, t: Throwable) {
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<TVShowFeeds?>, response: Response<TVShowFeeds?>) {
+                tvShowList.value = response.body()?.tvShowList
+            }
+        })
+
+        return tvShowList
+    }
+
 }

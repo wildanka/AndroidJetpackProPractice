@@ -2,12 +2,15 @@ package com.wildanka.moviecatalogue.presentation.ui.search
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.RadioGroup
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -17,11 +20,9 @@ import com.wildanka.moviecatalogue.databinding.SearchFragmentBinding
 
 
 class SearchFragment : BottomSheetDialogFragment() {
-    lateinit var binding: SearchFragmentBinding
+    private lateinit var binding: SearchFragmentBinding
+    private var isSearchMovie = false
 
-    companion object {
-        fun newInstance() = SearchFragment()
-    }
 
     private lateinit var viewModel: SearchViewModel
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -52,6 +53,32 @@ class SearchFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.radioGroup.setOnCheckedChangeListener { _, _ -> changeTextHint() }
+
+        binding.searchTitle.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                //search movie or tv show
+                if (isSearchMovie){
+                    query?.let {
+                        viewModel.getSearchedMovies(it)?.observe(viewLifecycleOwner, {
+                            if (it != null){
+                                Log.e("TAG", "OQTS")
+                                Toast.makeText(activity, "OQTS", Toast.LENGTH_SHORT).show()
+                            }else{
+                                Log.e("TAG", "OQTS Failed")
+                                Toast.makeText(activity, "OQTS failed", Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                    }
+                }
+
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+
+        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -74,9 +101,11 @@ class SearchFragment : BottomSheetDialogFragment() {
 
     private fun changeTextHint(){
         if (binding.radioGroup.checkedRadioButtonId == R.id.rb_movie){
-            binding.textInputLayout.queryHint = "Movie title"
+            isSearchMovie = true
+            binding.searchTitle.queryHint = "Movie title"
         }else{
-            binding.textInputLayout.queryHint = "TV Show title"
+            isSearchMovie = false
+            binding.searchTitle.queryHint = "TV Show title"
         }
     }
 }

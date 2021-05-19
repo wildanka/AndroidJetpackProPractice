@@ -8,7 +8,6 @@
             android:layout_height="match_parent"
             tools:context=".presentation.ui.search.SearchFragment">
 
-
         <View
                 android:id="@+id/view"
                 android:layout_width="100dp"
@@ -58,7 +57,7 @@
         </RadioGroup>
 
         <androidx.appcompat.widget.SearchView
-                android:id="@+id/textInputLayout"
+                android:id="@+id/search_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -85,7 +84,7 @@
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+                app:layout_constraintTop_toBottomOf="@+id/search_title"
                 tools:listitem="@layout/item_movie" />
 
 
