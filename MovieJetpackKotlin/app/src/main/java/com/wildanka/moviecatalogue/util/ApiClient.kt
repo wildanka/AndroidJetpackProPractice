@@ -1,6 +1,7 @@
 package com.wildanka.moviecatalogue.util
 
 import com.wildanka.moviecatalogue.BuildConfig.BASE_URL
+import com.wildanka.moviecatalogue.data.datasource.remote.service.ApiMovie
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -15,6 +16,12 @@ object ApiClient{
         val client = httpClient.build()
         val retrofit = builder.client(client).build()
         return retrofit.create(serviceClass)
+    }
+
+    fun getMovieService(): ApiMovie {
+        val client = httpClient.build()
+        val retrofit = builder.client(client).build()
+        return retrofit.create(ApiMovie::class.java)
     }
 
 }

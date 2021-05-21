@@ -6,8 +6,7 @@ import com.wildanka.moviecatalogue.data.MoviesRepository
 import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieData
 import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowData
 
-class MainMoviesViewModel : ViewModel(){
-    private var repo = MoviesRepository()
+class MainMoviesViewModel(private val repo : MoviesRepository) : ViewModel(){
     private var movieList : MutableLiveData<MutableList<MovieData>>? = null
     private var tvShowList : MutableLiveData<MutableList<TVShowData>>? = null
 
@@ -17,7 +16,7 @@ class MainMoviesViewModel : ViewModel(){
     }
 
     fun getTVShowList() : MutableLiveData<MutableList<TVShowData>>? {
-        if (tvShowList == null) tvShowList = repo.fetchTvShowData()
+        if (tvShowList == null) tvShowList = repo.fetchTVShowData()
         return tvShowList
     }
 }

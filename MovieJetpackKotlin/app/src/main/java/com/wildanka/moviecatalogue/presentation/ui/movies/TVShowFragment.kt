@@ -14,6 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.TVShowRVAdapter
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
+import com.wildanka.moviecatalogue.viewmodel.ViewModelFactory
 
 /**
  * Fragment for displaying Movie / TV Show lists.
@@ -36,7 +37,9 @@ class TVShowFragment : Fragment() {
         rvMovie = view.findViewById(R.id.rv_movie)
         pbMovies = view.findViewById(R.id.pb_movies)
         srlMovies = view.findViewById(R.id.srl_movies)
-        val viewModel = ViewModelProvider(this).get(MainMoviesViewModel::class.java)
+
+        val factory = ViewModelFactory.getInstance()
+        val viewModel = ViewModelProvider(this, factory).get(MainMoviesViewModel::class.java)
         pbMovies.visibility = View.VISIBLE
         val rvAdapter = TVShowRVAdapter()
         rvMovie.layoutManager = LinearLayoutManager(activity)

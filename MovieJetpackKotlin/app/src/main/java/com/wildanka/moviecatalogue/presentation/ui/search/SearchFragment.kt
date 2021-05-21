@@ -19,6 +19,7 @@ import com.wildanka.moviecatalogue.databinding.SearchFragmentBinding
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.MovieRVAdapter
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.TVShowRVAdapter
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
+import com.wildanka.moviecatalogue.viewmodel.ViewModelFactory
 
 
 class SearchFragment : BottomSheetDialogFragment() {
@@ -86,7 +87,8 @@ class SearchFragment : BottomSheetDialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
+        val factory = ViewModelFactory.getInstance()
+        viewModel = ViewModelProvider(this, factory).get(SearchViewModel::class.java)
         //if isMovie, observe movieData, else observe tvShow data
     }
 

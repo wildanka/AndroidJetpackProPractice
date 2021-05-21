@@ -14,6 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.MovieRVAdapter
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
+import com.wildanka.moviecatalogue.viewmodel.ViewModelFactory
 
 class MovieFragment : Fragment() {
     private lateinit var srlMovies: SwipeRefreshLayout
@@ -34,7 +35,8 @@ class MovieFragment : Fragment() {
         srlMovies = view.findViewById(R.id.srl_movies)
         pbMovies.visibility = View.VISIBLE
 
-        val viewModel = ViewModelProvider(this).get(MainMoviesViewModel::class.java)
+        val factory = ViewModelFactory.getInstance()
+        val viewModel = ViewModelProvider(this, factory).get(MainMoviesViewModel::class.java)
         val rvAdapter = MovieRVAdapter()
         rvMovie.layoutManager = LinearLayoutManager(activity)
         rvMovie.adapter = rvAdapter

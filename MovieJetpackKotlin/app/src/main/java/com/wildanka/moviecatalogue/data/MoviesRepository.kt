@@ -6,50 +6,71 @@ import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieData
 import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowData
 import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowDetail
 import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowFeeds
-import com.wildanka.moviecatalogue.domain.entity.*
+import com.wildanka.moviecatalogue.data.datasource.remote.RemoteDataSource
 import com.wildanka.moviecatalogue.data.datasource.remote.service.ApiMovie
+import com.wildanka.moviecatalogue.domain.entity.MovieCredits
+import com.wildanka.moviecatalogue.domain.entity.MovieDetail
+import com.wildanka.moviecatalogue.domain.entity.MovieFeeds
 import com.wildanka.moviecatalogue.util.ApiClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MoviesRepository {
+class MoviesRepository(private val remoteDataSource: RemoteDataSource) : MoviesDataSource {
+
+    companion object {
+        @Volatile
+        private var instance: MoviesRepository? = null
+
+        fun getInstance(
+            remoteDataSource: RemoteDataSource
+        ): MoviesRepository =
+            instance ?: synchronized(this) {
+                MoviesRepository(remoteDataSource).apply {
+                    instance = this
+                }
+            }
+    }
 
     private val placeHolderApi: ApiMovie = ApiClient.createService(
         ApiMovie::class.java
     )
 
-    fun fetchMovieData(): MutableLiveData<MutableList<MovieData>> {
+    override fun fetchMovieData(): MutableLiveData<MutableList<MovieData>> {
         val movieList = MutableLiveData<MutableList<MovieData>>()
-        val call = placeHolderApi.loadMovieList(API_V3_KEY, "en")
-        call.enqueue(object : Callback<MovieFeeds?> {
-            override fun onFailure(call: Call<MovieFeeds?>, t: Throwable) {
-                t.printStackTrace()
-            }
-
-            override fun onResponse(call: Call<MovieFeeds?>, response: Response<MovieFeeds?>) {
-                movieList.value = response.body()?.movieList
+        remoteDataSource.fetchMovieData(object: RemoteDataSource.LoadMoviesCallback{
+            override fun onAllMovieReceived(movieResponse: MutableList<MovieData>) {
+                movieList.value = movieResponse
             }
         })
-
         return movieList
     }
 
-    fun fetchTvShowData(): MutableLiveData<MutableList<TVShowData>> {
+    override fun fetchTVShowData(): MutableLiveData<MutableList<TVShowData>> {
         val tvShowList = MutableLiveData<MutableList<TVShowData>>()
-        val call = placeHolderApi.loadTVShowList(API_V3_KEY, "en")
-        call.enqueue(object : Callback<TVShowFeeds?> {
-            override fun onFailure(call: Call<TVShowFeeds?>, t: Throwable) {
-                t.printStackTrace()
-            }
-
-            override fun onResponse(call: Call<TVShowFeeds?>, response: Response<TVShowFeeds?>) {
-                tvShowList.value = response.body()?.tvShowList
+        remoteDataSource.fetchTVShowData(object : RemoteDataSource.LoadTVShowsCallback {
+            override fun onAllTVShowReceived(tvShowResponses: MutableList<TVShowData>) {
+                tvShowList.value = tvShowResponses
             }
         })
-
         return tvShowList
     }
+
+//    fun fetchTvShowData(): MutableLiveData<MutableList<TVShowData>> {
+//        val tvShowList = MutableLiveData<MutableList<TVShowData>>()
+//        val call = placeHolderApi.loadTVShowList(API_V3_KEY, "en")
+//        call.enqueue(object : Callback<TVShowFeeds?> {
+//            override fun onFailure(call: Call<TVShowFeeds?>, t: Throwable) {
+//                t.printStackTrace()
+//            }
+//
+//            override fun onResponse(call: Call<TVShowFeeds?>, response: Response<TVShowFeeds?>) {
+//                tvShowList.value = response.body()?.tvShowList!!
+//            }
+//        })
+//
+//        return tvShowList
+//    }
 
     fun fetchMovieDataDetail(movieId: String?): MutableLiveData<MovieDetail> {
         val movie = MutableLiveData<MovieDetail>()
@@ -121,7 +142,7 @@ class MoviesRepository {
             }
 
             override fun onResponse(call: Call<MovieFeeds?>, response: Response<MovieFeeds?>) {
-                movieList.value = response.body()?.movieList
+                movieList.value = response.body()?.movieList!!
             }
         })
 
@@ -137,7 +158,7 @@ class MoviesRepository {
             }
 
             override fun onResponse(call: Call<TVShowFeeds?>, response: Response<TVShowFeeds?>) {
-                tvShowList.value = response.body()?.tvShowList
+                tvShowList.value = response.body()?.tvShowList!!
             }
         })
 

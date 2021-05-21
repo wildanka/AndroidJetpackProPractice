@@ -13,8 +13,7 @@ import com.wildanka.moviecatalogue.domain.entity.MovieDetail
 import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowDetail
 import com.wildanka.moviecatalogue.util.MovieDetailConverter
 
-class FavoritesViewModel(private val favoritesRepository: FavoritesRepository) : ViewModel() {
-    private var repo = MoviesRepository()
+class FavoritesViewModel(private val favoritesRepository: FavoritesRepository, private val repo: MoviesRepository) : ViewModel() {
     private var favoriteMovieLiveData: LiveData<FavoriteMovie>? = null
     private var favoritTVShowLiveData: LiveData<FavoriteTVShow>? = null
 

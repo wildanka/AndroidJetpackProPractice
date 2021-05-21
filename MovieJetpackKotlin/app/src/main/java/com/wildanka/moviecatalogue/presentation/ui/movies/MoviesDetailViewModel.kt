@@ -7,8 +7,7 @@ import com.wildanka.moviecatalogue.domain.entity.MovieCredits
 import com.wildanka.moviecatalogue.domain.entity.MovieDetail
 import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowDetail
 
-class MoviesDetailViewModel : ViewModel() {
-    private val repo = MoviesRepository()
+class MoviesDetailViewModel(private val repo: MoviesRepository) : ViewModel() {
     private var movieDetail : MutableLiveData<MovieDetail>? = null
     private var movieCredits : MutableLiveData<MovieCredits>? = null
     private var tvShowDetail : MutableLiveData<TVShowDetail>? = null
