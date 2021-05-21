@@ -38,7 +38,7 @@ class MoviesRepository(private val remoteDataSource: RemoteDataSource) : MoviesD
 
     override fun fetchMovieData(): MutableLiveData<MutableList<MovieData>> {
         val movieList = MutableLiveData<MutableList<MovieData>>()
-        remoteDataSource.fetchMovieData(object: RemoteDataSource.LoadMoviesCallback{
+        remoteDataSource.fetchMovieData(object: RemoteDataSource.LoadMoviesCallback {
             override fun onAllMovieReceived(movieResponse: MutableList<MovieData>) {
                 movieList.value = movieResponse
             }

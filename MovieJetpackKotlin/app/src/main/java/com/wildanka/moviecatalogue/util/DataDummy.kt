@@ -9,7 +9,7 @@ import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowData
 
 object DataDummy {
 
-    fun generateRemoteDummyMovies(): List<MovieData> {
+    fun generateRemoteDummyMovies(): MutableList<MovieData> {
         val movies = ArrayList<MovieData>()
 
         movies.add(

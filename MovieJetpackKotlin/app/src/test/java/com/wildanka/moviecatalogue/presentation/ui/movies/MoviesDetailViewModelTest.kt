@@ -26,7 +26,7 @@ class MoviesDetailViewModelTest {
     fun setUp() {
         moviesRepository = Mockito.mock(MoviesRepository::class.java)
         moviesDetailViewModel =
-            MoviesDetailViewModel()
+            MoviesDetailViewModel(moviesRepository)
     }
 
     @Test
