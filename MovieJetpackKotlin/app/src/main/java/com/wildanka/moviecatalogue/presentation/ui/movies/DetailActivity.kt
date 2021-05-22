@@ -53,37 +53,39 @@ class DetailActivity : AppCompatActivity() {
             //TODO : remove logger
             movieId?.let { Log.e("DetailActivity", it) }
             //load detail data
-            EspressoIdlingResource.increment()
-            viewModel.getMoviesDetailWithID(movieId)?.observe(this, { movieDetails ->
-                if (movieDetails != null) {
-                    movieDetail = movieDetails
-                    binding.tvTitle.text = movieDetails.title
-                    binding.tvDetailYear.text = movieDetails.releaseDate
-                    if (movieDetails.tagline != null){
-                        if (movieDetails.tagline.isEmpty()){
-                            binding.tvTagline.visibility = View.GONE
+            if(movieId != null){
+                EspressoIdlingResource.increment()
+                viewModel.getMoviesDetailWithID(movieId)?.observe(this, { movieDetails ->
+                    if (movieDetails != null) {
+                        movieDetail = movieDetails
+                        binding.tvTitle.text = movieDetails.title
+                        binding.tvDetailYear.text = movieDetails.releaseDate
+                        if (movieDetails.tagline != null){
+                            if (movieDetails.tagline.isEmpty()){
+                                binding.tvTagline.visibility = View.GONE
+                            }else{
+                                binding.tvTagline.text = movieDetails.tagline
+                            }
                         }else{
-                            binding.tvTagline.text = movieDetails.tagline
+                            binding.tvTagline.visibility = View.GONE
                         }
-                    }else{
-                        binding.tvTagline.visibility = View.GONE
+                        binding.tvRatingDetail.text = getString(R.string.score_s, movieDetails.voteAverage.toString())
+                        binding.tvOverview.text = movieDetails.overview
+                        binding.tvDuration.text =
+                            getString(R.string.duration_s_min, movieDetails.duration.toString())
+                        binding.tvPopularity.text = movieDetails.popularity
+                        //load genre
+                        var genresString: String? = ""
+                        for (genre in movieDetails.genres) {
+                            genresString = genresString + genre?.genreName + ", "
+                        }
+                        binding.tvGenre.text = genresString
+                        Glide.with(this).load(URL_IMG_APP + movieDetails.posterPath)
+                            .into(binding.ivMoviePosterDetail)
                     }
-                    binding.tvRatingDetail.text = getString(R.string.score_s, movieDetails.voteAverage.toString())
-                    binding.tvOverview.text = movieDetails.overview
-                    binding.tvDuration.text =
-                        getString(R.string.duration_s_min, movieDetails.duration.toString())
-                    binding.tvPopularity.text = movieDetails.popularity
-                    //load genre
-                    var genresString: String? = ""
-                    for (genre in movieDetails.genres) {
-                        genresString = genresString + genre?.genreName + ", "
-                    }
-                    binding.tvGenre.text = genresString
-                    Glide.with(this).load(URL_IMG_APP + movieDetails.posterPath)
-                        .into(binding.ivMoviePosterDetail)
-                }
-                if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
-            })
+                    if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
+                })
+            }
 
             //load cast data
             val castAdapter =
@@ -91,45 +93,49 @@ class DetailActivity : AppCompatActivity() {
             binding.rvMovieCasts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             binding.rvMovieCasts.adapter = castAdapter
 
-            EspressoIdlingResource.increment()
-            viewModel.getMoviesCastData(movieId)?.observe(this, { movieCredits ->
-                shimmerViewContainer.hideShimmer()
-                if (movieCredits != null) {
-                    castAdapter.setupMovieCastData(movieCredits.cast)
-                }
-                if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
-            })
+            if(movieId != null){
+                EspressoIdlingResource.increment()
+                viewModel.getMoviesCastData(movieId)?.observe(this, { movieCredits ->
+                    shimmerViewContainer.hideShimmer()
+                    if (movieCredits != null) {
+                        castAdapter.setupMovieCastData(movieCredits.cast)
+                    }
+                    if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
+                })
+            }
 
             if (movieId != null) {
                 checkFavorite(movieId)
             }
         } else {
             //TODO : remove logger
-            movieId?.let { Log.e("DetailActivity", it) }
+            tvShowId?.let { Log.e("DetailActivity", it) }
             //load detail data
-            EspressoIdlingResource.increment()
-            viewModel.getTVShowDetailWithId(tvShowId)?.observe(this, { tvShowDetails ->
-                if (tvShowDetails != null) {
-                    tvShowDetail = tvShowDetails
-                    binding.tvTitle.text = tvShowDetails.title
-                    binding.tvDetailYear.text = tvShowDetails.firstAirDate
-                    binding.tvTagline.text = ""
-                    binding.tvRatingDetail.text =
-                        getString(R.string.score_s, tvShowDetails.voteAverage.toString())
-                    binding.tvOverview.text = tvShowDetails.overview
-                    binding.tvDuration.text = ""
-                    binding.tvPopularity.text = tvShowDetails.popularity
-                    //load genre
-                    var genresString: String? = ""
-                    for (genre in tvShowDetails.genres) {
-                        genresString = genresString + genre?.genreName + ", "
+            if(tvShowId != null){
+                EspressoIdlingResource.increment()
+                viewModel.getTVShowDetailWithId(tvShowId)?.observe(this, { tvShowDetails ->
+                    if (tvShowDetails != null) {
+                        tvShowDetail = tvShowDetails
+                        binding.tvTitle.text = tvShowDetails.title
+                        binding.tvDetailYear.text = tvShowDetails.firstAirDate
+                        binding.tvTagline.text = ""
+                        binding.tvRatingDetail.text =
+                            getString(R.string.score_s, tvShowDetails.voteAverage.toString())
+                        binding.tvOverview.text = tvShowDetails.overview
+                        binding.tvDuration.text = ""
+                        binding.tvPopularity.text = tvShowDetails.popularity
+                        //load genre
+                        var genresString: String? = ""
+                        for (genre in tvShowDetails.genres) {
+                            genresString = genresString + genre?.genreName + ", "
+                        }
+                        binding.tvGenre.text = genresString
+                        Glide.with(this).load(URL_IMG_APP + tvShowDetails.posterPath)
+                            .into(binding.ivMoviePosterDetail)
                     }
-                    binding.tvGenre.text = genresString
-                    Glide.with(this).load(URL_IMG_APP + tvShowDetails.posterPath)
-                        .into(binding.ivMoviePosterDetail)
-                }
-                if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
-            })
+                    if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
+                })
+            }
 
             //region cast data
             val castAdapter =
@@ -137,15 +143,17 @@ class DetailActivity : AppCompatActivity() {
             binding.rvMovieCasts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             binding.rvMovieCasts.adapter = castAdapter
 
-            EspressoIdlingResource.increment()
-            viewModel.getTVShowCastData(tvShowId)?.observe(this, { movieCredits ->
-                shimmerViewContainer.hideShimmer()
+            if(tvShowId != null){
+                EspressoIdlingResource.increment()
+                viewModel.getTVShowCastData(tvShowId)?.observe(this, { movieCredits ->
+                    shimmerViewContainer.hideShimmer()
 
-                if (movieCredits != null) {
-                    castAdapter.setupMovieCastData(movieCredits.cast)
-                }
-                if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
-            })
+                    if (movieCredits != null) {
+                        castAdapter.setupMovieCastData(movieCredits.cast)
+                    }
+                    if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
+                })
+            }
             //endregion cast data
 
             if (tvShowId != null) {

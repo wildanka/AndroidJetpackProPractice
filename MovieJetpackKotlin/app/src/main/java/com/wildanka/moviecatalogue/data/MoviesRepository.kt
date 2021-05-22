@@ -1,20 +1,12 @@
 package com.wildanka.moviecatalogue.data
 
 import androidx.lifecycle.MutableLiveData
-import com.wildanka.moviecatalogue.BuildConfig.API_V3_KEY
 import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieData
 import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowData
 import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowDetail
-import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowFeeds
 import com.wildanka.moviecatalogue.data.datasource.remote.RemoteDataSource
-import com.wildanka.moviecatalogue.data.datasource.remote.service.ApiMovie
 import com.wildanka.moviecatalogue.domain.entity.MovieCredits
 import com.wildanka.moviecatalogue.domain.entity.MovieDetail
-import com.wildanka.moviecatalogue.domain.entity.MovieFeeds
-import com.wildanka.moviecatalogue.util.ApiClient
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MoviesRepository(private val remoteDataSource: RemoteDataSource) : MoviesDataSource {
 
@@ -31,10 +23,6 @@ class MoviesRepository(private val remoteDataSource: RemoteDataSource) : MoviesD
                 }
             }
     }
-
-    private val placeHolderApi: ApiMovie = ApiClient.createService(
-        ApiMovie::class.java
-    )
 
     override fun fetchMovieData(): MutableLiveData<MutableList<MovieData>> {
         val movieList = MutableLiveData<MutableList<MovieData>>()
@@ -99,30 +87,19 @@ class MoviesRepository(private val remoteDataSource: RemoteDataSource) : MoviesD
 
     override fun searchMovies(query: String): MutableLiveData<MutableList<MovieData>> {
         val movieList = MutableLiveData<MutableList<MovieData>>()
-        val call = placeHolderApi.searchMovie(API_V3_KEY, "en", query)
-        call.enqueue(object : Callback<MovieFeeds?> {
-            override fun onFailure(call: Call<MovieFeeds?>, t: Throwable) {
-                t.printStackTrace()
-            }
-
-            override fun onResponse(call: Call<MovieFeeds?>, response: Response<MovieFeeds?>) {
-                movieList.value = response.body()?.movieList!!
+        remoteDataSource.searchMovies(query, object: RemoteDataSource.LoadMovieSearchCallback{
+            override fun onMovieFound(movieResponse: MutableList<MovieData>) {
+                movieList.value = movieResponse
             }
         })
-
         return movieList
     }
 
     override fun searchTVShows(query: String): MutableLiveData<MutableList<TVShowData>> {
         val tvShowList = MutableLiveData<MutableList<TVShowData>>()
-        val call = placeHolderApi.searchTv(API_V3_KEY, "en", query)
-        call.enqueue(object : Callback<TVShowFeeds?> {
-            override fun onFailure(call: Call<TVShowFeeds?>, t: Throwable) {
-                t.printStackTrace()
-            }
-
-            override fun onResponse(call: Call<TVShowFeeds?>, response: Response<TVShowFeeds?>) {
-                tvShowList.value = response.body()?.tvShowList!!
+        remoteDataSource.searchTVShows(query, object : RemoteDataSource.LoadTVShowSearchCallback{
+            override fun onTVShowFound(tvShowResponses: MutableList<TVShowData>) {
+                tvShowList.value = tvShowResponses
             }
         })
 

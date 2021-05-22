@@ -134,7 +134,7 @@ class RemoteDataSource {
 
             override fun onResponse(call: Call<MovieFeeds?>, response: Response<MovieFeeds?>) {
                 movieList.value = response.body()?.movieList!!
-                callback.onMovieFound(movieList.value)
+                callback.onMovieFound(movieList.value!!)
             }
         })
 
@@ -149,9 +149,9 @@ class RemoteDataSource {
                 t.printStackTrace()
             }
 
-            override fun onResponse(call: Call<TVShowFeeds?>, response: Response<MutableList<TVShowData>>) {
-                tvShowList.value = response.body().
-                callback.onTVShowFound(tvShowList.value)
+            override fun onResponse(call: Call<TVShowFeeds?>, response: Response<TVShowFeeds?>) {
+                tvShowList.value = response.body()?.tvShowList!!
+                callback.onTVShowFound(tvShowList.value!!)
             }
         })
 
@@ -180,6 +180,6 @@ class RemoteDataSource {
         fun onTVShowDetailCreditReceived(tvShowResponses: MovieCredits)
     }
     interface LoadTVShowSearchCallback{
-        fun onTVShowFound(movieResponse: MutableList<TVShowData>)
+        fun onTVShowFound(tvShowResponses: MutableList<TVShowData>)
     }
 }

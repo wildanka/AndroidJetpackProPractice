@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.activity_detail.*
 
 private const val TYPE_MOVIE = "MOVIE"
 private const val TYPE_TV_SHOW = "TV_SHOW"
+
 class FavoritesDetailActivity : AppCompatActivity() {
     private lateinit var shimmerViewContainer: ShimmerFrameLayout
     private lateinit var viewModel: FavoritesViewModel
@@ -60,7 +61,7 @@ class FavoritesDetailActivity : AppCompatActivity() {
             movieId?.let { Log.e("DetailActivity", it) }
             //load detail data
             EspressoIdlingResource.increment()
-            movieId?.let {idMovie->
+            movieId?.let { idMovie ->
                 viewModel.getFavoriteMoviesDetails(idMovie)?.observe(this, {
                     if (it != null) {
                         movieDetail = it
@@ -73,7 +74,8 @@ class FavoritesDetailActivity : AppCompatActivity() {
                         tvPopularity.text = it.popularity
                         //load genre
                         tvGenre.text = it.genres
-                        Glide.with(this).load(BuildConfig.URL_IMG_APP + it.posterPath).into(ivMoviePosterDetail)
+                        Glide.with(this).load(BuildConfig.URL_IMG_APP + it.posterPath)
+                            .into(ivMoviePosterDetail)
                     }
                     if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
                 })
@@ -85,19 +87,21 @@ class FavoritesDetailActivity : AppCompatActivity() {
             rvCast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             rvCast.adapter = castAdapter
 
-            EspressoIdlingResource.increment()
-            viewModel.getMoviesCastData(movieId)?.observe(this, { movieCredits ->
-                shimmerViewContainer.hideShimmer()
-                if (movieCredits != null) {
-                    castAdapter.setupMovieCastData(movieCredits.cast)
-                }
-                if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
-            })
+            if (movieId != null) {
+                EspressoIdlingResource.increment()
+                viewModel.getMoviesCastData(movieId)?.observe(this, { movieCredits ->
+                    shimmerViewContainer.hideShimmer()
+                    if (movieCredits != null) {
+                        castAdapter.setupMovieCastData(movieCredits.cast)
+                    }
+                    if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
+                })
+            }
 
             if (movieId != null) {
                 checkFavorite(movieId)
             }
-        }else{
+        } else {
             //TODO : delete the logs
             tvShowId?.let { Log.e("DetailActivity", it) }
             //load detail data
@@ -109,12 +113,14 @@ class FavoritesDetailActivity : AppCompatActivity() {
                         tvTitle.text = tvShowDetails.title
                         tvYear.text = tvShowDetails.firstAirDate
                         tvTagline.text = ""
-                        tvRating.text = getString(R.string.score_s, tvShowDetails.voteAverage.toString())
+                        tvRating.text =
+                            getString(R.string.score_s, tvShowDetails.voteAverage.toString())
                         tvOverview.text = tvShowDetails.overview
                         tvDuration.text = ""
                         tvPopularity.text = tvShowDetails.popularity
                         tvGenre.text = tvShowDetails.genres
-                        Glide.with(this).load(BuildConfig.URL_IMG_APP + tvShowDetails.posterPath).into(ivMoviePosterDetail)
+                        Glide.with(this).load(BuildConfig.URL_IMG_APP + tvShowDetails.posterPath)
+                            .into(ivMoviePosterDetail)
                     }
                     if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
                 })
@@ -126,15 +132,17 @@ class FavoritesDetailActivity : AppCompatActivity() {
             rvCast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             rvCast.adapter = castAdapter
 
-            EspressoIdlingResource.increment()
-            viewModel.getTVShowCastData(tvShowId)?.observe(this, { movieCredits ->
-                shimmerViewContainer.hideShimmer()
+            if (tvShowId != null) {
+                EspressoIdlingResource.increment()
+                viewModel.getTVShowCastData(tvShowId)?.observe(this, { movieCredits ->
+                    shimmerViewContainer.hideShimmer()
 
-                if (movieCredits != null) {
-                    castAdapter.setupMovieCastData(movieCredits.cast)
-                }
-                if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
-            })
+                    if (movieCredits != null) {
+                        castAdapter.setupMovieCastData(movieCredits.cast)
+                    }
+                    if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
+                })
+            }
             //endregion cast data
 
             if (tvShowId != null) {
@@ -151,7 +159,7 @@ class FavoritesDetailActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId){
+        return when (item.itemId) {
             android.R.id.home -> {
                 finish()
                 true
@@ -164,7 +172,7 @@ class FavoritesDetailActivity : AppCompatActivity() {
                 Toast.makeText(this, "Favorites Button Touched", Toast.LENGTH_SHORT).show()
                 true
             }
-            else ->{
+            else -> {
                 super.onOptionsItemSelected(item)
             }
         }
@@ -172,12 +180,14 @@ class FavoritesDetailActivity : AppCompatActivity() {
 
     private fun setFavorite() {
         if (isFavorite)
-            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_black_24dp)
+            menuItem?.getItem(0)?.icon =
+                ContextCompat.getDrawable(this, R.drawable.ic_favorite_black_24dp)
         else
-            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_black_24dp)
+            menuItem?.getItem(0)?.icon =
+                ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_black_24dp)
     }
 
-    private fun removeFromFavorite(){
+    private fun removeFromFavorite() {
         when (type) {
             TYPE_MOVIE -> {
                 Log.e("removeFromMOVIEFavorite", "${movieDetail?.idMovie} - ${movieDetail?.title}")
@@ -197,7 +207,8 @@ class FavoritesDetailActivity : AppCompatActivity() {
             }
         }
     }
-    private fun addToFavorite(){
+
+    private fun addToFavorite() {
         when (type) {
             TYPE_MOVIE -> {
                 Log.e("addTOFavoritesMOVIE", "${movieDetail?.idMovie} - ${movieDetail?.title}")
@@ -231,12 +242,13 @@ class FavoritesDetailActivity : AppCompatActivity() {
             }
             TYPE_TV_SHOW -> {
                 Log.e("checkFavorite(TVShow)", "${tvShowDetail?.idTVShow} - ${tvShowDetail?.title}")
-                viewModel.checkIsFavoriteTVShow(movieOrTVShowId)?.observe(this, { movieDataLiveData ->
-                    if (movieDataLiveData != null) {
-                        isFavorite = true
-                        setFavorite()
-                    }
-                })
+                viewModel.checkIsFavoriteTVShow(movieOrTVShowId)
+                    ?.observe(this, { movieDataLiveData ->
+                        if (movieDataLiveData != null) {
+                            isFavorite = true
+                            setFavorite()
+                        }
+                    })
             }
             else -> {
                 Log.e("checkFavorite", "WUUT?")
