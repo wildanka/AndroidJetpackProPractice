@@ -46,6 +46,26 @@ class MoviesRepository(private val remoteDataSource: RemoteDataSource) : MoviesD
         return movieList
     }
 
+    override fun fetchMovieDataDetail(movieId: String): MutableLiveData<MovieDetail> {
+        val movie = MutableLiveData<MovieDetail>()
+        remoteDataSource.fetchMovieDataDetail(movieId, object: RemoteDataSource.LoadMovieDetailCallback{
+            override fun onMovieDetailReceived(movieResponse: MovieDetail) {
+                movie.value = movieResponse
+            }
+        })
+        return movie
+    }
+
+    override fun fetchMovieDetailCredits(movieId: String): MutableLiveData<MovieCredits> {
+        val movieCredits = MutableLiveData<MovieCredits>()
+        remoteDataSource.fetchMovieDetailCredits(movieId, object: RemoteDataSource.LoadMovieDetailCreditCallback{
+            override fun onMovieDetailCreditReceived(movieResponse: MovieCredits) {
+                movieCredits.value = movieResponse
+            }
+        })
+        return movieCredits
+    }
+
     override fun fetchTVShowData(): MutableLiveData<MutableList<TVShowData>> {
         val tvShowList = MutableLiveData<MutableList<TVShowData>>()
         remoteDataSource.fetchTVShowData(object : RemoteDataSource.LoadTVShowsCallback {
@@ -56,84 +76,28 @@ class MoviesRepository(private val remoteDataSource: RemoteDataSource) : MoviesD
         return tvShowList
     }
 
-//    fun fetchTvShowData(): MutableLiveData<MutableList<TVShowData>> {
-//        val tvShowList = MutableLiveData<MutableList<TVShowData>>()
-//        val call = placeHolderApi.loadTVShowList(API_V3_KEY, "en")
-//        call.enqueue(object : Callback<TVShowFeeds?> {
-//            override fun onFailure(call: Call<TVShowFeeds?>, t: Throwable) {
-//                t.printStackTrace()
-//            }
-//
-//            override fun onResponse(call: Call<TVShowFeeds?>, response: Response<TVShowFeeds?>) {
-//                tvShowList.value = response.body()?.tvShowList!!
-//            }
-//        })
-//
-//        return tvShowList
-//    }
-
-    fun fetchMovieDataDetail(movieId: String?): MutableLiveData<MovieDetail> {
-        val movie = MutableLiveData<MovieDetail>()
-        val call = placeHolderApi.loadMovieDetail(movieId, API_V3_KEY)
-        call.enqueue(object : Callback<MovieDetail?> {
-            override fun onFailure(call: Call<MovieDetail?>, t: Throwable) {
-                t.printStackTrace()
-            }
-
-            override fun onResponse(call: Call<MovieDetail?>, response: Response<MovieDetail?>) {
-                movie.value = response.body()
-            }
-        })
-        return movie
-    }
-
-    fun fetchMovieDetailCredits(movieId: String?): MutableLiveData<MovieCredits> {
-        val movieCredits = MutableLiveData<MovieCredits>()
-        val call = placeHolderApi.loadMovieCredits(movieId, API_V3_KEY)
-        call.enqueue(object : Callback<MovieCredits?> {
-            override fun onFailure(call: Call<MovieCredits?>, t: Throwable) {
-                t.printStackTrace()
-            }
-
-            override fun onResponse(call: Call<MovieCredits?>, response: Response<MovieCredits?>) {
-                movieCredits.value = response.body()
-            }
-        })
-        return movieCredits
-    }
-
-    fun fetchTVShowDetailCredits(tvShowId: String?): MutableLiveData<MovieCredits> {
-        val movieCredits = MutableLiveData<MovieCredits>()
-        val call = placeHolderApi.loadTVShowCredits(tvShowId, API_V3_KEY)
-        call.enqueue(object : Callback<MovieCredits?> {
-            override fun onFailure(call: Call<MovieCredits?>, t: Throwable) {
-                t.printStackTrace()
-            }
-
-            override fun onResponse(call: Call<MovieCredits?>, response: Response<MovieCredits?>) {
-                movieCredits.value = response.body()
-            }
-        })
-        return movieCredits
-    }
-
-    fun fetchTvShowDataDetail(tvShowId: String?): MutableLiveData<TVShowDetail> {
+    override fun fetchTvShowDataDetail(tvShowId: String): MutableLiveData<TVShowDetail> {
         val tvShow = MutableLiveData<TVShowDetail>()
-        val call = placeHolderApi.loadTVShowDetail(tvShowId, API_V3_KEY)
-        call.enqueue(object : Callback<TVShowDetail?> {
-            override fun onFailure(call: Call<TVShowDetail?>, t: Throwable) {
-                t.printStackTrace()
-            }
-
-            override fun onResponse(call: Call<TVShowDetail?>, response: Response<TVShowDetail?>) {
-                tvShow.value = response.body()
+        remoteDataSource.fetchTvShowDataDetail(tvShowId, object: RemoteDataSource.LoadTVShowDetailCallback{
+            override fun onTVShowDetailReceived(tvShowResponses: TVShowDetail) {
+                tvShow.value = tvShowResponses
             }
         })
-
         return tvShow
     }
 
-    fun searchMovies(query: String): MutableLiveData<MutableList<MovieData>> {
+    override fun fetchTVShowDetailCredits(tvShowId: String): MutableLiveData<MovieCredits> {
+        val movieCredits = MutableLiveData<MovieCredits>()
+        remoteDataSource.fetchTVShowDetailCredits(tvShowId, object: RemoteDataSource.LoadTVShowDetailCreditCallback{
+            override fun onTVShowDetailCreditReceived(tvShowResponses: MovieCredits) {
+                movieCredits.value = tvShowResponses
+            }
+
+        })
+        return movieCredits
+    }
+
+    override fun searchMovies(query: String): MutableLiveData<MutableList<MovieData>> {
         val movieList = MutableLiveData<MutableList<MovieData>>()
         val call = placeHolderApi.searchMovie(API_V3_KEY, "en", query)
         call.enqueue(object : Callback<MovieFeeds?> {
@@ -149,7 +113,7 @@ class MoviesRepository(private val remoteDataSource: RemoteDataSource) : MoviesD
         return movieList
     }
 
-    fun searchTVShows(query: String): MutableLiveData<MutableList<TVShowData>> {
+    override fun searchTVShows(query: String): MutableLiveData<MutableList<TVShowData>> {
         val tvShowList = MutableLiveData<MutableList<TVShowData>>()
         val call = placeHolderApi.searchTv(API_V3_KEY, "en", query)
         call.enqueue(object : Callback<TVShowFeeds?> {
