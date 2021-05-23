@@ -72,10 +72,10 @@ class FavoritesRepositoryTest{
     fun getFavoriteTvShowDetail(){
         val dummyMovies = MutableLiveData<FavoriteTVShow>()
         dummyMovies.value = DataDummy.generateLocalDummyFavoriteTVShowDetail()
-        Mockito.`when`<LiveData<FavoriteTVShow>>(local.getFavoriteTVShowDetail(favoriteMovieId)).thenReturn(dummyMovies)
+        Mockito.`when`<LiveData<FavoriteTVShow>>(local.getFavoriteTVShowDetail(favoriteTVShowId)).thenReturn(dummyMovies)
 
-        val favoriteTvShow = LiveDataTestUtil.getValue(favoriteRepository.getFavoriteTvShowDetail(favoriteMovieId))
-        verify(local).getFavoriteTVShowDetail(favoriteMovieId)
+        val favoriteTvShow = LiveDataTestUtil.getValue(favoriteRepository.getFavoriteTvShowDetail(favoriteTVShowId))
+        verify(local).getFavoriteTVShowDetail(favoriteTVShowId)
         assertNotNull(favoriteTvShow)
         assertEquals(this.favoriteTVShow[0].title, favoriteTvShow.title)
     }
