@@ -615,7 +615,7 @@ object DataDummy {
         return movies
     }
 
-    fun generateLocalDummyMovieDetail(): FavoriteMovie {
+    fun generateLocalDummyFavoriteMovieDetail(): FavoriteMovie {
         return generateLocalDummyFavoriteMovies()[0]
     }
 
@@ -695,7 +695,7 @@ object DataDummy {
         return tvShows
     }
 
-    fun generateLocalDummyTVShowDetail(): FavoriteTVShow {
+    fun generateLocalDummyFavoriteTVShowDetail(): FavoriteTVShow {
         return generateLocalDummyFavoriteTVShow()[0]
     }
 
