@@ -26,7 +26,7 @@ class MoviesRepository(private val remoteDataSource: RemoteDataSource) : MoviesD
 
     override fun fetchMovieData(): MutableLiveData<MutableList<MovieData>> {
         val movieList = MutableLiveData<MutableList<MovieData>>()
-        remoteDataSource.fetchMovieData(object: RemoteDataSource.LoadMoviesCallback {
+        remoteDataSource.fetchMovieData(object : RemoteDataSource.LoadMoviesCallback {
             override fun onAllMovieReceived(movieResponse: MutableList<MovieData>) {
                 movieList.value = movieResponse
             }
@@ -36,21 +36,25 @@ class MoviesRepository(private val remoteDataSource: RemoteDataSource) : MoviesD
 
     override fun fetchMovieDataDetail(movieId: String): MutableLiveData<MovieDetail> {
         val movie = MutableLiveData<MovieDetail>()
-        remoteDataSource.fetchMovieDataDetail(movieId, object: RemoteDataSource.LoadMovieDetailCallback{
-            override fun onMovieDetailReceived(movieResponse: MovieDetail) {
-                movie.value = movieResponse
-            }
-        })
+        remoteDataSource.fetchMovieDataDetail(
+            movieId,
+            object : RemoteDataSource.LoadMovieDetailCallback {
+                override fun onMovieDetailReceived(movieResponse: MovieDetail) {
+                    movie.value = movieResponse
+                }
+            })
         return movie
     }
 
     override fun fetchMovieDetailCredits(movieId: String): MutableLiveData<MovieCredits> {
         val movieCredits = MutableLiveData<MovieCredits>()
-        remoteDataSource.fetchMovieDetailCredits(movieId, object: RemoteDataSource.LoadMovieDetailCreditCallback{
-            override fun onMovieDetailCreditReceived(movieResponse: MovieCredits) {
-                movieCredits.value = movieResponse
-            }
-        })
+        remoteDataSource.fetchMovieDetailCredits(
+            movieId,
+            object : RemoteDataSource.LoadMovieDetailCreditCallback {
+                override fun onMovieDetailCreditReceived(movieResponse: MovieCredits) {
+                    movieCredits.value = movieResponse
+                }
+            })
         return movieCredits
     }
 
@@ -66,28 +70,32 @@ class MoviesRepository(private val remoteDataSource: RemoteDataSource) : MoviesD
 
     override fun fetchTvShowDataDetail(tvShowId: String): MutableLiveData<TVShowDetail> {
         val tvShow = MutableLiveData<TVShowDetail>()
-        remoteDataSource.fetchTvShowDataDetail(tvShowId, object: RemoteDataSource.LoadTVShowDetailCallback{
-            override fun onTVShowDetailReceived(tvShowResponses: TVShowDetail) {
-                tvShow.value = tvShowResponses
-            }
-        })
+        remoteDataSource.fetchTvShowDataDetail(
+            tvShowId,
+            object : RemoteDataSource.LoadTVShowDetailCallback {
+                override fun onTVShowDetailReceived(tvShowResponses: TVShowDetail) {
+                    tvShow.value = tvShowResponses
+                }
+            })
         return tvShow
     }
 
     override fun fetchTVShowDetailCredits(tvShowId: String): MutableLiveData<MovieCredits> {
         val movieCredits = MutableLiveData<MovieCredits>()
-        remoteDataSource.fetchTVShowDetailCredits(tvShowId, object: RemoteDataSource.LoadTVShowDetailCreditCallback{
-            override fun onTVShowDetailCreditReceived(tvShowResponses: MovieCredits) {
-                movieCredits.value = tvShowResponses
-            }
+        remoteDataSource.fetchTVShowDetailCredits(
+            tvShowId,
+            object : RemoteDataSource.LoadTVShowDetailCreditCallback {
+                override fun onTVShowDetailCreditReceived(tvShowResponses: MovieCredits) {
+                    movieCredits.value = tvShowResponses
+                }
 
-        })
+            })
         return movieCredits
     }
 
     override fun searchMovies(query: String): MutableLiveData<MutableList<MovieData>> {
         val movieList = MutableLiveData<MutableList<MovieData>>()
-        remoteDataSource.searchMovies(query, object: RemoteDataSource.LoadMovieSearchCallback{
+        remoteDataSource.searchMovies(query, object : RemoteDataSource.LoadMovieSearchCallback {
             override fun onMovieFound(movieResponse: MutableList<MovieData>) {
                 movieList.value = movieResponse
             }
@@ -97,7 +105,7 @@ class MoviesRepository(private val remoteDataSource: RemoteDataSource) : MoviesD
 
     override fun searchTVShows(query: String): MutableLiveData<MutableList<TVShowData>> {
         val tvShowList = MutableLiveData<MutableList<TVShowData>>()
-        remoteDataSource.searchTVShows(query, object : RemoteDataSource.LoadTVShowSearchCallback{
+        remoteDataSource.searchTVShows(query, object : RemoteDataSource.LoadTVShowSearchCallback {
             override fun onTVShowFound(tvShowResponses: MutableList<TVShowData>) {
                 tvShowList.value = tvShowResponses
             }

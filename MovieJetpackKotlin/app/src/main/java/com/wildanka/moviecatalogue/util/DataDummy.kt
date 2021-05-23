@@ -1,11 +1,10 @@
 package com.wildanka.moviecatalogue.util
 
-import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteMovie
-import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteTVShow
-import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieData
+import com.wildanka.moviecatalogue.data.datasource.local.entity.*
 import com.wildanka.moviecatalogue.domain.entity.Genre
+import com.wildanka.moviecatalogue.domain.entity.MovieCast
+import com.wildanka.moviecatalogue.domain.entity.MovieCredits
 import com.wildanka.moviecatalogue.domain.entity.MovieDetail
-import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowData
 
 object DataDummy {
 
@@ -310,7 +309,104 @@ object DataDummy {
         return movies
     }
 
-    fun generateRemoteDummyTVShow(): List<TVShowData> {
+    fun generateRemoteDummyMovieDetail(movieId: String): MovieDetail {
+        val genres = ArrayList<Genre>()
+
+        genres.add(Genre("28", "tes"))
+        genres.add(Genre("14", "tes"))
+        genres.add(Genre("12", "tes"))
+        genres.add(Genre("878", "tes"))
+
+
+        return MovieDetail(
+            "123",
+            false,
+            "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
+            genres,
+            "homePageUrl",
+            "en",
+            "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
+            "4870.197",
+            "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg",
+            "2021-04-07",
+            "revenue",
+            "duration",
+            "status",
+            "tagline",
+            "Mortal Kombat",
+            7.8,
+            "2145"
+        )
+    }
+
+    fun generateRemoteDummyMovieCredits(movieId: String): MovieCredits {
+        val casts: MutableList<MovieCast> = mutableListOf()
+
+        casts.add(
+            MovieCast(
+                "23",
+                "Cole Young",
+                "5d647aaebcf8c9001575e2c1",
+                2,
+                "1610940",
+                "Lewis Tan",
+                "0",
+                "/lkW8gh20BuwzHecXqYH1eRVuWpb.jpg"
+            )
+        )
+        casts.add(
+            MovieCast(
+                "24",
+                "Sonya Blade",
+                "5d647b30bcf8c9001475e363",
+                1,
+                "136347",
+                "Jessica McNamee",
+                "1",
+                "/aAfaMEEqD8syHv5bLi5B3sccrM2.jpg"
+            )
+        )
+        casts.add(
+            MovieCast(
+                "25",
+                "Kano",
+                "5d647b74bcf8c9001675e36b",
+                1,
+                "189230",
+                "Josh Lawson",
+                "2",
+                "/Am9vM77uZd9bGODugwmWtOfzx6E.jpg"
+            )
+        )
+        casts.add(
+            MovieCast(
+                "21",
+                "Lord Raiden",
+                "5d57683abc86574b352ee5be",
+                1,
+                "13275",
+                "Tadanobu Asano",
+                "3",
+                "/wDw1z9Pk9dEzopzlZQ4X8wTbj1t.jpg"
+            )
+        )
+        casts.add(
+            MovieCast(
+                "29",
+                "Jackson 'Jax' Briggs",
+                "5d94320e87ae7b0024a46476",
+                2,
+                "51684",
+                "Mehcad Brooks",
+                "4",
+                "/etlE8YdFgYk6Nbe3uRQcc5uF0t2.jpg"
+            )
+        )
+
+        return MovieCredits(movieId, casts)
+    }
+
+    fun generateRemoteDummyTVShow(): MutableList<TVShowData> {
         val tvShows = ArrayList<TVShowData>()
 
         tvShows.add(
@@ -357,6 +453,90 @@ object DataDummy {
         )
 
         return tvShows
+    }
+
+    fun generateRemoteDummyTVShowDetail(tvShowId: String): TVShowDetail {
+        val genres: MutableList<Genre?> = mutableListOf()
+        genres.add(Genre("10765", "Sci-Fi & Fantasy"))
+        genres.add(Genre("10759", "Action & Adventure"))
+        genres.add(Genre("18", "Drama"))
+        genres.add(Genre("10768", "War & Politics"))
+
+
+        return TVShowDetail(
+            "88396",
+            "/b0WmHGc8LHTdGCVzxRb3IBMur57.jpg",
+            genres,
+            "The Falcon and the Winter Soldier",
+            "en",
+            "Following the events of â€œAvengers: Endgameâ€�, the Falcon, Sam Wilson and the Winter Soldier, Bucky Barnes team up in a global adventure that tests their abilities, and their patience.",
+            "1829.941",
+            "/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
+            "2021-03-19",
+            "2021-04-23",
+            "",
+            "",
+            "Ended",
+            "Honor the shield.",
+            "The Falcon and the Winter Soldier",
+            7.9,
+            "5595"
+        )
+    }
+
+    fun generateRemoteDummyTVShowCredits(tvShowId: String): MovieCredits {
+        val casts: MutableList<MovieCast> = mutableListOf()
+
+        casts.add(
+            MovieCast(
+                "53650",
+                "Sam Wilson / Falcon",
+                "5cb061dd0e0a2626e9c4263a",
+                2,
+                "53650",
+                "Anthony Mackie",
+                "0",
+                "/eZSIDrtTzhvabyjrmIITQLsjx8h.jpg"
+            )
+        )
+        casts.add(
+            MovieCast(
+                "60898",
+                "James 'Bucky' Barnes / Winter Soldier",
+                "5cb05d639251412fb0239909",
+                2,
+                "60898",
+                "Sebastian Stan",
+                "1",
+                "/nKZgixTbHFXpkzzIpMFdLX98GYh.jpg"
+            )
+        )
+        casts.add(
+            MovieCast(
+                "84247",
+                "Sharon Carter",
+                "6062b651a39d0b006a442451",
+                1,
+                "84247",
+                "Emily VanCamp",
+                "2",
+                "/zTl2KVglr7D7jnBLjbqe1BbbJiV.jpg"
+            )
+        )
+        casts.add(
+            MovieCast(
+                "986808",
+                "John Walker / Captain America / U.S. Agent",
+                "5f8a372a2667780038e0c934",
+                2,
+                "986808",
+                "Wyatt Russell",
+                "3",
+                "/f759e6y7uhobWRCmD0O21cBmjBA.jpg"
+            )
+        )
+
+        return MovieCredits(tvShowId, casts)
     }
 
     fun generateLocalDummyFavoriteMovies(): List<FavoriteMovie> {
@@ -519,33 +699,4 @@ object DataDummy {
         return generateLocalDummyFavoriteTVShow()[0]
     }
 
-    fun generateRemoteDummyMovieDetail(movieId: String): MovieDetail {
-        val genres = ArrayList<Genre>()
-
-        genres.add(Genre("28", "tes"))
-        genres.add(Genre("14", "tes"))
-        genres.add(Genre("12", "tes"))
-        genres.add(Genre("878", "tes"))
-
-
-        return MovieDetail(
-            "123",
-            false,
-            "/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg",
-            genres,
-            "homePageUrl",
-            "en",
-            "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
-            "4870.197",
-            "/6Wdl9N6dL0Hi0T1qJLWSz6gMLbd.jpg",
-            "2021-04-07",
-            "revenue",
-            "duration",
-            "status",
-            "tagline",
-            "Mortal Kombat",
-            7.8,
-            "2145"
-        )
-    }
 }
