@@ -3,6 +3,7 @@ package com.wildanka.moviecatalogue.presentation.ui.favorites
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.nhaarman.mockitokotlin2.verify
 import com.wildanka.moviecatalogue.data.FavoritesRepository
 import com.wildanka.moviecatalogue.data.MoviesRepository
@@ -34,7 +35,10 @@ class FavoritesViewModelTest {
     private lateinit var movieRepository: MoviesRepository
 
     @Mock
-    private lateinit var observer: Observer<List<FavoriteMovie>>
+    private lateinit var observer: Observer<PagedList<FavoriteMovie>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<FavoriteMovie>
 
     @Before
     fun setUp() {
@@ -42,15 +46,40 @@ class FavoritesViewModelTest {
         viewModel = FavoritesViewModel(favoriteRepository, movieRepository)
     }
 
-//    @Test
-//    fun getMovies() {
-//        val dummyMovie = DataDummy.generateLocalDummyFavoriteMovies()
-//        val movie = MutableLiveData<List<FavoriteMovie>>()
-//        movie.value = dummyMovie
-//
-//        `when`(favoriteRepository.getFavoriteMovies()).thenReturn(movie)
-//
-//    }
+    @Test
+    fun `get favorite movies`() {
+        val dummyMovie = pagedList
+        `when`(dummyMovie.size).thenReturn(5)
+        val movie = MutableLiveData<PagedList<FavoriteMovie>>()
+        movie.value = dummyMovie
+
+        `when`(favoriteRepository.getFavoriteMovies()).thenReturn(movie)
+        val movieEntities = viewModel.getAllFavoriteMoviePaging().value
+        verify(favoriteRepository).getFavoriteMovies()
+        assertNotNull(movieEntities)
+        assertEquals(5, movieEntities?.size)
+
+        viewModel.getAllFavoriteMoviePaging().observeForever(observer)
+        verify(observer).onChanged(dummyMovie)
+    }
+
+  @Test
+    fun `get favorite tv show`() {
+        val dummyMovie = pagedList
+        `when`(dummyMovie.size).thenReturn(5)
+        val movie = MutableLiveData<PagedList<FavoriteMovie>>()
+        movie.value = dummyMovie
+
+        `when`(favoriteRepository.getFavoriteMovies()).thenReturn(movie)
+        val movieEntities = viewModel.getAllFavoriteMoviePaging().value
+        verify(favoriteRepository).getFavoriteMovies()
+        assertNotNull(movieEntities)
+        assertEquals(5, movieEntities?.size)
+
+        viewModel.getAllFavoriteMoviePaging().observeForever(observer)
+        verify(observer).onChanged(dummyMovie)
+
+    }
 
     @Test
     fun getMovieDetail() {

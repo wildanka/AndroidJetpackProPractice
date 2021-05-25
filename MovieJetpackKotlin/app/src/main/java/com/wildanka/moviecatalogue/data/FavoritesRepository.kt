@@ -29,47 +29,6 @@ class FavoritesRepository(
             }
     }
 
-//    init {
-//        val db = MovieCatalogueDatabase.getInstance(application)
-//        mFavoritesDao = db.favoritesDao()
-//    }
-
-    /*fun getAllFavoriteMoviePaging(): DataSource.Factory<Int, FavoriteMovie> {
-        return localDataSource.getFavoriteMovies()
-    }
-
-    fun addToFavoriteMovies(favoriteMovieData: FavoriteMovie){
-        executorService.execute { mFavoritesDao?.insertFavoriteMovie(favoriteMovieData) }
-    }
-
-    fun removeFromFavoriteMovies(favoriteMovieData: FavoriteMovie) {
-        appExecutors.diskIO().execute {
-            localDataSource.deleteFavoriteMovie(favoriteMovieData)
-        }
-    }
-
-    fun getFavoriteMoviesDetails(idMovie: String?) : LiveData<FavoriteMovie>? {
-        return mFavoritesDao?.getFavoriteMovieDetails(idMovie)
-    }
-
-    //TODO : What to do with this DataSource.Factory
-    fun getAllFavoriteTVShowPaging(): DataSource.Factory<Int, FavoriteTVShow>? {
-        return mFavoritesDao?.getAllFavoritTVShowPaging()
-    }
-
-    fun addToFavoriteTVShow(favoriteTVShowData: FavoriteTVShow){
-        executorService.execute { mFavoritesDao?.insertFavoriteTVShow(favoriteTVShowData) }
-    }
-
-    fun removeFromFavoriteTVShow(favoriteTVShowData: FavoriteTVShow){
-        executorService.execute {
-            mFavoritesDao?.deleteFavoriteTVShow(favoriteTVShowData)
-        }
-    }
-
-    fun getFavoriteTVShowDetails(idTVShow: String?) : LiveData<FavoriteTVShow>? {
-        return mFavoritesDao?.getFavoriteTVShowDetails(idTVShow)
-    }*/
 
     //using FavoritesDataSource
     override fun getFavoriteMovies(): LiveData<PagedList<FavoriteMovie>> {

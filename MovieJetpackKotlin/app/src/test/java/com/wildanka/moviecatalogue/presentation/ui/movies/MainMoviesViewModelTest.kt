@@ -10,9 +10,9 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.*
 
+@Suppress("UNCHECKED_CAST")
 class MainMoviesViewModelTest {
     @get:Rule
     val instantTaskExecutorRule: InstantTaskExecutorRule = InstantTaskExecutorRule()
@@ -25,7 +25,7 @@ class MainMoviesViewModelTest {
 
     @Before
     fun setUp() {
-        moviesRepository = Mockito.mock(MoviesRepository::class.java)
+        moviesRepository = mock(MoviesRepository::class.java)
         mainViewModel =
             MainMoviesViewModel(moviesRepository)
     }
