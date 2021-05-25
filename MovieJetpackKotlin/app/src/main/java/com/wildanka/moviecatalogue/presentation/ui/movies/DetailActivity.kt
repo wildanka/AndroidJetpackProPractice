@@ -185,7 +185,6 @@ class DetailActivity : AppCompatActivity() {
                 if (isFavorite) removeFromFavorite() else addToFavorite()
                 isFavorite = !isFavorite
                 setFavorite()
-                Toast.makeText(this, "Favorites Button Touched", Toast.LENGTH_SHORT).show()
                 true
             }
             else -> {
@@ -195,12 +194,15 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setFavorite() {
-        if (isFavorite)
+        if (isFavorite) {
             menuItem?.getItem(0)?.icon =
                 ContextCompat.getDrawable(this, R.drawable.ic_favorite_black_24dp)
-        else
+            Toast.makeText(this, "Saved to Favorite", Toast.LENGTH_SHORT).show()
+        } else {
             menuItem?.getItem(0)?.icon =
                 ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_black_24dp)
+            Toast.makeText(this, "Removed from Favorite", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun removeFromFavorite() {
