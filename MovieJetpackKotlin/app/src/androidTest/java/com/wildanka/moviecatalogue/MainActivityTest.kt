@@ -10,6 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
+import com.wildanka.moviecatalogue.presentation.ui.MainActivity
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.MovieRVAdapter
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.TVShowRVAdapter
@@ -37,24 +38,19 @@ class MainActivityTest {
 
     @After
     fun tearDown(){
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.getEspressoIdlingResource())
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.getEspressoIdlingResource())
     }
 
     @Test
     fun testViewTvShows(){
         //Scenario: Lihat Next swipe left pada viewpager untuk melihat tv show
-        onView(withId(R.id.vp_movie)).perform(swipeLeft())
+        onView(withId(R.id.tvShowFragment)).perform(click())
     }
 
     @Test
     fun testViewMovies(){
         //tekan tab "MOVIE" pada tab layout setelah melakukan swipe ke kiri (dari tab TV Show)
-        onView(withId(R.id.vp_movie)).perform(swipeLeft())
-        val matcher = allOf(
-            withText("MOVIE"),
-            isDescendantOfA(withId(R.id.tl_menu))
-        )
-        onView(matcher).perform(click())
+        onView(withId(R.id.movieFragment)).perform(click())
     }
 
     @Test
@@ -71,16 +67,14 @@ class MainActivityTest {
     @Test
     fun testTVShowRecyclerBehavior() {
         // Lakukan klik pada item di posisi ke 4 (indeks dimulai dari 0) - The Flash
-        val matcher = allOf(
-            withText("TV SHOW"),
-            isDescendantOfA(withId(R.id.tl_menu))
-        )
-        onView(matcher).perform(click())
+        onView(withId(R.id.tvShowFragment)).perform(click())
         onView(allOf(isDisplayed(), withId(R.id.rv_movie)))
             .perform(RecyclerViewActions.actionOnItemAtPosition<TVShowRVAdapter.TVShowViewHolder>(4, click()))
 
         val titleMatcher= withId(R.id.tv_title)
         onView(withId(R.id.tv_title)).check(matches(titleMatcher))
     }
+
+
 
 }

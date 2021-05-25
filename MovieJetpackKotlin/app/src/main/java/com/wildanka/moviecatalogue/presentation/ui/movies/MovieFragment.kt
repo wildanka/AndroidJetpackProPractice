@@ -50,7 +50,6 @@ class MovieFragment : Fragment() {
     }
 
     private fun observeData(viewModel: MainMoviesViewModel, rvAdapter: MovieRVAdapter) {
-        EspressoIdlingResource.increment()
         viewModel.getMovieList()?.observe(viewLifecycleOwner, {
             if (it != null) {
                 rvAdapter.setupMovieList(it)
@@ -58,8 +57,6 @@ class MovieFragment : Fragment() {
                 Log.e("MovieFragment", "NULL")
             }
             pbMovies.visibility = View.INVISIBLE
-
-            if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
 
             srlMovies.isRefreshing = false
         })
