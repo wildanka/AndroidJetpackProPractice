@@ -27,6 +27,7 @@
     <string name="duration_s_min">%1$s min.</string>
 
     <string name="add_favorites">Add to Favorites</string>
+    <string name="remove_favorites">Remove from Favorites</string>
     <string name="title_activity_favorites_detail">FavoritesDetailActivity</string>
     <string name="movies">Movies</string>
     <string name="tv_show">TV Show</string>
