@@ -1,7 +1,6 @@
 package com.wildanka.moviecatalogue.presentation.ui.movies
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -50,8 +49,6 @@ class DetailActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, factory).get(FavoritesViewModel::class.java)
 
         if (type == TYPE_MOVIE) {
-            //TODO : remove logger
-            movieId?.let { Log.e("DetailActivity", it) }
             //load detail data
             if(movieId != null){
                 EspressoIdlingResource.increment()
@@ -108,8 +105,6 @@ class DetailActivity : AppCompatActivity() {
                 checkFavorite(movieId)
             }
         } else {
-            //TODO : remove logger
-            tvShowId?.let { Log.e("DetailActivity", it) }
             //load detail data
             if(tvShowId != null){
                 EspressoIdlingResource.increment()
@@ -209,7 +204,6 @@ class DetailActivity : AppCompatActivity() {
         when (type) {
             TYPE_MOVIE -> {
                 if (movieDetail != null){
-                    Log.e("removeFromMOVIEFavorite", "${movieDetail?.idMovie} - ${movieDetail?.title}")
                     viewModel.removeFavoriteMovieData(movieDetail!!)
                     isFavorite = true
                     setFavorite()
@@ -217,14 +211,13 @@ class DetailActivity : AppCompatActivity() {
             }
             TYPE_TV_SHOW -> {
                 if (tvShowDetail != null){
-                    Log.e("removeFromTVFavorite", "${tvShowDetail?.idMovie} - ${tvShowDetail?.title}")
                     viewModel.removeFavoriteTVShowData(tvShowDetail!!)
                     isFavorite = true
                     setFavorite()
                 }
             }
             else -> {
-                Log.e("removeFromFavorite", "WUUT?")
+                //do nothing
             }
         }
     }
@@ -233,7 +226,6 @@ class DetailActivity : AppCompatActivity() {
         when (type) {
             TYPE_MOVIE -> {
                 if (movieDetail != null){
-                    Log.e("addTOFavoritesMOVIE", "${movieDetail?.idMovie} - ${movieDetail?.title}")
                     viewModel.insertFavoriteMovieData(movieDetail!!)
                     isFavorite = true
                     setFavorite()
@@ -241,23 +233,20 @@ class DetailActivity : AppCompatActivity() {
             }
             TYPE_TV_SHOW -> {
                 if (tvShowDetail != null){
-                    Log.e("addTOFavoritesTVSHOW", "${tvShowDetail?.idMovie} - ${tvShowDetail?.title}")
                     viewModel.insertFavoriteTVShowData(tvShowDetail!!)
                     isFavorite = true
                     setFavorite()
                 }
             }
             else -> {
-                Log.e("addToFavorite", "WUUT?")
+                //do nothing
             }
         }
     }
 
     private fun checkFavorite(movieOrTVShowId: String) {
-        Log.e("checkFavorite", "dataType $type")
         when (type) {
             TYPE_MOVIE -> {
-                Log.e("checkFavorite(Movie)", "$movieOrTVShowId ")
                 viewModel.checkIsFavorite(movieOrTVShowId)?.observe(this, { movieDataLiveData ->
                     if (movieDataLiveData != null) {
                         isFavorite = true
@@ -266,7 +255,6 @@ class DetailActivity : AppCompatActivity() {
                 })
             }
             TYPE_TV_SHOW -> {
-                Log.e("checkFavorite(TVShow)", "${tvShowDetail?.idMovie} - ${tvShowDetail?.title}")
                 viewModel.checkIsFavoriteTVShow(movieOrTVShowId)
                     ?.observe(this, { movieDataLiveData ->
                         if (movieDataLiveData != null) {
@@ -276,9 +264,8 @@ class DetailActivity : AppCompatActivity() {
                     })
             }
             else -> {
-                Log.e("checkFavorite", "WUUT?")
+                //do nothing
             }
         }
-
     }
 }

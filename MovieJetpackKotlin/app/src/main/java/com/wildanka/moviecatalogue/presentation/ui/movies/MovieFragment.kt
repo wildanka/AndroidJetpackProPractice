@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.MovieRVAdapter
-import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import com.wildanka.moviecatalogue.viewmodel.ViewModelFactory
 
 class MovieFragment : Fragment() {

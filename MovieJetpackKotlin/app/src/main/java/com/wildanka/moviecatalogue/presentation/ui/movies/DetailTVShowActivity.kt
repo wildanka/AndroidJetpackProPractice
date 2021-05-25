@@ -1,7 +1,6 @@
 package com.wildanka.moviecatalogue.presentation.ui.movies
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
@@ -47,8 +46,6 @@ class DetailTVShowActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
 
         if (type == "MOVIE") {
-            // TODO : remove logger
-            movieId?.let { Log.e("DetailActivity", it) }
             //load detail data
             if (movieId != null) {
                 EspressoIdlingResource.increment()
@@ -97,8 +94,6 @@ class DetailTVShowActivity : AppCompatActivity() {
                 checkFavorite(movieId)
             }
         } else {
-            // TODO : remove logger
-            tvShowId?.let { Log.e("DetailActivity", it) }
             //load detail data
             if(tvShowId != null){
                 EspressoIdlingResource.increment()
