@@ -1,7 +1,6 @@
 package com.wildanka.moviecatalogue.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.nhaarman.mockitokotlin2.verify
@@ -12,7 +11,8 @@ import com.wildanka.moviecatalogue.util.AppExecutors
 import com.wildanka.moviecatalogue.util.DataDummy
 import com.wildanka.moviecatalogue.util.LiveDataTestUtil
 import com.wildanka.moviecatalogue.util.PagedListUtil
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito
@@ -32,6 +32,7 @@ class FavoritesRepositoryTest{
     private val favoriteTVShow = DataDummy.generateLocalDummyFavoriteTVShow()
 
 
+    @Suppress("UNCHECKED_CAST")
     @Test
     fun getFavoriteMovies(){
         val dataSourceFactory = Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, FavoriteMovie>
@@ -44,6 +45,7 @@ class FavoritesRepositoryTest{
         assertEquals(dummyMovies.size.toLong(), dummyMovies.size.toLong())
     }
 
+    @Suppress("UNCHECKED_CAST")
     @Test
     fun getFavoriteTvShow(){
         val dataSourceFactory = Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, FavoriteTVShow>
@@ -61,7 +63,7 @@ class FavoritesRepositoryTest{
     fun getFavoriteMovieDetail(){
         val dummyMovies = MutableLiveData<FavoriteMovie>()
         dummyMovies.value = DataDummy.generateLocalDummyFavoriteMovieDetail()
-        Mockito.`when`<LiveData<FavoriteMovie>>(local.getFavoriteMovieDetail(favoriteMovieId)).thenReturn(dummyMovies)
+        Mockito.`when`(local.getFavoriteMovieDetail(favoriteMovieId)).thenReturn(dummyMovies)
 
         val favoriteMovie = LiveDataTestUtil.getValue(favoriteRepository.getFavoriteMovieDetails(favoriteMovieId))
         verify(local).getFavoriteMovieDetail(favoriteMovieId)
@@ -73,7 +75,7 @@ class FavoritesRepositoryTest{
     fun getFavoriteTvShowDetail(){
         val dummyMovies = MutableLiveData<FavoriteTVShow>()
         dummyMovies.value = DataDummy.generateLocalDummyFavoriteTVShowDetail()
-        Mockito.`when`<LiveData<FavoriteTVShow>>(local.getFavoriteTVShowDetail(favoriteTVShowId)).thenReturn(dummyMovies)
+        Mockito.`when`(local.getFavoriteTVShowDetail(favoriteTVShowId)).thenReturn(dummyMovies)
 
         val favoriteTvShow = LiveDataTestUtil.getValue(favoriteRepository.getFavoriteTvShowDetail(favoriteTVShowId))
         verify(local).getFavoriteTVShowDetail(favoriteTVShowId)

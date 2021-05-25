@@ -2,19 +2,15 @@ package com.wildanka.moviecatalogue.presentation.ui.search
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.wildanka.moviecatalogue.data.MoviesRepository
 import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieData
 import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowData
-import com.wildanka.moviecatalogue.domain.entity.MovieCredits
-import com.wildanka.moviecatalogue.presentation.ui.movies.MainMoviesViewModel
 import com.wildanka.moviecatalogue.util.DataDummy
-import org.junit.Assert
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
 

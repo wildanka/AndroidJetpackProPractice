@@ -14,7 +14,7 @@ import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteTVShow
 import com.wildanka.moviecatalogue.presentation.ui.movies.DetailActivity
 
-class FavoriteTVShowAdapter() : RecyclerView.Adapter<FavoriteTVShowAdapter.FavoriteTVShowViewHolder>() {
+class FavoriteTVShowAdapter : RecyclerView.Adapter<FavoriteTVShowAdapter.FavoriteTVShowViewHolder>() {
     private var favoriteTVShow: List<FavoriteTVShow>? = null
 
 

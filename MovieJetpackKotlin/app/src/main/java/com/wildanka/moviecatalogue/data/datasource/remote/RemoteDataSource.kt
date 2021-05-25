@@ -1,7 +1,6 @@
 package com.wildanka.moviecatalogue.data.datasource.remote
 
 import androidx.lifecycle.MutableLiveData
-import com.wildanka.moviecatalogue.BuildConfig
 import com.wildanka.moviecatalogue.BuildConfig.API_V3_KEY
 import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieData
 import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowData
@@ -29,7 +28,7 @@ class RemoteDataSource {
 
     fun fetchMovieData(callback: LoadMoviesCallback){
         val movieList = MutableLiveData<MutableList<MovieData>>()
-        val call = ApiClient.getMovieService().loadMovieList(BuildConfig.API_V3_KEY, "en")
+        val call = ApiClient.getMovieService().loadMovieList(API_V3_KEY, "en")
         call.enqueue(object : Callback<MovieFeeds?> {
             override fun onFailure(call: Call<MovieFeeds?>, t: Throwable) {
                 t.printStackTrace()
@@ -45,7 +44,7 @@ class RemoteDataSource {
 
     fun fetchTVShowData(callback: LoadTVShowsCallback){
         val tvShowList = MutableLiveData<MutableList<TVShowData>>()
-        val call = ApiClient.getMovieService().loadTVShowList(BuildConfig.API_V3_KEY, "en")
+        val call = ApiClient.getMovieService().loadTVShowList(API_V3_KEY, "en")
         call.enqueue(object : Callback<TVShowFeeds?> {
             override fun onFailure(call: Call<TVShowFeeds?>, t: Throwable) {
                 t.printStackTrace()
@@ -61,7 +60,7 @@ class RemoteDataSource {
 
     fun fetchMovieDataDetail(movieId: String, callback: LoadMovieDetailCallback): MutableLiveData<MovieDetail> {
         val movie = MutableLiveData<MovieDetail>()
-        val call = ApiClient.getMovieService().loadMovieDetail(movieId, BuildConfig.API_V3_KEY)
+        val call = ApiClient.getMovieService().loadMovieDetail(movieId, API_V3_KEY)
         call.enqueue(object : Callback<MovieDetail?> {
             override fun onFailure(call: Call<MovieDetail?>, t: Throwable) {
                 t.printStackTrace()
@@ -77,7 +76,7 @@ class RemoteDataSource {
 
     fun fetchTvShowDataDetail(tvShowId: String?, callback: LoadTVShowDetailCallback): MutableLiveData<TVShowDetail> {
         val tvShow = MutableLiveData<TVShowDetail>()
-        val call = ApiClient.getMovieService().loadTVShowDetail(tvShowId, BuildConfig.API_V3_KEY)
+        val call = ApiClient.getMovieService().loadTVShowDetail(tvShowId, API_V3_KEY)
         call.enqueue(object : Callback<TVShowDetail?> {
             override fun onFailure(call: Call<TVShowDetail?>, t: Throwable) {
                 t.printStackTrace()
@@ -94,7 +93,7 @@ class RemoteDataSource {
 
     fun fetchMovieDetailCredits(movieId: String?, callback: LoadMovieDetailCreditCallback): MutableLiveData<MovieCredits> {
         val movieCredits = MutableLiveData<MovieCredits>()
-        val call = ApiClient.getMovieService().loadMovieCredits(movieId, BuildConfig.API_V3_KEY)
+        val call = ApiClient.getMovieService().loadMovieCredits(movieId, API_V3_KEY)
         call.enqueue(object : Callback<MovieCredits?> {
             override fun onFailure(call: Call<MovieCredits?>, t: Throwable) {
                 t.printStackTrace()
@@ -110,7 +109,7 @@ class RemoteDataSource {
 
     fun fetchTVShowDetailCredits(tvShowId: String?, callback: LoadTVShowDetailCreditCallback): MutableLiveData<MovieCredits> {
         val movieCredits = MutableLiveData<MovieCredits>()
-        val call = ApiClient.getMovieService().loadTVShowCredits(tvShowId, BuildConfig.API_V3_KEY)
+        val call = ApiClient.getMovieService().loadTVShowCredits(tvShowId, API_V3_KEY)
         call.enqueue(object : Callback<MovieCredits?> {
             override fun onFailure(call: Call<MovieCredits?>, t: Throwable) {
                 t.printStackTrace()

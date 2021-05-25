@@ -177,6 +177,10 @@ class DetailActivity : AppCompatActivity() {
                 true
             }
             R.id.favorites_toggle -> {
+                if (movieDetail == null && tvShowDetail == null){
+                    removeFromFavorite()
+                    return false
+                }
                 //buat simpan atau remove ke favorites
                 if (isFavorite) removeFromFavorite() else addToFavorite()
                 isFavorite = !isFavorite
@@ -202,20 +206,23 @@ class DetailActivity : AppCompatActivity() {
     private fun removeFromFavorite() {
         when (type) {
             TYPE_MOVIE -> {
-                Log.e("removeFromMOVIEFavorite", "${movieDetail?.idMovie} - ${movieDetail?.title}")
-                viewModel.removeFavoriteMovieData(movieDetail!!)
-                isFavorite = true
-                setFavorite()
+                if (movieDetail != null){
+                    Log.e("removeFromMOVIEFavorite", "${movieDetail?.idMovie} - ${movieDetail?.title}")
+                    viewModel.removeFavoriteMovieData(movieDetail!!)
+                    isFavorite = true
+                    setFavorite()
+                }
             }
             TYPE_TV_SHOW -> {
-                Log.e("removeFromTVFavorite", "${tvShowDetail?.idMovie} - ${tvShowDetail?.title}")
-                viewModel.removeFavoriteTVShowData(tvShowDetail!!)
-                isFavorite = true
-                setFavorite()
+                if (tvShowDetail != null){
+                    Log.e("removeFromTVFavorite", "${tvShowDetail?.idMovie} - ${tvShowDetail?.title}")
+                    viewModel.removeFavoriteTVShowData(tvShowDetail!!)
+                    isFavorite = true
+                    setFavorite()
+                }
             }
             else -> {
                 Log.e("removeFromFavorite", "WUUT?")
-
             }
         }
     }
@@ -223,16 +230,20 @@ class DetailActivity : AppCompatActivity() {
     private fun addToFavorite() {
         when (type) {
             TYPE_MOVIE -> {
-                Log.e("addTOFavoritesMOVIE", "${movieDetail?.idMovie} - ${movieDetail?.title}")
-                viewModel.insertFavoriteMovieData(movieDetail!!)
-                isFavorite = true
-                setFavorite()
+                if (movieDetail != null){
+                    Log.e("addTOFavoritesMOVIE", "${movieDetail?.idMovie} - ${movieDetail?.title}")
+                    viewModel.insertFavoriteMovieData(movieDetail!!)
+                    isFavorite = true
+                    setFavorite()
+                }
             }
             TYPE_TV_SHOW -> {
-                Log.e("addTOFavoritesTVSHOW", "${tvShowDetail?.idMovie} - ${tvShowDetail?.title}")
-                viewModel.insertFavoriteTVShowData(tvShowDetail!!)
-                isFavorite = true
-                setFavorite()
+                if (tvShowDetail != null){
+                    Log.e("addTOFavoritesTVSHOW", "${tvShowDetail?.idMovie} - ${tvShowDetail?.title}")
+                    viewModel.insertFavoriteTVShowData(tvShowDetail!!)
+                    isFavorite = true
+                    setFavorite()
+                }
             }
             else -> {
                 Log.e("addToFavorite", "WUUT?")

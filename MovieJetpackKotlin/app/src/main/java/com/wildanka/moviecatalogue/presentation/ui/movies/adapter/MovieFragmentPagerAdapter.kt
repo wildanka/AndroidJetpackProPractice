@@ -16,7 +16,7 @@ class MovieFragmentPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, 
         return mFragmentTitle.size
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return mFragmentTitle[position]
     }
 

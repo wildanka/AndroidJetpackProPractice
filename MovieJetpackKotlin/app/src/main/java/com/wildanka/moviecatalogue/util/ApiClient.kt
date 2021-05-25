@@ -12,12 +12,6 @@ object ApiClient{
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
 
-    fun <S> createService(serviceClass: Class<S>): S {
-        val client = httpClient.build()
-        val retrofit = builder.client(client).build()
-        return retrofit.create(serviceClass)
-    }
-
     fun getMovieService(): ApiMovie {
         val client = httpClient.build()
         val retrofit = builder.client(client).build()
