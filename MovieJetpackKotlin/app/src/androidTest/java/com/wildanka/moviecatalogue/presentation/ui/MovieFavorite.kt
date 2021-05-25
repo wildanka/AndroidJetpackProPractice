@@ -1,3 +1,4 @@
+@file:Suppress("IllegalIdentifier")
 package com.wildanka.moviecatalogue.presentation.ui
 
 
@@ -13,7 +14,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.wildanka.moviecatalogue.R
-import com.wildanka.moviecatalogue.presentation.waitFor
+import com.wildanka.moviecatalogue.utils.waitFor
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
@@ -31,7 +32,7 @@ class MovieFavorite {
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun movieFavorite() {
+    fun `add movie to favorite and display it`() {
         val recyclerView = onView(
             allOf(
                 withId(R.id.rv_movie),

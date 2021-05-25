@@ -1,3 +1,4 @@
+@file:Suppress("IllegalIdentifier")
 package com.wildanka.moviecatalogue.presentation.ui
 
 
@@ -13,7 +14,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.wildanka.moviecatalogue.R
-import com.wildanka.moviecatalogue.presentation.waitFor
+import com.wildanka.moviecatalogue.utils.waitFor
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
@@ -21,6 +22,7 @@ import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -31,7 +33,7 @@ class FavoriteTV {
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun favoriteTV() {
+    fun `add favorite tv show and display it`() {
         val bottomNavigationItemView = onView(
             allOf(
                 withId(R.id.tvShowFragment), withContentDescription("TV Show"),

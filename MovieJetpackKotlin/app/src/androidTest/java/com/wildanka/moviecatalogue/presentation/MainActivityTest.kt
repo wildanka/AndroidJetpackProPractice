@@ -1,4 +1,4 @@
-package com.wildanka.moviecatalogue
+package com.wildanka.moviecatalogue.presentation
 
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +12,17 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
+import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.presentation.ui.MainActivity
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.MovieRVAdapter
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.TVShowRVAdapter
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import org.hamcrest.Description
 import org.hamcrest.Matcher
+import org.hamcrest.Matchers
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
+import org.hamcrest.core.IsInstanceOf
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -84,50 +87,21 @@ class MainActivityTest {
         onView(matcher).perform(click())
     }
 
+
     @Test
-    fun testShowFavoriteMovieDetail() {
-        //1. open the movie detail
-        onView(withId(R.id.rv_movie)).perform(
-            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                0,
-                click()
+    fun testMovieRecyclerBehavior() {
+        // Lakukan klik pada item di posisi ke 4, masuk ke halaman detail, pastikan judulnya sesuai
+        onView(withId(R.id.movieFragment)).perform(click())
+        onView(allOf(isDisplayed(), withId(R.id.rv_movie)))
+            .perform(
+                RecyclerViewActions.actionOnItemAtPosition<MovieRVAdapter.MovieViewHolder>(
+                    4,
+                    click()
+                )
             )
-        )
 
-        //2. save to favorite
-        val btnFavorite = withId(R.id.favorites_toggle)
-        onView(btnFavorite).perform(click())
-        val favoritedButton = onView(
-            allOf(
-                withId(R.id.favorites_toggle), withContentDescription("Add to Favorites"),
-                withParent(withParent(withId(R.id.action_bar))),
-                isDisplayed()
-            )
-        )
-        favoritedButton.check(matches(isDisplayed()))
-
-        //back
-        onView(isRoot()).perform(pressBack())
-
-        //go to favorites menu
-        onView(withId(R.id.favoritesFragment)).perform(click())
-        onView(withId(R.id.vp_movie)).perform(swipeRight())
-
-        onView(nthChildOf(withId(R.id.vp_movie), 0)).check(matches(withText("MOVIES"))).perform(
-            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                0,
-                click()
-            )
-        )
-
-
-//        onView(withId(R.id.rv_movie)).perform(
-//            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-//                0,
-//                click()
-//            )
-//        )
-
+        val titleMatcher = withId(R.id.tv_title)
+        onView(withId(R.id.tv_title)).check(matches(titleMatcher))
     }
 
     @Test
@@ -202,6 +176,178 @@ class MainActivityTest {
         favoritedButton.check(matches(isDisplayed()))
     }
 
+    @Test
+    fun searchMovie() {
+        val actionMenuItemView = onView(
+            allOf(
+                withId(R.id.action_search), withContentDescription("Search"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.toolbar),
+                        1
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        actionMenuItemView.perform(click())
+
+        val searchAutoComplete = onView(
+            allOf(
+                withId(R.id.search_src_text),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.search_plate),
+                        childAtPosition(
+                            withId(R.id.search_edit_frame),
+                            1
+                        )
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        searchAutoComplete.perform(replaceText("taken"), closeSoftKeyboard())
+
+        val searchAutoComplete2 = onView(
+            allOf(
+                withId(R.id.search_src_text), withText("taken"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.search_plate),
+                        childAtPosition(
+                            withId(R.id.search_edit_frame),
+                            1
+                        )
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        searchAutoComplete2.perform(pressImeActionButton())
+
+        val recyclerView = onView(
+            allOf(
+                withId(R.id.rv_search_result),
+                childAtPosition(
+                    withClassName(Matchers.`is`("androidx.constraintlayout.widget.ConstraintLayout")),
+                    4
+                )
+            )
+        )
+        recyclerView.perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                click()
+            )
+        )
+
+        val textView = onView(
+            allOf(
+                withId(R.id.tv_title), withText("Taken"),
+                withParent(
+                    allOf(
+                        withId(R.id.cl_info),
+                        withParent(IsInstanceOf.instanceOf(android.view.ViewGroup::class.java))
+                    )
+                ),
+                isDisplayed()
+            )
+        )
+        textView.check(matches(withText("Taken")))
+    }
+
+    @Test
+    fun searchTVShow() {
+        val actionMenuItemView = onView(
+            allOf(
+                withId(R.id.action_search), withContentDescription("Search"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.toolbar),
+                        1
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        actionMenuItemView.perform(click())
+
+        val appCompatRadioButton = onView(
+            allOf(
+                withId(R.id.rb_tv_show), withText("TV Show"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.radioGroup),
+                        childAtPosition(
+                            withClassName(Matchers.`is`("androidx.constraintlayout.widget.ConstraintLayout")),
+                            2
+                        )
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatRadioButton.perform(click())
+
+        val searchAutoComplete = onView(
+            allOf(
+                withId(R.id.search_src_text),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.search_plate),
+                        childAtPosition(
+                            withId(R.id.search_edit_frame),
+                            1
+                        )
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        searchAutoComplete.perform(replaceText("mentalist"), closeSoftKeyboard())
+
+        val searchAutoComplete2 = onView(
+            allOf(
+                withId(R.id.search_src_text), withText("mentalist"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.search_plate),
+                        childAtPosition(
+                            withId(R.id.search_edit_frame),
+                            1
+                        )
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        searchAutoComplete2.perform(pressImeActionButton())
+
+        val recyclerView = onView(
+            allOf(
+                withId(R.id.rv_search_result),
+                childAtPosition(
+                    withClassName(Matchers.`is`("androidx.constraintlayout.widget.ConstraintLayout")),
+                    4
+                )
+            )
+        )
+        recyclerView.perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                click()
+            )
+        )
+    }
+
 
     private fun childAtPosition(
         parentMatcher: Matcher<View>, position: Int
@@ -236,5 +382,6 @@ class MainActivityTest {
             }
         }
     }
+
 
 }
