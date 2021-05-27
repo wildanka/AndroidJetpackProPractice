@@ -1,4 +1,3 @@
-@file:Suppress("IllegalIdentifier")
 package com.wildanka.moviecatalogue.presentation.ui
 
 
@@ -11,8 +10,8 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.AndroidJUnit4
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.utils.waitFor
 import org.hamcrest.Description
@@ -25,7 +24,7 @@ import org.junit.runner.RunWith
 
 
 @LargeTest
-@RunWith(AndroidJUnit4::class)
+@RunWith(AndroidJUnit4ClassRunner::class)
 class FavoriteTV {
 
     @Rule
@@ -33,7 +32,7 @@ class FavoriteTV {
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun `add favorite tv show and display it`() {
+    fun addFavoriteTVShowAndDisplayIt() {
         val bottomNavigationItemView = onView(
             allOf(
                 withId(R.id.tvShowFragment), withContentDescription("TV Show"),

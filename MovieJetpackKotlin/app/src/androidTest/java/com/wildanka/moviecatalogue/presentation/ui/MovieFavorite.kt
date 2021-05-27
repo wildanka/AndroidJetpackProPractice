@@ -1,4 +1,3 @@
-@file:Suppress("IllegalIdentifier")
 package com.wildanka.moviecatalogue.presentation.ui
 
 
@@ -32,7 +31,7 @@ class MovieFavorite {
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun `add movie to favorite and display it`() {
+    fun addMovieToFavoriteAndDisplayIt() {
         val recyclerView = onView(
             allOf(
                 withId(R.id.rv_movie),

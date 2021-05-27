@@ -9,8 +9,8 @@ import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.presentation.ui.MainActivity
@@ -31,7 +31,7 @@ import org.junit.runner.RunWith
 
 
 @LargeTest
-@RunWith(AndroidJUnit4::class)
+@RunWith(AndroidJUnit4ClassRunner::class)
 class MainActivityTest {
 
     @Rule
