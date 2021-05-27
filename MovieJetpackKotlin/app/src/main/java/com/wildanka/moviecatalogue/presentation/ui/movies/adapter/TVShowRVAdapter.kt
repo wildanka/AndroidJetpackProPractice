@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.wildanka.moviecatalogue.BuildConfig
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowData
-import com.wildanka.moviecatalogue.presentation.ui.movies.DetailActivity
+import com.wildanka.moviecatalogue.presentation.ui.movies.DetailTVShowActivity
 
 class TVShowRVAdapter : RecyclerView.Adapter<TVShowRVAdapter.TVShowViewHolder>() {
     private var tvShowList: MutableList<TVShowData>? = null
@@ -74,7 +74,7 @@ class TVShowRVAdapter : RecyclerView.Adapter<TVShowRVAdapter.TVShowViewHolder>()
 
             itemView.setOnClickListener {
                 itemView.context.startActivity(
-                    Intent(itemView.context, DetailActivity::class.java)
+                    Intent(itemView.context, DetailTVShowActivity::class.java)
                         .putExtra("dataType", "TV_SHOW")
                         .putExtra("tvShowID", tvShow.idTVShow)
                 )

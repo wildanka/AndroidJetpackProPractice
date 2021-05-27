@@ -3,139 +3,87 @@ package com.wildanka.moviecatalogue.presentation.ui.movies
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.wildanka.moviecatalogue.BuildConfig.URL_IMG_APP
 import com.wildanka.moviecatalogue.R
+import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowDetail
+import com.wildanka.moviecatalogue.databinding.ActivityDetailBinding
 import com.wildanka.moviecatalogue.presentation.ui.favorites.FavoritesViewModel
+import com.wildanka.moviecatalogue.presentation.ui.favorites.FavoritesViewModelFactory
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.MovieCastAdapter
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailTVShowActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityDetailBinding
     private lateinit var shimmerViewContainer: ShimmerFrameLayout
     private lateinit var viewModel: FavoritesViewModel
+
     private var isFavorite: Boolean = false
     private var menuItem: Menu? = null
+    private var tvShowDetail: TVShowDetail? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
         supportActionBar!!.setHomeButtonEnabled(true)
         shimmerViewContainer = shimmer_view_container
-        val movieId: String? = intent.getStringExtra("movieID")
         val tvShowId: String? = intent.getStringExtra("tvShowID")
-        val type = intent.getStringExtra("dataType")
-        val tvTitle = findViewById<TextView>(R.id.tv_title)
-        val tvTagline = findViewById<TextView>(R.id.tv_tagline)
-        val tvYear = findViewById<TextView>(R.id.tv_detail_year)
-        val tvRating = findViewById<TextView>(R.id.tv_rating_detail)
-        val tvDuration = findViewById<TextView>(R.id.tv_duration)
-        val tvPopularity = findViewById<TextView>(R.id.tv_popularity)
-        val tvOverview = findViewById<TextView>(R.id.tv_overview)
-        val tvGenre = findViewById<TextView>(R.id.tv_genre)
-        val rvCast = findViewById<RecyclerView>(R.id.rv_movie_casts)
-        val ivMoviePosterDetail = findViewById<ImageView>(R.id.iv_movie_poster_detail)
-        viewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
 
-        if (type == "MOVIE") {
-            //load detail data
-            if (movieId != null) {
-                EspressoIdlingResource.increment()
-                viewModel.getMoviesDetailWithID(movieId)?.observe(this, { movieDetails ->
-                    if (movieDetails != null) {
-                        tvTitle.text = movieDetails.title
-                        tvYear.text = movieDetails.releaseDate
-                        tvTagline.text = movieDetails.tagline
-                        tvRating.text =
-                            getString(R.string.score_s, movieDetails.voteAverage.toString())
-                        tvOverview.text = movieDetails.overview
-                        tvDuration.text =
-                            getString(R.string.duration_s_min, movieDetails.duration.toString())
-                        tvPopularity.text = movieDetails.popularity
-                        //load genre
-                        var genresString: String? = ""
-                        for (genre in movieDetails.genres) {
-                            genresString = genresString + genre?.genreName + ", "
-                        }
-                        tvGenre.text = genresString
-                        Glide.with(this).load(URL_IMG_APP + movieDetails.posterPath)
-                            .into(ivMoviePosterDetail)
+        val factory = FavoritesViewModelFactory.getInstance(this)
+        viewModel = ViewModelProvider(this, factory).get(FavoritesViewModel::class.java)
+
+        //load detail data
+        if (tvShowId != null) {
+            EspressoIdlingResource.increment()
+            viewModel.getTVShowDetailWithId(tvShowId)?.observe(this, { tvShowData ->
+                if (tvShowData != null) {
+                    tvShowDetail = tvShowData
+                    binding.tvTitle.text = tvShowData.title
+                    binding.tvDetailYear.text = tvShowData.firstAirDate
+                    binding.tvTagline.text = ""
+                    binding.tvRatingDetail.text = getString(R.string.score_s, tvShowData.voteAverage.toString())
+                    binding.tvOverview.text = tvShowData.overview
+                    binding.tvDuration.text = ""
+                    binding.tvPopularity.text = tvShowData.popularity
+                    //load genre
+                    var genresString: String? = ""
+                    for (genre in tvShowData.genres) {
+                        genresString = genresString + genre?.genreName + ", "
                     }
-                    if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
-                })
-            }
+                    binding.tvGenre.text = genresString
+                    Glide.with(this).load(URL_IMG_APP + tvShowData.posterPath)
+                        .into(binding.ivMoviePosterDetail)
+                }
+                if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
+            })
+        }
 
-            //load cast data
-            val castAdapter =
-                MovieCastAdapter()
-            rvCast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-            rvCast.adapter = castAdapter
+        //load cast data
+        val castAdapter =
+            MovieCastAdapter()
+        binding.rvMovieCasts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvMovieCasts.adapter = castAdapter
 
-            if (movieId != null) {
-                EspressoIdlingResource.increment()
-                viewModel.getMoviesCastData(movieId)?.observe(this, { movieCredits ->
-                    shimmerViewContainer.hideShimmer()
-                    if (movieCredits != null) {
-                        castAdapter.setupMovieCastData(movieCredits.cast)
-                    }
-                    if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
-                })
-            }
+        if (tvShowId != null) {
+            EspressoIdlingResource.increment()
+            viewModel.getTVShowCastData(tvShowId)?.observe(this, { movieCredits ->
+                shimmerViewContainer.hideShimmer()
 
-            if (movieId != null) {
-                checkFavorite(movieId)
-            }
-        } else {
-            //load detail data
-            if(tvShowId != null){
-                EspressoIdlingResource.increment()
-                viewModel.getTVShowDetailWithId(tvShowId)?.observe(this, { tvShowData ->
-                    if (tvShowData != null) {
-                        tvTitle.text = tvShowData.title
-                        tvYear.text = tvShowData.firstAirDate
-                        tvTagline.text = ""
-                        tvRating.text = getString(R.string.score_s, tvShowData.voteAverage.toString())
-                        tvOverview.text = tvShowData.overview
-                        tvDuration.text = ""
-                        tvPopularity.text = tvShowData.popularity
-                        //load genre
-                        var genresString: String? = ""
-                        for (genre in tvShowData.genres) {
-                            genresString = genresString + genre?.genreName + ", "
-                        }
-                        tvGenre.text = genresString
-                        Glide.with(this).load(URL_IMG_APP + tvShowData.posterPath)
-                            .into(ivMoviePosterDetail)
-                    }
-                    if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
-                })
-            }
+                if (movieCredits != null) {
+                    castAdapter.setupMovieCastData(movieCredits.cast)
+                }
+                if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
+            })
 
-            //load cast data
-            val castAdapter =
-                MovieCastAdapter()
-            rvCast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-            rvCast.adapter = castAdapter
-
-            if (tvShowId != null){
-                EspressoIdlingResource.increment()
-                viewModel.getTVShowCastData(tvShowId)?.observe(this, { movieCredits ->
-                    shimmerViewContainer.hideShimmer()
-
-                    if (movieCredits != null) {
-                        castAdapter.setupMovieCastData(movieCredits.cast)
-                    }
-                    if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
-                })
-            }
+            checkFavorite(tvShowId)
         }
     }
 
@@ -177,15 +125,25 @@ class DetailTVShowActivity : AppCompatActivity() {
     }
 
     private fun removeFromFavorite() {
+        if (tvShowDetail != null){
+            viewModel.removeFavoriteTVShowData(tvShowDetail!!)
+            isFavorite = true
+            setFavorite()
+        }
 
     }
 
     private fun addToFavorite() {
+        if (tvShowDetail != null){
+            viewModel.insertFavoriteTVShowData(tvShowDetail!!)
+            isFavorite = true
+            setFavorite()
+        }
 
     }
 
-    private fun checkFavorite(movieId: String) {
-        viewModel.checkIsFavorite(movieId)?.observe(this, { movieDataLiveData ->
+    private fun checkFavorite(tvShowId: String) {
+        viewModel.checkIsFavoriteTVShow(tvShowId)?.observe(this, { movieDataLiveData ->
             if (movieDataLiveData != null) {
                 isFavorite = true
                 setFavorite()
