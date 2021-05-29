@@ -64,27 +64,28 @@ class DetailTVShowActivity : AppCompatActivity() {
                 }
                 if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
             })
-        }
 
-        //load cast data
-        val castAdapter =
-            MovieCastAdapter()
-        binding.rvMovieCasts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.rvMovieCasts.adapter = castAdapter
+            //load cast data
+            val castAdapter =
+                MovieCastAdapter()
+            binding.rvMovieCasts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            binding.rvMovieCasts.adapter = castAdapter
 
-        if (tvShowId != null) {
             EspressoIdlingResource.increment()
             viewModel.getTVShowCastData(tvShowId)?.observe(this, { movieCredits ->
                 shimmerViewContainer.hideShimmer()
 
                 if (movieCredits != null) {
                     castAdapter.setupMovieCastData(movieCredits.cast)
+
+                    //TODO: prepare movie cast to save
                 }
                 if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
             })
 
             checkFavorite(tvShowId)
         }
+
     }
 
 

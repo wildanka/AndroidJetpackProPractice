@@ -18,9 +18,11 @@ import com.wildanka.moviecatalogue.BuildConfig
 import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteMovie
 import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteTVShow
+import com.wildanka.moviecatalogue.presentation.ui.favorites.adapter.FavoriteMovieCastAdapter
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.MovieCastAdapter
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import kotlinx.android.synthetic.main.activity_detail.*
+import java.util.*
 
 private const val TYPE_MOVIE = "MOVIE"
 private const val TYPE_TV_SHOW = "TV_SHOW"
@@ -81,19 +83,28 @@ class FavoritesDetailActivity : AppCompatActivity() {
 
             //load cast data
             val castAdapter =
-                MovieCastAdapter()
+                FavoriteMovieCastAdapter()
             rvCast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             rvCast.adapter = castAdapter
 
             if (movieId != null) {
                 EspressoIdlingResource.increment()
-                viewModel.getMoviesCastData(movieId)?.observe(this, { movieCredits ->
+                viewModel.getAllFavoriteMovieCasts(movieId).observe(this, {
                     shimmerViewContainer.hideShimmer()
-                    if (movieCredits != null) {
-                        castAdapter.setupMovieCastData(movieCredits.cast)
+                    if (it != null) {
+                        castAdapter.setupMovieCastData(it)
                     }
                     if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
+
                 })
+
+//                viewModel.getMoviesCastData(movieId)?.observe(this, { movieCredits ->
+//                    shimmerViewContainer.hideShimmer()
+//                    if (movieCredits != null) {
+//                        castAdapter.setupMovieCastData(movieCredits.cast)
+//                    }
+//                    if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
+//                })
             }
 
             if (movieId != null) {

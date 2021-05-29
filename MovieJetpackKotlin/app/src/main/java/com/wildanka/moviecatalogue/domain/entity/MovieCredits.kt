@@ -10,7 +10,7 @@ data class MovieCredits(
 data class MovieCast(
     @SerializedName("cast_id") val castId: String?,
     @SerializedName("character") val character: String?,
-    @SerializedName("credit_id") val creditId: String?,
+    @SerializedName("credit_id") val creditId: String,
     @SerializedName("gender") val gender: Int?,
     @SerializedName("id") val id: String?,
     @SerializedName("name") val name: String?,

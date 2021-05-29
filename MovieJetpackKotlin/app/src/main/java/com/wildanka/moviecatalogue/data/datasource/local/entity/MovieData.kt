@@ -1,5 +1,6 @@
 package com.wildanka.moviecatalogue.data.datasource.local.entity
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -9,6 +10,7 @@ import com.google.gson.annotations.SerializedName
 @Entity(tableName = "movies")
 data class MovieData(
     @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "movie_id")
     @SerializedName("id") val idMovie: String,
     @ColumnInfo(name = "vote_count")

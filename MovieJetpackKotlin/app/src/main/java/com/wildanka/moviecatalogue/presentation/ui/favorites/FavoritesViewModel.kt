@@ -8,6 +8,7 @@ import com.wildanka.moviecatalogue.data.FavoritesRepository
 import com.wildanka.moviecatalogue.data.MoviesRepository
 import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteMovie
 import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteTVShow
+import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieCast
 import com.wildanka.moviecatalogue.domain.entity.MovieCredits
 import com.wildanka.moviecatalogue.domain.entity.MovieDetail
 import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowDetail
@@ -27,10 +28,19 @@ class FavoritesViewModel(private val favoritesRepository: FavoritesRepository, p
         return favoritesRepository.getFavoriteMovies()
     }
 
+    fun getAllFavoriteMovieCasts(idMovie: String): LiveData<List<MovieCast>> {
+        return favoritesRepository.getFavoriteMovieCasts(idMovie)
+    }
+
     fun insertFavoriteMovieData(movie: MovieDetail) {
         //convert MovieDetail to MovieFavorites
         val favoriteMovie = MovieDetailConverter.convertToTVShowFavorites(movie)
         favoritesRepository.insertMovie(favoriteMovie)
+    }
+
+    fun insertFavoriteMovieCast(movieCasts: List<MovieCast>) {
+        //convert MovieDetail to MovieFavorites
+        favoritesRepository.insertMovieCasts(movieCasts)
     }
 
     fun insertFavoriteMovie(favoriteMovie: FavoriteMovie) {

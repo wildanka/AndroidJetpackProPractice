@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.wildanka.moviecatalogue.BuildConfig.URL_IMG_APP
 import com.wildanka.moviecatalogue.R
+import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieCast
 import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowDetail
 import com.wildanka.moviecatalogue.databinding.ActivityDetailBinding
 import com.wildanka.moviecatalogue.domain.entity.MovieDetail
@@ -22,6 +23,10 @@ import com.wildanka.moviecatalogue.presentation.ui.favorites.FavoritesViewModelF
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.MovieCastAdapter
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 private const val TYPE_MOVIE = "MOVIE"
 private const val TYPE_TV_SHOW = "TV_SHOW"
@@ -33,6 +38,7 @@ class DetailActivity : AppCompatActivity() {
     private var isFavorite: Boolean = false
     private var menuItem: Menu? = null
     private var movieDetail: MovieDetail? = null
+    private val movieCasts: MutableList<MovieCast> = mutableListOf()
     private var tvShowDetail: TVShowDetail? = null
     private var type: String? = null
 
@@ -96,6 +102,21 @@ class DetailActivity : AppCompatActivity() {
                     shimmerViewContainer.hideShimmer()
                     if (movieCredits != null) {
                         castAdapter.setupMovieCastData(movieCredits.cast)
+                        for(cast in movieCredits.cast){
+                            movieCasts.add(
+                                MovieCast(
+                                    movieId,
+                                    cast.creditId,
+                                    cast.castId,
+                                    cast.character,
+                                    cast.gender,
+                                    cast.id,
+                                    cast.name,
+                                    cast.order,
+                                    cast.profilePath
+                                )
+                            )
+                        }
                     }
                     if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
                 })
@@ -226,7 +247,8 @@ class DetailActivity : AppCompatActivity() {
         when (type) {
             TYPE_MOVIE -> {
                 if (movieDetail != null){
-                    viewModel.insertFavoriteMovieData(movieDetail!!)
+                        viewModel.insertFavoriteMovieData(movieDetail!!)
+                        viewModel.insertFavoriteMovieCast(movieCasts)
                     isFavorite = true
                     setFavorite()
                 }

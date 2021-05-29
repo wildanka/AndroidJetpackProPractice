@@ -6,6 +6,7 @@ import androidx.paging.PagedList
 import com.wildanka.moviecatalogue.data.datasource.local.LocalDataSource
 import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteMovie
 import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteTVShow
+import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieCast
 import com.wildanka.moviecatalogue.util.AppExecutors
 
 
@@ -44,8 +45,16 @@ class FavoritesRepository(
         return localDataSource.getFavoriteMovieDetail(movieId)
     }
 
+    override fun getFavoriteMovieCasts(movieId: String): LiveData<List<MovieCast>> {
+        return localDataSource.getFavoriteMovieCasts(movieId)
+    }
+
     override fun insertMovie(favoriteMovie: FavoriteMovie) {
         appExecutors.diskIO().execute { localDataSource.insertFavoriteMovie(favoriteMovie) }
+    }
+
+    override fun insertMovieCasts(movieCasts: List<MovieCast>) {
+        appExecutors.diskIO().execute { localDataSource.insertFavoriteMovieCasts(movieCasts) }
     }
 
     override fun deleteMovie(favoriteMovie: FavoriteMovie) {
