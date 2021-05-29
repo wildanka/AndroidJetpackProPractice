@@ -23,10 +23,6 @@ import com.wildanka.moviecatalogue.presentation.ui.favorites.FavoritesViewModelF
 import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.MovieCastAdapter
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 private const val TYPE_MOVIE = "MOVIE"
 private const val TYPE_TV_SHOW = "TV_SHOW"

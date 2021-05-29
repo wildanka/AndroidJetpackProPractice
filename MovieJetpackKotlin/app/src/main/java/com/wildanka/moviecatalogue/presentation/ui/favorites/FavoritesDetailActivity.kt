@@ -1,7 +1,6 @@
 package com.wildanka.moviecatalogue.presentation.ui.favorites
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
@@ -19,10 +18,8 @@ import com.wildanka.moviecatalogue.R
 import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteMovie
 import com.wildanka.moviecatalogue.data.datasource.local.entity.FavoriteTVShow
 import com.wildanka.moviecatalogue.presentation.ui.favorites.adapter.FavoriteMovieCastAdapter
-import com.wildanka.moviecatalogue.presentation.ui.movies.adapter.MovieCastAdapter
 import com.wildanka.moviecatalogue.util.EspressoIdlingResource
 import kotlinx.android.synthetic.main.activity_detail.*
-import java.util.*
 
 private const val TYPE_MOVIE = "MOVIE"
 private const val TYPE_TV_SHOW = "TV_SHOW"
@@ -135,17 +132,17 @@ class FavoritesDetailActivity : AppCompatActivity() {
 
             //region cast data
             val castAdapter =
-                MovieCastAdapter()
+                FavoriteMovieCastAdapter()
             rvCast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             rvCast.adapter = castAdapter
 
             if (tvShowId != null) {
                 EspressoIdlingResource.increment()
-                viewModel.getTVShowCastData(tvShowId)?.observe(this, { movieCredits ->
+                viewModel.getAllFavoriteMovieCasts(tvShowId).observe(this, {
                     shimmerViewContainer.hideShimmer()
 
-                    if (movieCredits != null) {
-                        castAdapter.setupMovieCastData(movieCredits.cast)
+                    if (it != null) {
+                        castAdapter.setupMovieCastData(it.toMutableList())
                     }
                     if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
                 })

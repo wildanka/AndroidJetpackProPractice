@@ -16,7 +16,7 @@ import com.wildanka.moviecatalogue.util.MovieDetailConverter
 
 class FavoritesViewModel(private val favoritesRepository: FavoritesRepository, private val repo: MoviesRepository) : ViewModel() {
     private var favoriteMovieLiveData: LiveData<FavoriteMovie>? = null
-    private var favoritTVShowLiveData: LiveData<FavoriteTVShow>? = null
+    private var favoriteTVShowLiveData: LiveData<FavoriteTVShow>? = null
 
     //region local
     fun checkIsFavorite(movieID: String): LiveData<FavoriteMovie>? {
@@ -64,8 +64,8 @@ class FavoritesViewModel(private val favoritesRepository: FavoritesRepository, p
 
     //region local TV Show
     fun checkIsFavoriteTVShow(tvShowId: String): LiveData<FavoriteTVShow>? {
-        favoritTVShowLiveData = favoritesRepository.getFavoriteTvShowDetail(tvShowId)
-        return favoritTVShowLiveData
+        favoriteTVShowLiveData = favoritesRepository.getFavoriteTvShowDetail(tvShowId)
+        return favoriteTVShowLiveData
     }
 
     fun getAllFavoriteTVShowPaging(): LiveData<PagedList<FavoriteTVShow>> {
@@ -92,8 +92,8 @@ class FavoritesViewModel(private val favoritesRepository: FavoritesRepository, p
     }
 
     fun getFavoriteTVShowDetails(movieId: String): LiveData<FavoriteTVShow>? {
-        if (favoritTVShowLiveData == null) favoritTVShowLiveData = favoritesRepository.getFavoriteTvShowDetail(movieId)
-        return favoritTVShowLiveData
+        if (favoriteTVShowLiveData == null) favoriteTVShowLiveData = favoritesRepository.getFavoriteTvShowDetail(movieId)
+        return favoriteTVShowLiveData
     }
     //endregion local TV Show
 

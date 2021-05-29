@@ -23,11 +23,11 @@ class FavoriteMovieCastAdapter : RecyclerView.Adapter<FavoriteMovieCastAdapter.M
     }
 
     override fun getItemCount(): Int {
-        return movieCast?.size ?: 0
+        return movieCast.size
     }
 
     override fun onBindViewHolder(holder: MovieCastViewHolder, position: Int) {
-        val cast = movieCast?.get(position)
+        val cast = movieCast[position]
         holder.bind(cast)
     }
 

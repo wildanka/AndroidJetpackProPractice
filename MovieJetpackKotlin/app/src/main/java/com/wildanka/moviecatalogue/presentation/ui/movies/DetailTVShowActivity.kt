@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.wildanka.moviecatalogue.BuildConfig.URL_IMG_APP
 import com.wildanka.moviecatalogue.R
+import com.wildanka.moviecatalogue.data.datasource.local.entity.MovieCast
 import com.wildanka.moviecatalogue.data.datasource.local.entity.TVShowDetail
 import com.wildanka.moviecatalogue.databinding.ActivityDetailBinding
 import com.wildanka.moviecatalogue.presentation.ui.favorites.FavoritesViewModel
@@ -26,6 +27,7 @@ class DetailTVShowActivity : AppCompatActivity() {
     private lateinit var shimmerViewContainer: ShimmerFrameLayout
     private lateinit var viewModel: FavoritesViewModel
 
+    private val tvShowCasts: MutableList<MovieCast> = mutableListOf()
     private var isFavorite: Boolean = false
     private var menuItem: Menu? = null
     private var tvShowDetail: TVShowDetail? = null
@@ -77,8 +79,21 @@ class DetailTVShowActivity : AppCompatActivity() {
 
                 if (movieCredits != null) {
                     castAdapter.setupMovieCastData(movieCredits.cast)
-
-                    //TODO: prepare movie cast to save
+                    for(cast in movieCredits.cast){
+                        tvShowCasts.add(
+                            MovieCast(
+                                tvShowId,
+                                cast.creditId,
+                                cast.castId,
+                                cast.character,
+                                cast.gender,
+                                cast.id,
+                                cast.name,
+                                cast.order,
+                                cast.profilePath
+                            )
+                        )
+                    }
                 }
                 if (!EspressoIdlingResource.getEspressoIdlingResource().isIdleNow) EspressoIdlingResource.decrement()
             })
@@ -137,6 +152,7 @@ class DetailTVShowActivity : AppCompatActivity() {
     private fun addToFavorite() {
         if (tvShowDetail != null){
             viewModel.insertFavoriteTVShowData(tvShowDetail!!)
+            viewModel.insertFavoriteMovieCast(tvShowCasts)
             isFavorite = true
             setFavorite()
         }
